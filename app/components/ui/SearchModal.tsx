@@ -92,23 +92,23 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
     return (
         <div
-            className={`fixed inset-0 bg-black/60 backdrop-blur-md z-[100] flex items-start justify-center pt-6 transition-all duration-300 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+            className={`fixed inset-0 bg-black/40 z-[100] flex items-start justify-center pt-6 transition-all duration-300 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
                 }`}
             onClick={onClose}
         >
             {/* Modal Container - Strict Geometric edges (no rounded corners) */}
             <div
-                className={`bg-white w-full max-w-5xl shadow-2xl transition-all duration-500 flex flex-col md:min-h-[550px] md:max-h-[75vh] md:rounded-lg overflow-hidden ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
+                className={`bg-black/20 backdrop-blur-2xl border border-white/5 w-full max-w-5xl shadow-2xl transition-all duration-500 flex flex-col md:min-h-[550px] md:max-h-[75vh] md:rounded-lg overflow-hidden ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
                     }`}
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Navigation Bar */}
-                <div className="flex items-center justify-between px-6 py-6 border-b border-gray-100 gap-4">
+                <div className="flex items-center justify-between px-6 py-6 border-b border-white/5 gap-4">
                     <div className="flex items-center gap-3">
                         {/* Logo box matching header style */}
                         <Link href="/" className="flex items-center gap-3 group" onClick={onClose}>
                             <Image
-                                src="/logo/logo.png"
+                                src="/logo/logo-white.png"
                                 alt="ADCB Consultancy Logo"
                                 width={64}
                                 height={64}
@@ -120,7 +120,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     {/* Search Box with focus matching contact button highlight (Black border/text focus style) */}
                     <div className="flex-1 max-w-xl relative">
                         <svg
-                            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
@@ -134,23 +134,23 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             placeholder="Search courses and universities..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-gray-50 text-black text-base pl-12 pr-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all"
+                            className="w-full bg-white/5 text-white placeholder:text-white/40 text-base pl-12 pr-4 py-3 border border-white/20 rounded-md focus:outline-none focus:bg-white/10 focus:ring-1 focus:ring-white/30 transition-all"
                             autoFocus={isOpen}
                         />
                     </div>
 
                     {/* Header Action Buttons */}
                     <div className="flex items-center gap-4">
-                        <a
+                        <Link
                             href="#enquiry"
                             onClick={onClose}
-                            className="bg-black text-white hover:bg-zinc-800 text-sm font-semibold px-6 py-3 rounded-md transition-colors duration-200 uppercase tracking-wider"
+                            className="bg-white text-black hover:bg-gray-200 text-sm font-semibold px-6 py-3 rounded-md transition-colors duration-200 uppercase tracking-wider"
                         >
                             Contact Now
-                        </a>
+                        </Link>
                         <button
                             onClick={onClose}
-                            className="p-2 text-gray-400 hover:text-black hover:bg-gray-50 rounded-md transition-all"
+                            className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-md transition-all"
                             aria-label="Close search"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -162,19 +162,19 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 </div>
 
                 {/* Content Section */}
-                <div className="flex-1 flex flex-col md:flex-row overflow-hidden bg-[#F8F9FA]">
+                <div className="flex-1 flex flex-col md:flex-row overflow-hidden bg-transparent">
                     {/* Left Country Selection Tabs Menu Drawer style */}
-                    <div className="w-full md:w-64 bg-white border-b md:border-b-0 md:border-r border-gray-200 p-4 flex flex-col gap-1 overflow-y-auto scrollbar scrollbar-track-white scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400">
-                        <span className="text-xs tracking-widest uppercase text-black/50 font-semibold px-4 mb-3 block">
+                    <div className="w-full md:w-64 bg-black/10 border-b md:border-b-0 md:border-r border-white/5 p-4 flex flex-col gap-1 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/20 hover:scrollbar-thumb-white/30">
+                        <span className="text-xs tracking-widest uppercase text-white/50 font-semibold px-4 mb-3 block">
                             Filter by Country
                         </span>
                         {countriesList.map((country) => (
                             <button
                                 key={country}
                                 onClick={() => setActiveCountry(country)}
-                                className={`flex items-center justify-between px-4 py-3 text-left text-sm rounded-md transition-all ${activeCountry === country
-                                    ? "bg-black text-white font-medium"
-                                    : "text-black/70 hover:bg-gray-50 hover:text-black"
+                                className={`flex items-center justify-between px-4 py-3 text-left text-sm rounded-md transition-all duration-200 ${activeCountry === country
+                                    ? "bg-white/90 text-black font-semibold"
+                                    : "text-white/70 hover:bg-white/10 hover:text-white"
                                     }`}
                             >
                                 <span>{country}</span>
@@ -184,71 +184,71 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     </div>
 
                     {/* Right List Panel (Plain drawer list style instead of card blocks) */}
-                    <div className="flex-1 p-6 md:p-10 overflow-y-auto bg-white scrollbar scrollbar-track-white scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400">
+                    <div className="flex-1 p-6 md:p-10 overflow-y-auto bg-transparent scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/20 hover:scrollbar-thumb-white/30">
                         <div className="max-w-4xl mx-auto space-y-12">
                             {/* Courses List Section */}
                             <div>
-                                <h3 className="text-sm font-semibold uppercase tracking-widest text-black/50 mb-6 pb-2 border-b border-gray-200">
+                                <h3 className="text-sm font-semibold uppercase tracking-widest text-white/50 mb-6 pb-2 border-b border-white/5">
                                     Prominent Courses
                                 </h3>
                                 {coursesResults.length > 0 ? (
-                                    <div className="divide-y divide-gray-800">
+                                    <div className="divide-y divide-white/5">
                                         {coursesResults.map((item, i) => (
-                                            <a
+                                            <Link
                                                 key={`${item.name}-${i}`}
                                                 href={item.href}
                                                 onClick={onClose}
-                                                className="flex items-center justify-between py-4 group border-b border-gray-50 hover:border-black/20 transition-all"
+                                                className="flex items-center justify-between py-4 group transition-all"
                                             >
                                                 <div className="flex flex-col text-left">
-                                                    <span className="font-semibold text-base text-black group-hover:text-black/70 transition-colors">
+                                                    <span className="font-semibold text-base text-white group-hover:text-white/80 transition-colors">
                                                         {item.name}
                                                     </span>
-                                                    <span className="text-xs text-black/60 font-md mt-1">
+                                                    <span className="text-xs text-white/60 font-medium mt-1">
                                                         {item.details} • {item.country}
                                                     </span>
                                                 </div>
-                                                <span className="text-black/30 group-hover:text-black transition-transform duration-300 group-hover:translate-x-1.5 text-sm">
+                                                <span className="text-white/30 group-hover:text-white transition-transform duration-300 group-hover:translate-x-1.5 text-sm">
                                                     Explore →
                                                 </span>
-                                            </a>
+                                            </Link>
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className="text-sm text-black/40 font-light italic py-2">No matching courses found for this country.</p>
+                                    <p className="text-sm text-white/40 font-light italic py-2">No matching courses found for this country.</p>
                                 )}
                             </div>
 
                             {/* Universities List Section */}
                             <div>
-                                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-black/60 mb-6 pb-2 border-b border-gray-100">
+                                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/60 mb-6 pb-2 border-b border-white/5">
                                     Prominent Universities
                                 </h3>
                                 {universitiesResults.length > 0 ? (
-                                    <div className="divide-y divide-gray-100">
+                                    <div className="divide-y divide-white/5">
                                         {universitiesResults.map((item, i) => (
                                             <a
                                                 key={`${item.name}-${i}`}
                                                 href={item.href}
                                                 onClick={onClose}
-                                                className="flex items-center justify-between py-4 group border-b border-gray-50 hover:border-black/20 transition-all"
+                                                className="flex items-center justify-between py-4 group transition-all"
                                             >
                                                 <div className="flex flex-col text-left">
-                                                    <span className="font-semibold text-base text-black group-hover:text-black/70 transition-colors">
+                                                    <span className="font-semibold text-base text-white group-hover:text-white/80 transition-colors">
                                                         {item.name}
                                                     </span>
-                                                    <span className="text-xs text-black/60 font-md mt-1">
+                                                    <span className="text-xs text-white/60 font-medium mt-1">
                                                         {item.details} • {item.country}
                                                     </span>
                                                 </div>
-                                                <span className="text-black/30 group-hover:text-black transition-transform duration-300 group-hover:translate-x-1.5 text-sm">
+                                                <span className="text-white/30 group-hover:text-white transition-transform duration-300 group-hover:translate-x-1.5 text-sm">
                                                     Explore →
                                                 </span>
                                             </a>
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className="text-sm text-black/40 font-light italic py-2">No matching universities found for this country.</p>
+                                    <p className="text-sm text-white/40 font-light italic py-2">No matching universities found for this country.</p>
                                 )}
                             </div>
                         </div>

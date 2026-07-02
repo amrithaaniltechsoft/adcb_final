@@ -48,6 +48,14 @@ export default function Navbar() {
   const [atTop, setAtTop] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [showPng, setShowPng] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPng(true);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -77,8 +85,7 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${visible ? "translate-y-0" : "-translate-y-full"
-          } ${atTop ? "bg-transparent" : "bg-white/95 backdrop-blur-sm"
-          }`}
+          } ${atTop ? "bg-transparent" : "bg-black"}`}
       >
         <div className="max-w-[1440px] mx-auto px-8 lg:px-20">
           <div className="flex items-center justify-between h-24">
@@ -91,17 +98,17 @@ export default function Navbar() {
               >
                 <div className="flex flex-col items-center justify-center gap-y-2">
                   <span
-                    className={`block h-[2px] w-7 origin-center rounded-full transition-all duration-300 ease-in-out ${atTop ? "bg-white" : "bg-black"} ${mobileOpen
+                    className={`block h-[2px] w-7 origin-center rounded-full transition-all duration-300 ease-in-out bg-white ${mobileOpen
                       ? "translate-y-[5px] rotate-45" : "group-hover:-translate-x-0.5"
                       }`}
                   />
                   <span
-                    className={`block h-[2px] w-7 origin-center rounded-full transition-all duration-300 ease-in-out ${atTop ? "bg-white" : "bg-black"} ${mobileOpen
+                    className={`block h-[2px] w-7 origin-center rounded-full transition-all duration-300 ease-in-out bg-white ${mobileOpen
                       ? "-translate-y-[5px] -rotate-45" : "group-hover:translate-x-0.5"
                       }`}
                   />
                 </div>
-                <span className={`text-sm font-medium transition-colors ${atTop ? "text-white/80 group-hover:text-white" : "text-black/70 group-hover:text-black"}`}>
+                <span className="text-sm font-medium transition-colors text-white/80 group-hover:text-white">
                   Menu
                 </span>
               </button>
@@ -109,13 +116,23 @@ export default function Navbar() {
 
             {/* Center: Logo */}
             <div className="flex-shrink-0">
-              <Link href="/" className="block">
+              <Link href="/" className="block relative h-20 w-[80px] hover:opacity-80 transition-opacity duration-300">
                 <Image
-                  src={atTop ? "/logo/logo-white.png" : "/logo/logo.png"}
+                  src="/logo/animated4.gif"
                   alt="ADCB Consultancy Logo"
                   width={80}
                   height={80}
-                  className="h-20 w-auto transition-all duration-300 hover:opacity-80"
+                  className={`absolute inset-0 h-20 w-auto object-contain transition-opacity duration-1000 ${showPng ? "opacity-0 pointer-events-none" : "opacity-100"
+                    }`}
+                  priority
+                />
+                <Image
+                  src="/logo/logo-white2.png"
+                  alt="ADCB Consultancy Logo"
+                  width={80}
+                  height={80}
+                  className={`absolute inset-0 h-20 w-auto object-contain transition-opacity duration-1000 ${showPng ? "opacity-100" : "opacity-0 pointer-events-none"
+                    }`}
                   priority
                 />
               </Link>
@@ -125,10 +142,7 @@ export default function Navbar() {
             <div className="flex-1 flex justify-end">
               <button
                 onClick={() => setShowSearch(true)}
-                className={`flex items-center gap-2 text-sm font-medium transition-colors ${atTop
-                  ? "text-white/80 hover:text-white"
-                  : "text-black/70 hover:text-black"
-                  }`}
+                className="flex items-center gap-2 text-sm font-medium transition-colors text-white/80 hover:text-white"
                 aria-label="Open search"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -148,20 +162,20 @@ export default function Navbar() {
 
       {/* Mobile Menu*/}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-md z-[60] flex items-start justify-start pt-6 pl-6 transition-all duration-300 ${mobileOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+        className={`fixed inset-0 bg-black/40 z-[60] flex items-stretch justify-start transition-all duration-700 ${mobileOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
           }`}
         onClick={() => setMobileOpen(false)}
       >
         <div
-          className={`bg-white w-full max-w-md shadow-2xl transition-all duration-500 flex flex-col md:min-h-[550px] md:max-h-[75vh] md:rounded-lg overflow-hidden ${mobileOpen ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
+          className={`bg-black/20 backdrop-blur-2xl border-r border-white/10 w-full max-w-md shadow-2xl transition-all duration-700 flex flex-col h-full overflow-hidden ${mobileOpen ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
             }`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header area in mobile menu with Close Button */}
-          <div className="flex items-center justify-between px-6 py-6 border-b border-gray-100 w-full">
+          <div className="flex items-center justify-between px-6 py-6 border-b border-white/10 w-full">
             <Link href="/" className="flex items-center gap-3 group" onClick={() => setMobileOpen(false)}>
               <Image
-                src="/logo/logo.png"
+                src="/logo/logo-white.png"
                 alt="ADCB Consultancy Logo"
                 width={64}
                 height={64}
@@ -170,7 +184,7 @@ export default function Navbar() {
             </Link>
             <button
               onClick={() => setMobileOpen(false)}
-              className="p-2 text-gray-400 hover:text-black hover:bg-gray-50 rounded-md transition-all"
+              className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-md transition-all"
               aria-label="Close menu"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -181,19 +195,22 @@ export default function Navbar() {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex-1 p-6 md:p-10 overflow-y-auto bg-white">
-            {navLinks.map((link) => (
+          <div className="flex-1 p-6 md:p-10 overflow-y-auto bg-transparent">
+            {navLinks.map((link, index) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between py-4 group border-b border-gray-50 hover:border-black/20 transition-all"
+                className={`flex items-center justify-end py-4 group transform transition-all duration-700 ease-out ${mobileOpen ? "translate-x-0 opacity-100" : "-translate-x-[320px] opacity-0"
+                  }`}
+                style={{
+                  transitionDelay: mobileOpen
+                    ? `${index * 100}ms`
+                    : `${(navLinks.length - 1 - index) * 60}ms`
+                }}
               >
-                <span className="font-semibold text-base text-black group-hover:text-black/70 transition-colors">
+                <span className="font-semibold text-xl text-white/80 group-hover:text-white transition-colors text-right">
                   {link.label}
-                </span>
-                <span className="text-black/30 group-hover:text-black transition-transform duration-300 group-hover:translate-x-1.5 text-sm">
-                  →
                 </span>
               </a>
             ))}
