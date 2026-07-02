@@ -53,7 +53,7 @@ export default function Navbar() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPng(true);
-    }, 4000);
+    }, 5000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -118,7 +118,7 @@ export default function Navbar() {
             <div className="flex-shrink-0">
               <Link href="/" className="block relative h-20 w-[80px] hover:opacity-80 transition-opacity duration-300">
                 <Image
-                  src="/logo/animated4.gif"
+                  src="/logo/animated5.gif"
                   alt="ADCB Consultancy Logo"
                   width={80}
                   height={80}
