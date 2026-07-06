@@ -33,18 +33,6 @@ export default function HeroSection() {
     []
   );
   const { currentText, isAnimating } = useRotatingText(heroTitles);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const maxScroll = 500;
-      const progress = Math.min(scrollY / maxScroll, 1);
-      setScrollProgress(progress);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 200);
@@ -52,17 +40,9 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section id="hero" className="relative h-[95vh] w-full bg-white overflow-visible">
-      {/* Animating Inner Hero Container */}
-      <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full overflow-hidden flex items-end transition-all duration-75 ease-out"
-        style={{
-          width: `${100 - scrollProgress * 50}%`,
-          height: `${90 - scrollProgress * 45}vh`,
-          marginTop: `${scrollProgress * 15}vh`,
-          borderRadius: `${scrollProgress * 24}px`,
-        }}
-      >
+    <section id="hero" className="relative h-[95vh] w-full bg-[#030303] overflow-hidden">
+      {/* Hero Container */}
+      <div className="relative w-full h-full flex items-end">
         {/* Background Video */}
         <div className="absolute inset-0 z-0">
           <video
@@ -79,19 +59,18 @@ export default function HeroSection() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
         </div>
 
-        <div 
-          className="relative z-10 max-w-[1440px] mx-auto px-8 lg:px-20 w-full"
-          style={{ opacity: Math.max(0, 1 - scrollProgress * 1.8) }}
-        >
-          <div className="flex justify-between items-end pb-20 md:pb-24">
+        <div className="relative z-10 max-w-[1440px] mx-auto px-8 lg:px-20 w-full">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-20 md:pb-24 gap-6">
             {/* Left: Title */}
             <div
-              className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-                }`}
+              className={`transition-all duration-1000 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
             >
               <h1
-                className={`font-[var(--font-outfit)] text-4xl md:text-5xl font-semibold text-white leading-tight max-w-xl transition-all duration-500 ${isAnimating ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
-                  }`}
+                className={`font-[var(--font-outfit)] text-4xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight max-w-xl md:max-w-2xl transition-all duration-500 ${
+                  isAnimating ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+                }`}
               >
                 {currentText}
               </h1>
@@ -99,10 +78,11 @@ export default function HeroSection() {
 
             {/* Right: Description & CTA Button */}
             <div
-              className={`text-right transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-                }`}
+              className={`text-left md:text-right transition-all duration-1000 delay-200 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
             >
-              <p className="text-white/70 font-light max-w-sm mb-6 ml-auto">
+              <p className="text-white/70 font-light max-w-sm mb-6 md:ml-auto">
                 Expert admission guidance for premier medical, dental, and management programs worldwide.
               </p>
               <Button href="#courses" size="lg">

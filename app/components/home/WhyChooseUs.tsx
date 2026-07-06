@@ -80,7 +80,7 @@ export default function WhyChooseUs() {
     <section
       id="why-choose-us"
       ref={sectionRef}
-      className="relative py-10 md:py-16 bg-white"
+      className="relative py-10 md:py-16 bg-[#030303]"
     >
       <div className="max-w-[1440px] mx-auto px-8 lg:px-20">
         {/* Why Choose Us */}
@@ -90,14 +90,14 @@ export default function WhyChooseUs() {
           }`}
         >
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-black font-medium mb-2">
-              <span className="w-8 h-[1px] bg-black" />
+            <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium mb-2">
+              <span className="w-8 h-[1px] bg-white/20" />
               Our Commitment
-              <span className="w-8 h-[1px] bg-black" />
+              <span className="w-8 h-[1px] bg-white/20" />
             </span>
-            <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-black">
+            <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-white">
               Why Choose
-              <span className="font-semibold text-black"> ADCB</span>
+              <span className="font-semibold text-white"> ADCB</span>
             </h2>
           </div>
 
@@ -105,7 +105,7 @@ export default function WhyChooseUs() {
             {/* Left Arrow */}
             <button
               onClick={prevSlide}
-              className="absolute left-0 md:left-4 top-[35%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-md border border-neutral-100 flex items-center justify-center text-black hover:bg-neutral-50 transition-colors"
+              className="absolute left-0 md:left-4 top-[35%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center text-white hover:bg-neutral-800 transition-colors"
               aria-label="Previous slide"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -116,7 +116,7 @@ export default function WhyChooseUs() {
             {/* Right Arrow */}
             <button
               onClick={nextSlide}
-              className="absolute right-0 md:right-4 top-[35%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-md border border-neutral-100 flex items-center justify-center text-black hover:bg-neutral-50 transition-colors"
+              className="absolute right-0 md:right-4 top-[35%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center text-white hover:bg-neutral-800 transition-colors"
               aria-label="Next slide"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -148,7 +148,7 @@ export default function WhyChooseUs() {
                     style={{ transitionDelay: `${i * 100}ms` }}
                   >
                     {/* Image Container */}
-                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md mb-6 bg-neutral-100">
+                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-none mb-6 bg-neutral-900">
                       <img
                         src={item.image}
                         alt={item.title}
@@ -157,10 +157,10 @@ export default function WhyChooseUs() {
                     </div>
                     {/* Text Content */}
                     <div className="px-1">
-                      <h4 className="font-[var(--font-outfit)] text-xl font-bold text-neutral-900 mb-2">
+                      <h4 className="font-[var(--font-outfit)] text-xl font-bold text-white mb-2">
                         {item.title}
                       </h4>
-                      <p className="text-sm text-neutral-700 font-medium leading-relaxed">
+                      <p className="text-sm text-white/70 font-light leading-relaxed">
                         {item.description}
                       </p>
                     </div>
@@ -177,8 +177,8 @@ export default function WhyChooseUs() {
                   onClick={() => setCurrentIndex(i)}
                   className={`h-1.5 transition-all duration-300 rounded-full ${
                     currentIndex === i 
-                      ? "w-8 bg-black" 
-                      : "w-2 bg-black/20 hover:bg-black/40"
+                      ? "w-8 bg-white" 
+                      : "w-2 bg-white/20 hover:bg-white/40"
                   }`}
                   aria-label={`Go to slide ${i + 1}`}
                 />

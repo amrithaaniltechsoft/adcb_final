@@ -122,7 +122,7 @@ export default function Testimonials() {
     <section
       id="testimonials"
       ref={sectionRef}
-      className="relative py-10 md:py-16 bg-white"
+      className="relative py-10 md:py-16 bg-[#080808]"
     >
       <div className="max-w-[1440px] mx-auto px-8 lg:px-20">
         {/* Testimonials Section */}
@@ -131,14 +131,14 @@ export default function Testimonials() {
             }`}
         >
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-black font-medium mb-2">
-              <span className="w-8 h-[1px] bg-black" />
+            <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium mb-2">
+              <span className="w-8 h-[1px] bg-white/20" />
               Success Stories
-              <span className="w-8 h-[1px] bg-black" />
+              <span className="w-8 h-[1px] bg-white/20" />
             </span>
-            <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-black">
+            <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-white">
               Student
-              <span className="font-semibold text-black"> Testimonials</span>
+              <span className="font-semibold text-white"> Testimonials</span>
             </h2>
           </div>
 
@@ -154,7 +154,7 @@ export default function Testimonials() {
                   return target;
                 });
               }}
-              className="absolute -left-4 md:left-0 top-[40%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-md border border-neutral-100 flex items-center justify-center text-black hover:bg-neutral-50 transition-colors"
+              className="absolute -left-4 md:left-0 top-[40%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center text-white hover:bg-neutral-800 transition-colors"
               aria-label="Previous slide"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -172,7 +172,7 @@ export default function Testimonials() {
                   return target;
                 });
               }}
-              className="absolute -right-4 md:right-0 top-[40%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-md border border-neutral-100 flex items-center justify-center text-black hover:bg-neutral-50 transition-colors"
+              className="absolute -right-4 md:right-0 top-[40%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-neutral-900 border border-white/10 flex items-center justify-center text-white hover:bg-neutral-800 transition-colors"
               aria-label="Next slide"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -200,26 +200,26 @@ export default function Testimonials() {
                       }`}
                     style={{ transitionDelay: `${i * 100}ms` }}
                   >
-                    <div className="bg-gradient-to-br from-neutral-100 to-neutral-200/60 p-8 rounded-lg flex flex-col justify-between min-h-[300px] h-full transition-all duration-300">
+                    <div className="bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/5 p-8 rounded-none flex flex-col justify-between min-h-[300px] h-full transition-all duration-300">
                       <div>
                         {/* Stars */}
                         <div className="flex gap-1 mb-4">
                           {Array.from({ length: testimonial.rating }).map((_, j) => (
-                            <svg key={j} width="14" height="14" viewBox="0 0 24 24" fill="black" stroke="none">
+                            <svg key={j} width="14" height="14" viewBox="0 0 24 24" fill="#ED1C24" stroke="none">
                               <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                             </svg>
                           ))}
                         </div>
 
                         {/* Quote */}
-                        <p className="text-base md:text-lg font-semibold text-neutral-800 leading-relaxed mb-6 italic">
+                        <p className="text-base md:text-lg font-light text-white/90 leading-relaxed mb-6 italic">
                           &ldquo;{testimonial.quote}&rdquo;
                         </p>
                       </div>
 
                       {/* Author */}
-                      <div className="flex items-center gap-4 mt-auto pt-4 border-t border-neutral-300">
-                        <div className="w-12 h-12 rounded-full overflow-hidden border border-black/10 flex-shrink-0">
+                      <div className="flex items-center gap-4 mt-auto pt-4 border-t border-white/10">
+                        <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
                           <img
                             src={testimonial.avatar}
                             alt={testimonial.name}
@@ -227,13 +227,13 @@ export default function Testimonials() {
                           />
                         </div>
                         <div>
-                          <div className="font-[var(--font-outfit)] font-bold text-neutral-900 text-sm tracking-tight">
+                          <div className="font-[var(--font-outfit)] font-semibold text-white text-sm tracking-tight">
                             {testimonial.name}
                           </div>
-                          <div className="text-[11px] text-neutral-700 font-semibold tracking-wide">
+                          <div className="text-[11px] text-white/75 font-light tracking-wide mt-0.5">
                             {testimonial.course}
                           </div>
-                          <div className="text-[10px] text-neutral-500 font-semibold tracking-wider">
+                          <div className="text-[10px] text-white/50 font-light tracking-wider mt-0.5">
                             {testimonial.location}
                           </div>
                         </div>
@@ -251,8 +251,8 @@ export default function Testimonials() {
                   key={i}
                   onClick={() => goTo(i)}
                   className={`h-1.5 transition-all duration-300 rounded-full ${activeIndex === i
-                    ? "w-8 bg-black"
-                    : "w-2 bg-black/20 hover:bg-black/40"
+                    ? "w-8 bg-white"
+                    : "w-2 bg-white/20 hover:bg-white/40"
                     }`}
                   aria-label={`Go to slide ${i + 1}`}
                 />

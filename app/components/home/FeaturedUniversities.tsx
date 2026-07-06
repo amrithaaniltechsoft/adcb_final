@@ -36,13 +36,23 @@ export default function FeaturedUniversities() {
     <section
       id="universities"
       ref={sectionRef}
-      className="relative py-10 md:py-16 bg-white"
+      className="relative py-10 md:py-16 bg-white overflow-hidden"
     >
-      <div className={`max-w-[1440px] mx-auto px-8 lg:px-20 transition-all duration-1000 transform ${
-        isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
-      }`}>
+      {/* Background Slanting Brand Bars */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {/* <div className="absolute -top-[20%] left-[14%] w-32 h-[160%] bg-black -rotate-24 transform origin-top-left opacity-[0.03]" />
+        <div className="absolute -top-[20%] left-[28%] w-20 h-[160%] bg-[#ED1C24] -rotate-24 transform origin-top-left opacity-[0.05]" />
+        <div className="absolute -top-[20%] left-[38%] w-16 h-[160%] bg-[#FFCC00] -rotate-24 transform origin-top-left opacity-[0.07]" /> */}
+
+        {/* <div className="absolute -top-[20%] right-[8%] w-24 h-[140%] bg-[#ED1C24] -rotate-12 transform origin-top-left opacity-[0.04]" />
+        <div className="absolute -top-[20%] right-[16%] w-16 h-[140%] bg-[#FFCC00] -rotate-12 transform origin-top-left opacity-[0.06]" />
+        <div className="absolute -top-[20%] right-[22%] w-28 h-[140%] bg-black -rotate-12 transform origin-top-left opacity-[0.03]" /> */}
+      </div>
+
+      <div className={`relative z-10 max-w-[1440px] mx-auto px-8 lg:px-20 transition-all duration-1000 transform ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+        }`}>
         {/* Universities Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-black font-medium mb-6">
             <span className="w-8 h-[1px] bg-black" />
             Our Network
@@ -66,7 +76,7 @@ export default function FeaturedUniversities() {
                 key={`${uni.name}-${i}`}
                 className="flex-shrink-0 w-48 mx-6 flex flex-col items-center justify-center gap-4 group"
               >
-                <div className="relative w-full h-16">
+                <div className="relative w-full h-14">
                   <Image
                     src={uni.logo}
                     alt={`${uni.name} Logo`}

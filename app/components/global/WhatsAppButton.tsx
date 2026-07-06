@@ -25,11 +25,11 @@ export default function WhatsAppButton() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center bg-black/90 backdrop-blur-md border border-neutral-800 p-2 shadow-2xl gap-2 animate-fade-in-up rounded-xl">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center bg-black/90 backdrop-blur-md border border-neutral-800 p-2 shadow-2xl gap-2 animate-fade-in-up rounded-lg">
       {/* Contact Now CTA Button */}
       <a
         href="#enquiry"
-        className="flex items-center gap-2 bg-[#ED1C24] hover:bg-red-700 text-white text-xs font-semibold px-4 py-2 transition-all duration-300 uppercase tracking-wider rounded-lg"
+        className="flex items-center gap-2 bg-[#ED1C24] hover:bg-red-700 text-white text-xs font-semibold px-4 py-2 transition-all duration-300 uppercase tracking-wider rounded-md"
 
       >
         <svg
@@ -50,7 +50,7 @@ export default function WhatsAppButton() {
         href="https://wa.me/918012345678?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20admissions."
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 bg-[#1B9C4C] hover:bg-emerald-600 text-white text-xs font-semibold px-4 py-2 transition-all duration-300 uppercase tracking-wider rounded-lg"
+        className="flex items-center gap-2 bg-[#1B9C4C] hover:bg-emerald-600 text-white text-xs font-semibold px-4 py-2 transition-all duration-300 uppercase tracking-wider rounded-md"
         aria-label="Chat on WhatsApp"
       >
         <svg

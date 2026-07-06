@@ -66,7 +66,7 @@ export default function FeaturedCourses() {
     <section
       id="courses"
       ref={sectionRef}
-      className="relative py-10 md:py-16 bg-white"
+      className="relative py-10 md:py-16 bg-black"
     >
       {/* Section Divider Top - Removed as requested for cleaner look */}
       {/* <div className="section-divider mb-32" /> */}
@@ -74,23 +74,23 @@ export default function FeaturedCourses() {
       <div className="max-w-[1440px] mx-auto px-8 lg:px-20">
         {/* Section Header */}
         <div className="max-w-2xl mx-auto text-center mb-10">
-          <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-black font-medium mb-2">
-            <span className="w-8 h-[1px] bg-black" />
+          <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium mb-2">
+            <span className="w-8 h-[1px] bg-white/20" />
             Academic Programs
-            <span className="w-8 h-[1px] bg-black" />
+            <span className="w-8 h-[1px] bg-white/20" />
           </span>
-          <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-black">
+          <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-white">
             Featured
-            <span className="font-semibold text-black"> Courses</span>
+            <span className="font-semibold text-white"> Courses</span>
           </h2>
         </div>
 
         {/* Course Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 lg:grid-rows-2 gap-6">
-          {courses.map((course, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+          {courses.slice(0, 2).map((course, i) => (
             <div
               key={course.code}
-              className={`relative rounded-xl overflow-hidden group bg-black transition-all duration-500 ease-in-out transform flex flex-col
+              className={`relative rounded-none overflow-hidden group bg-transparent transition-all duration-500 ease-in-out transform flex flex-col
                 ${i === 0 ? 'lg:col-span-3' : ''}
                 ${i === 1 ? 'lg:col-span-3' : ''}
                 ${i === 2 ? 'lg:col-span-2' : ''}
@@ -99,14 +99,14 @@ export default function FeaturedCourses() {
                 ${visibleCards.includes(i)
                   ? "opacity-100 translate-x-0 translate-y-0 scale-100 rotate-0"
                   : i === 0
-                  ? "opacity-0 -translate-x-16"
-                  : i === 1
-                  ? "opacity-0 translate-y-16"
-                  : i === 2
-                  ? "opacity-0 scale-75"
-                  : i === 3
-                  ? "opacity-0 translate-x-16"
-                  : "opacity-0 -translate-y-16"
+                    ? "opacity-0 -translate-x-16"
+                    : i === 1
+                      ? "opacity-0 translate-y-16"
+                      : i === 2
+                        ? "opacity-0 scale-75"
+                        : i === 3
+                          ? "opacity-0 translate-x-16"
+                          : "opacity-0 -translate-y-16"
                 }`
               }
               style={{ transitionDelay: `${i * 100}ms` }}
@@ -114,11 +114,9 @@ export default function FeaturedCourses() {
               {/* Image */}
               <div className="relative h-70 overflow-hidden">
                 <Image src={course.image} alt={course.title} fill className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
               </div>
               {/* Content */}
-              <div className="p-8 flex flex-col flex-grow">
+              <div className="pt-8 flex flex-col flex-grow">
                 <div className="max-w-sm">
                   <h3 className="font-[var(--font-outfit)] text-3xl font-bold tracking-tight text-white">
                     {course.code}
@@ -138,6 +136,13 @@ export default function FeaturedCourses() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* View All Button */}
+        <div className="text-center mt-12">
+          <Button href="/courses" variant="black" size="lg">
+            View All Courses
+          </Button>
         </div>
       </div>
     </section>

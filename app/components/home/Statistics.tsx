@@ -22,18 +22,18 @@ export default function Statistics() {
     }, []);
 
     return (
-        <section ref={sectionRef} className="relative bg-white py-10 md:py-16">
+        <section ref={sectionRef} className="relative bg-[#080808] py-10 md:py-16">
             <div className="max-w-[1440px] mx-auto px-8 lg:px-20">
                 {/* Section Header */}
                 <div className={`max-w-2xl mx-auto text-center mb-10 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-                    <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-black font-medium mb-2">
-                        <span className="w-8 h-[1px] bg-black" />
+                    <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium mb-2">
+                        <span className="w-8 h-[1px] bg-white/20" />
                         Our Impact
-                        <span className="w-8 h-[1px] bg-black" />
+                        <span className="w-8 h-[1px] bg-white/20" />
                     </span>
-                    <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-black">
+                    <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-white">
                         By The
-                        <span className="font-semibold text-black"> Numbers</span>
+                        <span className="font-semibold text-white"> Numbers</span>
                     </h2>
                 </div>
 
@@ -42,7 +42,7 @@ export default function Statistics() {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
                         {/* Left Side: Students Placed Card (Full Height) */}
-                        <div className={`lg:col-span-5 relative rounded-2xl overflow-hidden bg-black text-white p-6 md:p-8 flex flex-col justify-between min-h-[380px] lg:min-h-[440px] group shadow-xl transition-all duration-1000 delay-200 ${
+                        <div className={`lg:col-span-5 relative rounded-none overflow-hidden bg-black text-white p-6 md:p-8 flex flex-col justify-between min-h-[380px] lg:min-h-[440px] group shadow-xl transition-all duration-1000 delay-200 ${
                             isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
                         }`}>
                             {/* Background Image of Campus/Country */}
@@ -51,9 +51,9 @@ export default function Statistics() {
                                     src="/pathway/united-kingdom.jpg"
                                     alt="Campus Background"
                                     fill
-                                    className="object-cover opacity-70 transition-transform duration-700 group-hover:scale-105"
+                                    className="object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
                             </div>
 
                             {/* Content */}
@@ -100,10 +100,10 @@ export default function Statistics() {
                         <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-12 gap-6">
 
                             {/* Card 1: Partner Universities */}
-                            <div className={`md:col-span-6 bg-black/5 p-6 rounded-2xl group flex flex-col justify-between min-h-[170px] border border-black/5 hover:bg-black/10 transition-all duration-1000 transform ${
+                            <div className={`md:col-span-6 bg-white/5 p-6 rounded-none group flex flex-col justify-between min-h-[170px] border border-white/5 hover:bg-white/10 transition-all duration-1000 transform ${
                                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-12"
                             }`}>
-                                <div className="text-black/40 w-8 h-8 bg-black/5 rounded-full flex items-center justify-center self-start">
+                                <div className="text-white/40 w-8 h-8 bg-white/5 rounded-full flex items-center justify-center self-start">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                         <path d="M12 2L2 7l10 5 10-5-10-5z" />
                                         <path d="M2 17l10 5 10-5" />
@@ -111,20 +111,20 @@ export default function Statistics() {
                                     </svg>
                                 </div>
                                 <div className="mt-4">
-                                    <h4 className="font-[var(--font-outfit)] text-3xl font-bold text-black mb-1">
+                                    <h4 className="font-[var(--font-outfit)] text-3xl font-bold text-white mb-1">
                                         120+
                                     </h4>
-                                    <p className="text-[10px] tracking-[0.1em] uppercase text-black/50 font-semibold">
+                                    <p className="text-[10px] tracking-[0.1em] uppercase text-white/50 font-semibold">
                                         Partner Universities
                                     </p>
                                 </div>
                             </div>
 
                             {/* Card 2: Success Rate */}
-                            <div className={`md:col-span-6 relative overflow-hidden bg-black/5 p-6 rounded-2xl group flex flex-col justify-between min-h-[170px] border border-black/5 hover:bg-black/10 transition-all duration-1000 transform delay-100 ${
+                            <div className={`md:col-span-6 relative overflow-hidden bg-white/5 p-6 rounded-none group flex flex-col justify-between min-h-[170px] border border-white/5 hover:bg-white/10 transition-all duration-1000 transform delay-100 ${
                                 isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
                             }`}>
-                                <div className="text-black/40 w-8 h-8 bg-black/5 rounded-full flex items-center justify-center self-start">
+                                <div className="text-white/40 w-8 h-8 bg-white/5 rounded-full flex items-center justify-center self-start">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                         <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                                     </svg>
@@ -139,24 +139,24 @@ export default function Statistics() {
                                             strokeWidth="4"
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
-                                            className="text-black animate-draw-path"
+                                            className="text-white animate-draw-path"
                                         />
-                                        <circle cx="190" cy="15" r="5" fill="currentColor" className="text-black animate-pulse" />
+                                        <circle cx="190" cy="15" r="5" fill="currentColor" className="text-white animate-pulse" />
                                     </svg>
                                 </div>
 
                                 <div className="mt-4 relative z-10">
-                                    <h4 className="font-[var(--font-outfit)] text-3xl font-bold text-black mb-1">
+                                    <h4 className="font-[var(--font-outfit)] text-3xl font-bold text-white mb-1">
                                         98%
                                     </h4>
-                                    <p className="text-[10px] tracking-[0.1em] uppercase text-black/50 font-semibold">
+                                    <p className="text-[10px] tracking-[0.1em] uppercase text-white/50 font-semibold">
                                         Success Rate
                                     </p>
                                 </div>
                             </div>
 
                             {/* Card 3: Countries Covered (Wider Card with World Map on Right) */}
-                            <div className={`md:col-span-7 relative overflow-hidden bg-neutral-900 text-white p-6 rounded-2xl group flex flex-col justify-between min-h-[170px] shadow-lg transition-all duration-1000 transform delay-200 ${
+                            <div className={`md:col-span-7 relative overflow-hidden bg-neutral-900 text-white p-6 rounded-none group flex flex-col justify-between min-h-[170px] shadow-lg transition-all duration-1000 transform delay-200 ${
                                 isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
                             }`}>
                                 {/* World Map Background Image */}
@@ -190,10 +190,10 @@ export default function Statistics() {
                             </div>
 
                             {/* Card 4: Expert Counsellors */}
-                            <div className={`md:col-span-5 bg-black/5 p-6 rounded-2xl group flex flex-col justify-between min-h-[170px] border border-black/5 hover:bg-black/10 transition-all duration-1000 transform delay-300 ${
+                            <div className={`md:col-span-5 bg-white/5 p-6 rounded-none group flex flex-col justify-between min-h-[170px] border border-white/5 hover:bg-white/10 transition-all duration-1000 transform delay-300 ${
                                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
                             }`}>
-                                <div className="text-black/40 w-8 h-8 bg-black/5 rounded-full flex items-center justify-center self-start">
+                                <div className="text-white/40 w-8 h-8 bg-white/5 rounded-full flex items-center justify-center self-start">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                                         <circle cx="9" cy="7" r="4" />
@@ -202,10 +202,10 @@ export default function Statistics() {
                                     </svg>
                                 </div>
                                 <div className="mt-4">
-                                    <h4 className="font-[var(--font-outfit)] text-3xl font-bold text-black mb-1">
+                                    <h4 className="font-[var(--font-outfit)] text-3xl font-bold text-white mb-1">
                                         50+
                                     </h4>
-                                    <p className="text-[10px] tracking-[0.1em] uppercase text-black/50 font-semibold">
+                                    <p className="text-[10px] tracking-[0.1em] uppercase text-white/50 font-semibold">
                                         Expert Counsellors
                                     </p>
                                 </div>
