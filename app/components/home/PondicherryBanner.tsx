@@ -3,7 +3,23 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "../ui/Button";
 
-export default function PondicherryBanner() {
+interface BannerProps {
+  id?: string;
+  videoSrc?: string;
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  buttonHref?: string;
+}
+
+export default function PondicherryBanner({
+  id = "pondicherry-banner",
+  videoSrc = "/banner/mbbs.mp4",
+  title = "Affordable MBBS Seats In Pondicherry",
+  description = "Secure your MBBS seat in premier medical colleges in Pondicherry with highly affordable fee structures.",
+  buttonText = "Check Seat Availability",
+  buttonHref = "#enquiry"
+}: BannerProps = {}) {
   const [isMuted, setIsMuted] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -65,7 +81,7 @@ export default function PondicherryBanner() {
   };
 
   return (
-    <section ref={bannerRef} id="pondicherry-banner" className="relative h-[85vh] w-full bg-[#030303] overflow-hidden">
+    <section ref={bannerRef} id={id} className="relative h-[85vh] w-full bg-[#030303] overflow-hidden">
       {/* Banner Container */}
       <div className="relative w-full h-full flex items-end">
         {/* Background Video */}
@@ -73,7 +89,7 @@ export default function PondicherryBanner() {
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
-            src="/banner/b1.mp4"
+            src={videoSrc}
             autoPlay
             loop
             muted
@@ -145,7 +161,7 @@ export default function PondicherryBanner() {
                 }`}
             >
               <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight max-w-xl md:max-w-2xl">
-                Affordable MBBS Seats In Pondicherry
+                {title}
               </h2>
             </div>
 
@@ -155,11 +171,11 @@ export default function PondicherryBanner() {
                 }`}
             >
               <p className="text-white/70 font-light max-w-sm mb-6 md:ml-auto">
-                Secure your MBBS seat in premier medical colleges in Pondicherry with highly affordable fee structures.
+                {description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-start md:justify-end">
-                <Button href="#enquiry" size="lg">
-                  Check Seat Availability
+                <Button href={buttonHref} size="lg">
+                  {buttonText}
                 </Button>
               </div>
             </div>
