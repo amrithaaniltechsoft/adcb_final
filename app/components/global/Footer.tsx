@@ -15,7 +15,7 @@ const column2 = [
 ];
 
 const column3 = [
-  { label: "MBBS", href: "/courses/mbbs" },
+  { label: "MBBS Study Abroad", href: "/courses/mbbs" },
   { label: "MD / MS", href: "/courses/md-ms" },
   { label: "MDS", href: "/courses/mds" },
 ];
@@ -23,7 +23,7 @@ const column3 = [
 const column4 = [
   { label: "MBA", href: "/courses/mba" },
   { label: "MTTM", href: "/courses/mttm" },
-  { label: "Study Abroad", href: "/study-abroad" },
+  // { label: "Study Abroad", href: "/study-abroad" },
 ];
 
 const column5 = [

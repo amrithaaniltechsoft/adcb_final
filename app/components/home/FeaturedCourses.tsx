@@ -86,27 +86,18 @@ export default function FeaturedCourses() {
         </div>
 
         {/* Course Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
-          {courses.slice(0, 2).map((course, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {courses.slice(0, 3).map((course, i) => (
             <div
               key={course.code}
               className={`relative rounded-none overflow-hidden group bg-transparent transition-all duration-500 ease-in-out transform flex flex-col
-                ${i === 0 ? 'lg:col-span-3' : ''}
-                ${i === 1 ? 'lg:col-span-3' : ''}
-                ${i === 2 ? 'lg:col-span-2' : ''}
-                ${i === 3 ? 'lg:col-span-2' : ''}
-                ${i === 4 ? 'lg:col-span-2' : ''}
                 ${visibleCards.includes(i)
                   ? "opacity-100 translate-x-0 translate-y-0 scale-100 rotate-0"
                   : i === 0
                     ? "opacity-0 -translate-x-16"
                     : i === 1
                       ? "opacity-0 translate-y-16"
-                      : i === 2
-                        ? "opacity-0 scale-75"
-                        : i === 3
-                          ? "opacity-0 translate-x-16"
-                          : "opacity-0 -translate-y-16"
+                      : "opacity-0 scale-75"
                 }`
               }
               style={{ transitionDelay: `${i * 100}ms` }}

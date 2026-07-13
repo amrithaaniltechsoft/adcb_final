@@ -4,6 +4,7 @@ type ButtonProps = {
     children: React.ReactNode;
     href?: string;
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onBlur?: (e: React.FocusEvent<HTMLButtonElement>) => void;
     variant?: "primary" | "white" | "outlineWhite" | "black" | "outlineBlack" | "ghost";
     size?: "md" | "lg";
     className?: string;
@@ -14,6 +15,7 @@ export function Button({
     children,
     href,
     onClick,
+    onBlur,
     variant = "primary",
     size = "md",
     className = "",
@@ -49,7 +51,7 @@ export function Button({
     }
 
     return (
-        <button type={type} onClick={onClick} className={classes}>
+        <button type={type} onClick={onClick} onBlur={onBlur} className={classes}>
             {children}
         </button>
     );
