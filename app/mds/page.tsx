@@ -19,7 +19,7 @@ export const metadata = {
 const mdsSpecialties = [
   {
     title: "Key area including conservative dentistry",
-    image: "/page-banner/mds-conservative.png",
+    image: "/page-banner/mds-middle3a.jpg",
     highlights: [
       "Dental fillings (for cavities)",
       "Aesthetic restorations (tooth-colored fillings, veneers)",
@@ -29,7 +29,7 @@ const mdsSpecialties = [
   },
   {
     title: "Key area including Endodontics",
-    image: "/page-banner/mds-endodontics.png",
+    image: "/courses/mds.jpg",
     highlights: [
       "Common procedures:",
       "Root canal treatment (RCT)",

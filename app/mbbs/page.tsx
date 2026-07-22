@@ -19,7 +19,7 @@ export const metadata = {
 const mbbsSpecialties = [
   {
     title: "General Medicine",
-    image: "/page-banner/mbbs-medicine.png",
+    image: "/page-banner/mbbs-middle2.jpg",
     highlights: [
       "Diagnostic medicine & comprehensive patient care",
       "Management of acute, chronic, and infectious illnesses",
@@ -29,7 +29,7 @@ const mbbsSpecialties = [
   },
   {
     title: "General Surgery & Trauma",
-    image: "/page-banner/mbbs-surgery.png",
+    image: "/page-banner/mbbs-middle3.jpg",
     highlights: [
       "Core surgical procedures and critical trauma care",
       "Pre-operative diagnostics & post-operative patient recovery",
