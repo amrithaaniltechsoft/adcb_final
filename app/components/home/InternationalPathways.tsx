@@ -237,7 +237,8 @@ export default function InternationalPathways({
             src={recommendation.backgroundImageSrc}
             alt={recommendation.title}
             fill
-            className="object-cover object-center"
+            sizes="100vw"
+            className="object-cover object-center animate-slow-zoom"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/20" />
         </div>
