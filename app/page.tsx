@@ -2,6 +2,7 @@ import Navbar from "./components/global/Navbar";
 import HeroSection from "./components/home/HeroSection";
 import PondicherryBanner from "./components/home/PondicherryBanner";
 import FeaturedCourses from "./components/home/FeaturedCourses";
+// import WhyChooseUs from "./components/home/WhyChooseUs";
 import PreFooterCTA from "./components/global/PreFooterCTA";
 import Footer from "./components/global/Footer";
 import WhatsAppButton from "./components/global/WhatsAppButton";
@@ -24,6 +25,7 @@ export default function Home() {
             buttonHref="#enquiry"
           />
           <FeaturedCourses />
+          {/* <WhyChooseUs />  */}
           <PreFooterCTA />
         </main>
       </div>

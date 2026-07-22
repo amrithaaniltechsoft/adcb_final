@@ -15,9 +15,9 @@ const column2 = [
 ];
 
 const column3 = [
-  { label: "MBBS Study Abroad", href: "/courses/mbbs" },
+  { label: "MBBS", href: "/mbbs" },
   { label: "MD / MS", href: "/courses/md-ms" },
-  { label: "MDS", href: "/courses/mds" },
+  { label: "MDS", href: "/mds" },
 ];
 
 const column4 = [
@@ -112,6 +112,7 @@ export default function Footer() {
             alt="ADCB Consultancy Logo"
             width={70}
             height={70}
+            style={{ width: "auto", height: "auto" }}
             className="h-[70px] w-auto transition-opacity duration-300 hover:opacity-80"
             priority
           />

@@ -112,6 +112,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                                 alt="ADCB Consultancy Logo"
                                 width={64}
                                 height={64}
+                                style={{ width: "auto", height: "auto" }}
                                 className="h-12 w-auto"
                             />
                         </Link>

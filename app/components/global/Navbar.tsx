@@ -5,16 +5,18 @@ import Link from "next/link";
 import Image from "next/image";
 import SearchModal from "../ui/SearchModal";
 import { Button } from "../ui/Button";
+import MobileMenu from "./MobileMenu";
 
 const navLinks = [
-  { label: "Home", href: "#" },
-  { label: "MBBS", href: "#courses" },
-  { label: "MDS", href: "#mds" },
-  { label: "MD", href: "#international" },
-  { label: "MS", href: "#ms" },
-  { label: "DND", href: "#dnd" },
-  { label: "International Opportunities", href: "#international-opportunities" },
-  { label: "Contact", href: "#branches" },
+  { label: "Home", href: "/" },
+  // { label: "About Us", href: "/about" },
+  { label: "MBBS", href: "/mbbs" },
+  { label: "MDS", href: "/mds" },
+  { label: "MD", href: "/#international" },
+  { label: "MS", href: "/#ms" },
+  { label: "DND", href: "/#dnd" },
+  { label: "International Opportunities", href: "/#international-opportunities" },
+  { label: "Contact", href: "/#branches" },
 ];
 
 const useTypingAnimation = (words: string[], typeSpeed = 100, deleteSpeed = 50, delay = 2000) => {
@@ -126,6 +128,7 @@ export default function Navbar() {
                   alt="ADCB Consultancy Logo"
                   width={180}
                   height={120}
+                  style={{ width: "auto", height: "auto" }}
                   className={`absolute inset-0 w-auto object-contain transition-all duration-300 ${atTop ? "h-[120px]" : "h-20"} ${showPng ? "opacity-0 pointer-events-none" : "opacity-100"
                     }`}
                   priority
@@ -135,6 +138,7 @@ export default function Navbar() {
                   alt="ADCB Consultancy Logo"
                   width={180}
                   height={120}
+                  style={{ width: "auto", height: "auto" }}
                   className={`absolute inset-0 w-auto object-contain transition-all duration-300 ${atTop ? "h-[120px]" : "h-20"} ${showPng ? "opacity-100" : "opacity-0 pointer-events-none"
                     }`}
                   priority
@@ -215,62 +219,11 @@ export default function Navbar() {
       </header>
 
       {/* Mobile Menu*/}
-      <div
-        className={`fixed inset-0 bg-black/40 z-[60] flex items-stretch justify-start transition-all duration-700 ${mobileOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-          }`}
-        onClick={() => setMobileOpen(false)}
-      >
-        <div
-          className={`bg-black/20 backdrop-blur-2xl border-r border-white/10 w-full max-w-md shadow-2xl transition-all duration-700 flex flex-col h-full overflow-hidden ${mobileOpen ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
-            }`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Header area in mobile menu with Close Button */}
-          <div className="flex items-center justify-between px-6 py-6 border-b border-white/10 w-full">
-            <Link href="/" className="flex items-center gap-3 group" onClick={() => setMobileOpen(false)}>
-              <Image
-                src="/logo/logo-white.png"
-                alt="ADCB Consultancy Logo"
-                width={64}
-                height={64}
-                className="h-12 w-auto"
-              />
-            </Link>
-            <button
-              onClick={() => setMobileOpen(false)}
-              className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-md transition-all"
-              aria-label="Close menu"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Navigation Links */}
-          <div className="flex-1 p-6 md:p-10 overflow-y-auto bg-transparent scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/20 hover:scrollbar-thumb-white/30">
-            {navLinks.map((link, index) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className={`flex items-center justify-end py-2 group transform transition-all duration-700 ease-out ${mobileOpen ? "translate-x-0 opacity-100" : "-translate-x-[320px] opacity-0"
-                  }`}
-                style={{
-                  transitionDelay: mobileOpen
-                    ? `${index * 100}ms`
-                    : `${(navLinks.length - 1 - index) * 60}ms`
-                }}
-              >
-                <span className="font-semibold text-xl text-white/80 group-hover:text-white transition-colors text-right">
-                  {link.label}
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
+      <MobileMenu
+        mobileOpen={mobileOpen}
+        setMobileOpen={setMobileOpen}
+        navLinks={navLinks}
+      />
 
       <SearchModal isOpen={showSearch} onClose={() => setShowSearch(false)} />
     </>

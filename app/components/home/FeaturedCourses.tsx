@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "../ui/Button";
 
 const courses = [
@@ -10,30 +11,35 @@ const courses = [
     title: "Bachelor of Medicine & Surgery",
     description: "Foundation of medical excellence. The gateway to a career in clinical medicine and healthcare leadership.",
     image: "/courses/mbbs.jpg",
+    href: "/mbbs",
   },
   {
     code: "MD/MS",
     title: "Doctor of Medicine / Master of Surgery",
     description: "Advanced clinical specialisation across medical and surgical disciplines for physicians seeking mastery.",
     image: "/courses/md-ms.jpg",
+    href: "#enquiry",
   },
   {
     code: "MDS",
     title: "Master of Dental Surgery",
     description: "Premier dental specialisation covering nine clinical and non-clinical branches for dentistry excellence.",
     image: "/courses/mds.jpg",
+    href: "/mds",
   },
   {
     code: "MBA",
     title: "Master of Business Administration",
     description: "Strategic leadership and management education for future business leaders and healthcare administrators.",
     image: "/courses/mba.jpg",
+    href: "#enquiry",
   },
   {
     code: "MTTM",
     title: "Master of Tourism & Travel Management",
     description: "Comprehensive programme in tourism management, hospitality operations, and travel industry leadership.",
     image: "/courses/mttm.jpg",
+    href: "#enquiry",
   },
 ];
 
@@ -88,9 +94,10 @@ export default function FeaturedCourses() {
         {/* Course Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {courses.slice(0, 3).map((course, i) => (
-            <div
+            <Link
               key={course.code}
-              className={`relative rounded-none overflow-hidden group bg-transparent transition-all duration-500 ease-in-out transform flex flex-col
+              href={course.href}
+              className={`relative rounded-none overflow-hidden group bg-transparent transition-all duration-500 ease-in-out transform flex flex-col cursor-pointer
                 ${visibleCards.includes(i)
                   ? "opacity-100 translate-x-0 translate-y-0 scale-100 rotate-0"
                   : i === 0
@@ -109,7 +116,7 @@ export default function FeaturedCourses() {
               {/* Content */}
               <div className="pt-8 flex flex-col flex-grow">
                 <div className="max-w-sm">
-                  <h3 className="font-[var(--font-outfit)] text-3xl font-bold tracking-tight text-white">
+                  <h3 className="font-[var(--font-outfit)] text-3xl font-bold tracking-tight text-white group-hover:text-[#ED1C24] transition-colors">
                     {course.code}
                   </h3>
                   <p className="text-[12px] tracking-[0.15em] uppercase text-white font-bold mt-1 mb-4">
@@ -119,13 +126,8 @@ export default function FeaturedCourses() {
                     {course.description}
                   </p>
                 </div>
-                <div className="mt-auto">
-                  <Button href="#enquiry" className="self-start">
-                    Learn More
-                  </Button>
-                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
