@@ -15,8 +15,8 @@ const navLinks = [
   { label: "MD", href: "/#international" },
   { label: "MS", href: "/#ms" },
   { label: "DND", href: "/#dnd" },
-  { label: "International Opportunities", href: "/#international-opportunities" },
-  { label: "Contact", href: "/#branches" },
+  { label: "International Opportunities", href: "/international-opportunities" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const useTypingAnimation = (words: string[], typeSpeed = 100, deleteSpeed = 50, delay = 2000) => {
@@ -122,14 +122,14 @@ export default function Navbar() {
 
             {/* Center: Logo */}
             <div className="flex-shrink-0">
-              <Link href="/" className={`block relative transition-all duration-300 hover:opacity-80 ${atTop ? "h-[120px] w-[160px]" : "h-20 w-[107px]"}`}>
+              <Link href="/" className="block relative transition-all duration-300 hover:opacity-80 h-20 w-[130px]">
                 <Image
                   src="/logo/animated7.gif"
                   alt="ADCB Consultancy Logo"
                   width={180}
                   height={120}
                   style={{ width: "auto", height: "auto" }}
-                  className={`absolute inset-0 w-auto object-contain transition-all duration-300 ${atTop ? "h-[120px]" : "h-20"} ${showPng ? "opacity-0 pointer-events-none" : "opacity-100"
+                  className={`absolute inset-0 w-auto object-contain transition-all duration-300 h-20 ${showPng ? "opacity-0 pointer-events-none" : "opacity-100"
                     }`}
                   priority
                 />
@@ -139,7 +139,7 @@ export default function Navbar() {
                   width={180}
                   height={120}
                   style={{ width: "auto", height: "auto" }}
-                  className={`absolute inset-0 w-auto object-contain transition-all duration-300 ${atTop ? "h-[120px]" : "h-20"} ${showPng ? "opacity-100" : "opacity-0 pointer-events-none"
+                  className={`absolute inset-0 w-auto object-contain transition-all duration-300 h-20 ${showPng ? "opacity-100" : "opacity-0 pointer-events-none"
                     }`}
                   priority
                 />
@@ -174,7 +174,7 @@ export default function Navbar() {
                     <div className="rounded-md border border-white/15 bg-black/85 backdrop-blur-md shadow-2xl overflow-hidden transform transition-all duration-300">
                       <div className="py-1">
                         <Link
-                          href="#cochin"
+                          href="/contact/kochi"
                           className="group flex items-center gap-3 px-5 py-3.5 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors border-b border-white/5"
                           onClick={() => setBranchDropdownOpen(false)}
                         >
@@ -191,7 +191,7 @@ export default function Navbar() {
                           <span>Kochi</span>
                         </Link>
                         <Link
-                          href="#calicut"
+                          href="/contact/calicut"
                           className="group flex items-center gap-3 px-5 py-3.5 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                           onClick={() => setBranchDropdownOpen(false)}
                         >

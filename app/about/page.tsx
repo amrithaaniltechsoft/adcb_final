@@ -21,7 +21,7 @@ export default function AboutPage() {
         <Banner
           title="About Us"
           description="Empowering medical professionals and aspiring leaders to reach their highest potential."
-          imageSrc="/banner/about-banner2.jpg"
+          imageSrc="/page-banner/about-banner3.png"
           imageAlt="About ADCB Consultancy"
           buttonText="Our Vision & Mission"
           buttonHref="#vision"

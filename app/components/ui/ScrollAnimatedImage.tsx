@@ -22,7 +22,7 @@ export default function ScrollAnimatedImage({
   variant = "default",
   backgroundImageSrc = "/pathway/canada.jpg",
   backgroundImageAlt = "ADCB Consultancy Campus Library Backdrop",
-  foregroundImageSrc = "/page-banner/about-middle3a.jpg",
+  foregroundImageSrc = "/page-banner/about-middle4.png",
   foregroundImageAlt = "ADCB Consultancy Campus Library",
   containerClassName,
   backgroundHeightClassName = "h-[50vh] md:h-[70vh]",
