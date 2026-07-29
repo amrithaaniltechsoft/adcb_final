@@ -19,7 +19,11 @@ export default function ClinicalAreasSpotlight({ specialties }: ClinicalAreasSpo
   return (
     <section className="relative py-16 bg-black overflow-hidden px-4 md:px-12">
       <div className="max-w-[900px] mx-auto z-10 relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div className={`grid grid-cols-1 gap-8 items-start ${
+          specialties.length === 1
+            ? "max-w-[450px] mx-auto w-full"
+            : "md:grid-cols-2"
+        }`}>
           {specialties.map((item, index) => {
             const isActive = activeCard === index;
             return (

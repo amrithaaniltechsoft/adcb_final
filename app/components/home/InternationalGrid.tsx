@@ -75,6 +75,7 @@ export default function InternationalGrid({
                         alt={item.name}
                         fill
                         className="object-cover"
+                        sizes="32px"
                       />
                     </span>
                     {item.name}

@@ -18,6 +18,7 @@ export interface RecommendationData {
   buttonText: string;
   buttonHref: string;
   backgroundImageSrc: string;
+  descriptionAfter?: string;
 }
 
 interface InternationalPathwaysProps {
@@ -187,7 +188,7 @@ export default function InternationalPathways({
                     <div className="pt-6 flex flex-col text-white">
                       <h3 className="font-[var(--font-outfit)] text-2xl font-bold tracking-tight mb-4 flex items-center gap-3">
                         <span className="relative w-8 h-6 overflow-hidden rounded-none flex-shrink-0">
-                          <Image src={item.flag} alt={item.name} fill className="object-cover" />
+                          <Image src={item.flag} alt={item.name} fill className="object-cover" sizes="32px" />
                         </span>
                         {item.name}
                       </h3>
@@ -248,16 +249,25 @@ export default function InternationalPathways({
             <h4 className="font-[var(--font-outfit)] text-2xl md:text-3xl font-bold tracking-tight text-white mb-3">
               {recommendation.title}
             </h4>
-            <p className="text-white/90 text-sm leading-relaxed max-w-2xl">
-              {recommendation.description}
-            </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-white/80 mt-4">
-              {recommendation.bullets.map((b, i) => (
-                <li key={i} className="flex items-center gap-2">
-                  <span className="text-white/60">✓</span> {b}
-                </li>
-              ))}
-            </ul>
+            {recommendation.description && (
+              <p className="text-white/90 text-sm leading-relaxed max-w-2xl mb-4">
+                {recommendation.description}
+              </p>
+            )}
+            {recommendation.bullets && recommendation.bullets.length > 0 && (
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-white/80 mb-4">
+                {recommendation.bullets.map((b, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <span className="text-white/60">✓</span> {b}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {recommendation.descriptionAfter && (
+              <p className="text-white/90 text-sm leading-relaxed max-w-2xl mt-4">
+                {recommendation.descriptionAfter}
+              </p>
+            )}
           </div>
           <Button href={recommendation.buttonHref} variant="white" className="flex-shrink-0 rounded-none px-10 py-4">
             {recommendation.buttonText}

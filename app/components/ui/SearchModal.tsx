@@ -110,10 +110,9 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             <Image
                                 src="/logo/logo-white.png"
                                 alt="ADCB Consultancy Logo"
-                                width={64}
-                                height={64}
-                                style={{ width: "auto", height: "auto" }}
-                                className="h-12 w-auto"
+                                width={48}
+                                height={48}
+                                priority
                             />
                         </Link>
                     </div>
