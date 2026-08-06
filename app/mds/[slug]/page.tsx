@@ -62,8 +62,6 @@ export default async function MdsSlugPage({
             description={data.bannerDescription}
             imageSrc={data.bannerImage}
             imageAlt={data.title}
-            buttonText="Explore Specialties"
-            buttonHref="#specialties"
           />
         )}
 
@@ -96,13 +94,13 @@ export default async function MdsSlugPage({
             foregroundImageSrc="/page-banner/mds-middle4.jpg"
             foregroundImageAlt="ADCB Consultancy Global Opportunities backdrop"
           >
-            <section className="absolute inset-0 z-20 flex flex-col justify-center py-6 px-10 md:py-12 md:px-20 lg:py-20 lg:px-80 bg-black/65 text-white">
+            <section className="absolute inset-0 z-20 flex flex-col justify-center py-6 px-6 md:py-12 md:px-20 lg:py-20 lg:px-80 bg-black/65 text-white">
               <article className="max-w-4xl w-full text-left">
                 <span className="inline-flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium mb-3">
                   {data.middleBanner.title || "International Scope"}
                   <span className="w-8 h-[1px] bg-white/20" />
                 </span>
-                <h2 className="font-[var(--font-outfit)] text-3xl md:text-4xl font-light tracking-tight leading-relaxed max-w-3xl mb-6">
+                <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl font-light tracking-tight leading-relaxed max-w-3xl mb-6">
                   {data.middleBanner.description}
                 </h2>
                 {data.middleBanner.points && data.middleBanner.points.length > 0 && (
@@ -143,17 +141,9 @@ export default async function MdsSlugPage({
         >
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center p-6 bg-black/55 text-white">
             <div className="max-w-3xl mx-auto space-y-6">
-              <h2 className="font-[var(--font-outfit)] text-2xl md:text-3xl font-normal tracking-tight leading-tight">
+              <h2 className="font-[var(--font-outfit)] text-xl sm:text-2xl md:text-3xl font-normal tracking-tight leading-tight">
                 Secure your dream MDS <br /> clinical specialization with expert, <br /> end-to-end counselling support.
               </h2>
-              <div className="pt-4 flex flex-wrap justify-center gap-4">
-                <Button href="#enquiry" size="md">
-                  Join Course Now
-                </Button>
-                <Button href="#overview" variant="outlineWhite" size="md">
-                  Learn More
-                </Button>
-              </div>
             </div>
           </div>
         </ScrollAnimatedImage>

@@ -38,7 +38,7 @@ export default function ContentSection({
       <div className="max-w-[1200px] mx-auto w-full relative z-10">
         {/* Content Card */}
         <div className="text-center space-y-6 max-w-4xl mx-auto">
-          <h2 className="font-[var(--font-outfit)] text-3xl md:text-4xl font-semibold tracking-tight text-white leading-tight">
+          <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-white leading-tight">
             {title}
           </h2>
           {content && (

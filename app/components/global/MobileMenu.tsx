@@ -5,6 +5,12 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/Button";
+import { statesData } from "../../mbbs/[slug]/statesData";
+import { specialtiesData } from "../../mds/[slug]/specialtiesData";
+import { mdmsBranchesData } from "../../md-ms/[slug]/branchesData";
+
+const stripHtml = (html?: string) =>
+  html ? html.replace(/<br\s*\/?>/gi, " ").replace(/<[^>]+>/g, "") : null;
 
 interface NavLink {
   label: string;
@@ -20,6 +26,8 @@ interface MobileMenuProps {
 interface SubCategory {
   shortTitle: string;
   fullTitle: string;
+  description?: string;
+  points?: string[];
   video: string;
   image: string;
   href: string;
@@ -39,7 +47,19 @@ const courseDetails: Record<string, CourseDetails> = {
     image: "/courses/mbbs.jpg",
     href: "/mbbs",
     title: "Bachelor of Medicine & Surgery",
-    subCategories: [],
+    subCategories: [
+      { shortTitle: "Tamil Nadu", fullTitle: "MBBS in Tamil Nadu", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/tamil-nadu" },
+      { shortTitle: "Kerala", fullTitle: "MBBS in Kerala", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/kerala" },
+      { shortTitle: "Karnataka", fullTitle: "MBBS in Karnataka", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/karnataka" },
+      { shortTitle: "Pondicherry", fullTitle: "MBBS in Pondicherry", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/pondicherry" },
+      { shortTitle: "Telangana", fullTitle: "MBBS in Telangana", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/telangana" },
+      { shortTitle: "Andhra Pradesh", fullTitle: "MBBS in Andhra Pradesh", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/andhra-pradesh" },
+      { shortTitle: "Haryana", fullTitle: "MBBS in Haryana", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/haryana" },
+      { shortTitle: "Punjab", fullTitle: "MBBS in Punjab", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/punjab" },
+      { shortTitle: "Himachal Pradesh", fullTitle: "MBBS in Himachal Pradesh", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/himachal-pradesh" },
+      { shortTitle: "Uttar Pradesh", fullTitle: "MBBS in Uttar Pradesh", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/uttar-pradesh" },
+      { shortTitle: "Bihar", fullTitle: "MBBS in Bihar", video: "/banner/mbbs.mp4", image: "/courses/mbbs.jpg", href: "/mbbs/bihar" },
+    ],
   },
   MDS: {
     video: "/banner/md.mp4",
@@ -58,26 +78,45 @@ const courseDetails: Record<string, CourseDetails> = {
       { shortTitle: "Public Health Dentistry", fullTitle: "Public Health Dentistry (PHD)", video: "/banner/md.mp4", image: "/mds/Public Health Dentistry.jpg", href: "/mds/public-health-dentistry" },
     ]
   },
-  MD: {
+  "MD/MS": {
     video: "/banner/md.mp4",
     image: "/courses/md-ms.jpg",
-    href: "/#international",
-    title: "Doctor of Medicine",
-    subCategories: [],
+    href: "/md-ms",
+    title: "Doctor of Medicine / Master of Surgery",
+    subCategories: [
+      { shortTitle: "General Medicine", fullTitle: "MD General Medicine", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/general-medicine" },
+      { shortTitle: "Pediatrics", fullTitle: "MD Pediatrics", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/pediatrics" },
+      { shortTitle: "Dermatology", fullTitle: "MD Dermatology, Venereology & Leprosy", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/dermatology" },
+      { shortTitle: "Radiology", fullTitle: "MD Radiodiagnosis", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/radiology" },
+      { shortTitle: "Anaesthesiology", fullTitle: "MD Anaesthesiology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/anaesthesiology" },
+      { shortTitle: "Psychiatry", fullTitle: "MD Psychiatry", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/psychiatry" },
+      { shortTitle: "Pathology", fullTitle: "MD Pathology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/pathology" },
+      { shortTitle: "General Surgery", fullTitle: "MS General Surgery", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/general-surgery" },
+      { shortTitle: "Orthopaedics", fullTitle: "MS Orthopaedics", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/orthopaedics" },
+      { shortTitle: "Obstetrics & Gynaecology", fullTitle: "MS Obstetrics & Gynaecology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/obstetrics-gynaecology" },
+      { shortTitle: "ENT", fullTitle: "MS Otorhinolaryngology (ENT)", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/ent" },
+      { shortTitle: "Ophthalmology", fullTitle: "MS Ophthalmology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/ophthalmology" },
+    ],
   },
-  MS: {
+  DNB: {
     video: "/banner/md.mp4",
     image: "/courses/md-ms.jpg",
-    href: "/#ms",
-    title: "Master of Surgery",
-    subCategories: [],
-  },
-  DND: {
-    video: "/banner/b1.mp4",
-    image: "/courses/mttm.jpg",
-    href: "/#dnd",
+    href: "/md-ms",
     title: "Diplomate of National Board",
-    subCategories: [],
+    subCategories: [
+      { shortTitle: "General Medicine", fullTitle: "MD General Medicine", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/general-medicine" },
+      { shortTitle: "Pediatrics", fullTitle: "MD Pediatrics", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/pediatrics" },
+      { shortTitle: "Dermatology", fullTitle: "MD Dermatology, Venereology & Leprosy", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/dermatology" },
+      { shortTitle: "Radiology", fullTitle: "MD Radiodiagnosis", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/radiology" },
+      { shortTitle: "Anaesthesiology", fullTitle: "MD Anaesthesiology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/anaesthesiology" },
+      { shortTitle: "Psychiatry", fullTitle: "MD Psychiatry", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/psychiatry" },
+      { shortTitle: "Pathology", fullTitle: "MD Pathology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/pathology" },
+      { shortTitle: "General Surgery", fullTitle: "MS General Surgery", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/general-surgery" },
+      { shortTitle: "Orthopaedics", fullTitle: "MS Orthopaedics", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/orthopaedics" },
+      { shortTitle: "Obstetrics & Gynaecology", fullTitle: "MS Obstetrics & Gynaecology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/obstetrics-gynaecology" },
+      { shortTitle: "ENT", fullTitle: "MS Otorhinolaryngology (ENT)", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/ent" },
+      { shortTitle: "Ophthalmology", fullTitle: "MS Ophthalmology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/ophthalmology" },
+    ],
   },
 };
 
@@ -114,7 +153,8 @@ export default function MobileMenu({
       if (course.subCategories && course.subCategories.length > 0) {
         setActiveCourse(label);
         setShowSubMenu(true);
-        setActiveSubCategory(course.subCategories[0]); // Select first subcategory by default
+        // Never auto-show the banner on a course click — just open the list and keep the menu open
+        setActiveSubCategory(null);
       } else {
         // No subcategories, just show the main course detail
         setActiveCourse(label);
@@ -137,7 +177,24 @@ export default function MobileMenu({
   const activeVideo = activeSubCategory?.video || (activeCourse ? courseDetails[activeCourse]?.video : null);
   const activeImage = activeSubCategory?.image || (activeCourse && !showSubMenu ? courseDetails[activeCourse]?.image : null);
   const activeTitle = activeSubCategory?.fullTitle || (activeCourse && !showSubMenu ? courseDetails[activeCourse]?.title : null);
+  const activeDescription = activeSubCategory?.description || (activeCourse && !showSubMenu ? null : null);
+  const activePoints = activeSubCategory?.points || null;
   const activeHref = activeSubCategory?.href || (activeCourse && !showSubMenu ? courseDetails[activeCourse]?.href : null);
+
+  const stateSlug = activeSubCategory ? activeSubCategory.href.split("/").pop() : undefined;
+  const stateData = stateSlug ? statesData[stateSlug] : undefined;
+  const specialtyData = stateSlug && !stateData ? specialtiesData[stateSlug] : undefined;
+  const mdmsData = stateSlug && !stateData && !specialtyData ? mdmsBranchesData[stateSlug] : undefined;
+  const bannerTitle = stateData?.bannerTitle || mdmsData?.bannerTitle || activeTitle;
+  const previewSectionTitle = stateData?.previewTitle || (specialtyData || mdmsData ? "Key Focus Areas" : null);
+  const bannerDescription = activeDescription || (specialtyData ? stripHtml(specialtyData.overviewContent) : mdmsData ? stripHtml(mdmsData.overviewContent) : null);
+  const bannerPoints =
+    stateData?.previewPoints ||
+    specialtyData?.specialties?.[0]?.highlights ||
+    specialtyData?.middleBanner?.points ||
+    mdmsData?.highlights ||
+    activePoints ||
+    null;
 
   return (
     <div
@@ -147,7 +204,8 @@ export default function MobileMenu({
     >
       {/* Left Menu Panel */}
       <div
-        className={`relative bg-black/20 backdrop-blur-2xl border-r border-white/10 w-full max-w-md shadow-2xl transition-all duration-700 flex flex-col h-full overflow-hidden ${mobileOpen ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
+        className={`relative bg-black/20 backdrop-blur-2xl border-r border-white/10 ${activeSubCategory ? "hidden lg:flex lg:w-1/2" : "w-full"
+          } max-w-md shadow-2xl transition-all duration-700 flex flex-col h-full overflow-hidden ${mobileOpen ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
           }`}
         onClick={(e) => e.stopPropagation()}
       >
@@ -205,17 +263,9 @@ export default function MobileMenu({
                   key={subLink.shortTitle}
                   href={subLink.href}
                   onClick={(e) => {
-                    const isDesktop = typeof window !== "undefined" && window.innerWidth >= 1024;
-                    if (pathname === subLink.href) {
-                      // Already on this page — just close the menu
-                      e.preventDefault();
-                      setMobileOpen(false);
-                    } else if (isDesktop) {
-                      e.preventDefault();
-                      handleSubCategoryHover(subLink);
-                    } else {
-                      setMobileOpen(false);
-                    }
+                    // Always show the preview banner — never navigate or close the menu here
+                    e.preventDefault();
+                    handleSubCategoryHover(subLink);
                   }}
                   className="flex items-center justify-end py-2 group"
                 >
@@ -234,18 +284,16 @@ export default function MobileMenu({
                   key={link.label}
                   href={link.href}
                   onClick={(e) => {
-                    const isDesktop = typeof window !== "undefined" && window.innerWidth >= 1024;
                     if (pathname === link.href) {
                       // Already on this page — just close the menu
                       e.preventDefault();
                       setMobileOpen(false);
-                    } else if (isCourse && isDesktop) {
+                    } else if (isCourse) {
+                      // Course menu opens its sub-menu — never navigates away
                       e.preventDefault();
                       handleCourseClick(link.label);
-                    } else if (!isCourse) {
-                      setMobileOpen(false);
                     } else {
-                      handleCourseClick(link.label);
+                      setMobileOpen(false);
                     }
                   }}
                   className={`flex items-center justify-end py-2 group transform transition-all duration-700 ease-out ${mobileOpen ? "translate-x-0 opacity-100" : "-translate-x-[320px] opacity-0"
@@ -267,10 +315,13 @@ export default function MobileMenu({
         </div>
       </div>
 
-      {/* Right-side Details Section (desktop only, occupies empty space) */}
+      {/* Right-side Details Section (side-by-side with menu on all screens) */}
       <div
-        className="hidden lg:flex flex-col flex-1 items-center justify-center relative z-10 h-full"
-        onClick={() => setMobileOpen(false)}
+        className={`${activeImage && activeTitle && activeHref
+          ? "flex"
+          : "hidden lg:flex"
+          } flex-col flex-1 items-center justify-center relative h-full`}
+        onClick={(e) => e.stopPropagation()}
       >
         {activeImage && activeTitle && activeHref && (
           <div
@@ -286,23 +337,75 @@ export default function MobileMenu({
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-[1.02]"
               />
-              {/* Dark overlay gradient to help the Discover button stand out */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              {/* Dark overlay and gradient to help the content stand out */}
+              <div className="absolute inset-0 bg-black/45" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/60" />
             </div>
 
-            {/* Discover Button & Title */}
-            <div className="absolute bottom-12 z-20 flex flex-col items-center gap-4 text-center px-6">
-              <div className="text-white text-2xl font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] font-[var(--font-outfit)]">
-                {activeTitle}
+            {/* Mobile-only back & close controls */}
+            <button
+              onClick={() => setActiveSubCategory(null)}
+              className="lg:hidden absolute top-6 left-6 z-30 flex items-center gap-2 text-sm font-medium text-white/80 hover:text-white transition-colors"
+              aria-label="Back to state list"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+              Back
+            </button>
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="lg:hidden absolute top-6 right-6 z-30 p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-all"
+              aria-label="Close menu"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            {/* Left-aligned Content, Centered Read More Button */}
+            <div className="absolute inset-0 z-20 flex flex-col items-start justify-start gap-5 text-left px-6 sm:px-10 md:px-16 pt-16 sm:pt-20 max-w-3xl max-h-full overflow-y-auto">
+              <div className="text-white text-2xl sm:text-3xl md:text-5xl font-semibold font-[var(--font-outfit)] leading-tight">
+                {bannerTitle}
               </div>
-              <Button
-                href={activeHref}
-                onClick={() => setMobileOpen(false)}
-                variant="primary"
-                className="px-16 min-w-[220px]"
-              >
-                Discover
-              </Button>
+              {previewSectionTitle && (
+                <div className="text-white text-sm font-semibold uppercase tracking-widest">
+                  {previewSectionTitle}
+                </div>
+              )}
+              {bannerDescription && (
+                <p className="text-white/85 text-base md:text-lg font-light leading-relaxed line-clamp-4">
+                  {bannerDescription}
+                </p>
+              )}
+              {bannerPoints && bannerPoints.length > 0 && (
+                <ul className="flex flex-col items-start gap-3">
+                  {bannerPoints.map((point) => (
+                    <li key={point} className="flex items-center gap-2 text-white/85 text-sm sm:text-base font-light">
+                      <svg
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className="pt-2 w-full flex justify-start">
+                <Button
+                  href={activeHref}
+                  onClick={() => setMobileOpen(false)}
+                  variant="primary"
+                  className="ed"
+                >
+                  Read More
+                </Button>
+              </div>
             </div>
           </div>
         )}

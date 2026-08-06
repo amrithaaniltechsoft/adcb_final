@@ -136,7 +136,7 @@ export default function Testimonials() {
               Success Stories
               <span className="w-8 h-[1px] bg-white/20" />
             </span>
-            <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-white">
+            <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-5xl font-medium tracking-tight leading-tight text-white">
               Student
               <span className="font-semibold text-white"> Testimonials</span>
             </h2>

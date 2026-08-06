@@ -3,18 +3,21 @@
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import SearchModal from "../ui/SearchModal";
 import { Button } from "../ui/Button";
 import MobileMenu from "./MobileMenu";
+import MbbsStateSelector from "./MbbsStateSelector";
+import MdsSpecialtySelector from "./MdsSpecialtySelector";
+import MdMsBranchSelector from "./MdMsBranchSelector";
 
 const navLinks = [
   { label: "Home", href: "/" },
   // { label: "About Us", href: "/about" },
   { label: "MBBS", href: "/mbbs" },
   { label: "MDS", href: "/mds" },
-  { label: "MD", href: "/#international" },
-  { label: "MS", href: "/#ms" },
-  { label: "DND", href: "/#dnd" },
+  { label: "MD/MS", href: "/#international" },
+  { label: "DNB", href: "/#dnd" },
   { label: "International Opportunities", href: "/international-opportunities" },
   { label: "Contact", href: "/contact" },
 ];
@@ -49,6 +52,9 @@ const useTypingAnimation = (words: string[], typeSpeed = 100, deleteSpeed = 50, 
 };
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isCourseInnerPage = pathname.startsWith("/mbbs") || pathname.startsWith("/mds") || pathname.startsWith("/md-ms");
+
   const [visible, setVisible] = useState(true);
   const [atTop, setAtTop] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -93,10 +99,10 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${visible ? "translate-y-0" : "-translate-y-full"
           } ${atTop ? "bg-transparent" : "bg-black/50 backdrop-blur-md border-b border-white/10"}`}
       >
-        <div className="max-w-[1440px] mx-auto px-8 lg:px-20">
-          <div className={`flex items-center justify-between transition-all duration-300 ${atTop ? "h-32" : "h-24"}`}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-20">
+          <div className={`flex items-center justify-between transition-all duration-300 ${atTop ? "h-20 sm:h-32" : "h-16 sm:h-24"}`}>
             {/* Left: Mobile Hamburger */}
-            <div className="flex-1 flex justify-start">
+            <div className={`flex md:flex-1 md:justify-start md:order-1 ${isCourseInnerPage ? "order-3" : "flex-1 order-1 justify-start"}`}>
               <button
                 className="group flex items-center justify-center gap-x-3 rounded-full transition-colors h-16"
                 onClick={() => setMobileOpen(!mobileOpen)}
@@ -114,40 +120,46 @@ export default function Navbar() {
                       }`}
                   />
                 </div>
-                <span className="text-sm font-medium transition-colors text-white/80 group-hover:text-white">
+                <span className="text-sm font-medium transition-colors text-white/80 group-hover:text-white hidden sm:inline">
                   Menu
                 </span>
               </button>
             </div>
 
             {/* Center: Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/" className="block relative transition-all duration-300 hover:opacity-80 h-20 w-[130px]">
-                <Image
-                  src="/logo/animated7.gif"
-                  alt="ADCB Consultancy Logo"
-                  width={180}
-                  height={120}
-                  style={{ width: "auto", height: "auto" }}
-                  className={`absolute inset-0 w-auto object-contain transition-all duration-300 h-20 ${showPng ? "opacity-0 pointer-events-none" : "opacity-100"
-                    }`}
-                  priority
-                />
+            <div className={`flex-shrink-0 md:order-2 md:flex-initial ${isCourseInnerPage ? "order-1 flex-1 flex justify-start" : "order-2"}`}>
+              <Link href="/" className="block relative transition-all duration-300 hover:opacity-80 h-14 w-[95px] sm:h-20 sm:w-[130px]">
+                {!isCourseInnerPage && (
+                  <Image
+                    src="/logo/animated7.gif"
+                    alt="ADCB Consultancy Logo"
+                    width={180}
+                    height={120}
+                    style={{ width: "auto", height: "auto" }}
+                    className={`absolute inset-0 w-auto object-contain transition-all duration-300 h-14 sm:h-20 ${showPng ? "opacity-0 pointer-events-none" : "opacity-100"
+                      }`}
+                    priority
+                  />
+                )}
                 <Image
                   src="/logo/logo-white4.png"
                   alt="ADCB Consultancy Logo"
                   width={180}
                   height={120}
                   style={{ width: "auto", height: "auto" }}
-                  className={`absolute inset-0 w-auto object-contain transition-all duration-300 h-20 ${showPng ? "opacity-100" : "opacity-0 pointer-events-none"
+                  className={`absolute inset-0 w-auto object-contain transition-all duration-300 h-14 sm:h-20 ${isCourseInnerPage ? "opacity-100" : (showPng ? "opacity-100" : "opacity-0 pointer-events-none")
                     }`}
                   priority
                 />
               </Link>
             </div>
 
-            {/* Right: Branch Dropdown */}
-            <div className="flex-1 flex justify-end">
+            {/* Right: MBBS State Selector + MDS Specialty Selector + Branch Dropdown */}
+            <div className={`flex items-center gap-1.5 sm:gap-3 md:flex-1 md:justify-end md:order-3 mr-4 ${isCourseInnerPage ? "order-2 justify-end" : "order-3 flex-1 justify-end"}`}>
+              <MbbsStateSelector />
+              <MdsSpecialtySelector />
+              <MdMsBranchSelector />
+
               <div
                 className="relative inline-block text-left"
                 onMouseEnter={() => setBranchDropdownOpen(true)}
@@ -156,11 +168,23 @@ export default function Navbar() {
                 <Button
                   onClick={() => setBranchDropdownOpen(!branchDropdownOpen)}
                   variant="ghost"
-                  className="rounded-full flex items-center gap-2 border border-white/20 bg-white/10 hover:bg-white/20 transition-all duration-300 text-white hover:shadow-white/5 active:scale-95"
+                  className="rounded-full flex items-center gap-1.5 sm:gap-2 border border-white/20 bg-white/10 hover:bg-white/20 transition-all duration-300 text-white hover:shadow-white/5 active:scale-95 max-sm:w-8 max-sm:h-8 max-sm:!p-0 max-sm:justify-center text-sm"
                 >
-                  <span>FIND AN ADCB BRANCH</span>
+                  <span className="hidden md:inline">FIND AN ADCB BRANCH</span>
+                  {/* Location Icon on Mobile */}
                   <svg
-                    className={`w-4 h-4 transition-transform duration-300 ${branchDropdownOpen ? "rotate-180" : ""}`}
+                    className="w-4 h-4 block md:hidden"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  {/* Dropdown Arrow on Desktop */}
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-300 ${branchDropdownOpen ? "rotate-180" : ""} hidden md:block`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

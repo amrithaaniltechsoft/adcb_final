@@ -115,8 +115,6 @@ export default function InternationalOpportunitiesPage() {
           description="Transform your career globally. Secure licensing guidance, exam preparation advice, and credential pathways for premier countries."
           imageSrc="/international-opportunities/banner.png"
           imageAlt="International Opportunities Banner"
-          buttonText="Explore Pathways"
-          buttonHref="#pathways-grid"
         />
 
         {/* Modular Grid Layout Section */}

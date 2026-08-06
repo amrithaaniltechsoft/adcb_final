@@ -60,17 +60,15 @@ export default function HeroSection() {
         </div>
 
         <div className="relative z-10 max-w-[1440px] mx-auto px-8 lg:px-20 w-full">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-20 md:pb-24 gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-12 md:pb-24 gap-6">
             {/* Left: Title */}
             <div
-              className={`transition-all duration-1000 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
+              className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                }`}
             >
               <h1
-                className={`font-[var(--font-outfit)] text-4xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight max-w-xl md:max-w-2xl transition-all duration-500 ${
-                  isAnimating ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
-                }`}
+                className={`font-[var(--font-outfit)] text-3xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight max-w-xl md:max-w-2xl transition-all duration-500 ${isAnimating ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+                  }`}
               >
                 {currentText}
               </h1>
@@ -78,14 +76,13 @@ export default function HeroSection() {
 
             {/* Right: Description & CTA Button */}
             <div
-              className={`text-left md:text-right transition-all duration-1000 delay-200 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
+              className={`text-left md:text-right transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                }`}
             >
               <p className="text-white/70 font-light max-w-sm mb-6 md:ml-auto">
                 Expert admission guidance for premier medical, dental, and management programs worldwide.
               </p>
-              <Button href="#courses" size="lg">
+              <Button href="#courses" size="md">
                 Explore Our Programs
               </Button>
             </div>

@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/Button";
+import ConsultationModal from "../ui/ConsultationModal";
 
 export default function PreFooterCTA() {
   const [isVisible, setIsVisible] = useState(false);
+  const [consultationOpen, setConsultationOpen] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -92,15 +94,20 @@ export default function PreFooterCTA() {
 
           {/* Right: CTA buttons aligned to the right end */}
           <div className="flex flex-wrap sm:flex-nowrap gap-4 items-center shrink-0">
-            <Button href="#enquiry" variant="primary" className="rounded-none whitespace-nowrap">
+            <Button onClick={() => setConsultationOpen(true)} variant="primary" className="rounded-none whitespace-nowrap">
               Book Free Consultation
             </Button>
-            <Button href="tel:+918012345678" variant="outlineWhite" className="rounded-none whitespace-nowrap">
+            <Button href="tel:+916282700600" variant="outlineWhite" className="rounded-none whitespace-nowrap">
               Call Us Now
             </Button>
           </div>
         </div>
       </div>
+
+      <ConsultationModal
+        isOpen={consultationOpen}
+        onClose={() => setConsultationOpen(false)}
+      />
     </section>
   );
 }

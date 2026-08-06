@@ -3,7 +3,7 @@ import Link from "next/link";
 type ButtonProps = {
     children: React.ReactNode;
     href?: string;
-    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (e: React.MouseEvent<HTMLElement>) => void;
     onBlur?: (e: React.FocusEvent<HTMLButtonElement>) => void;
     variant?: "primary" | "white" | "outlineWhite" | "black" | "outlineBlack" | "ghost";
     size?: "md" | "lg";
@@ -44,7 +44,7 @@ export function Button({
 
     if (href) {
         return (
-            <Link href={href} className={classes}>
+            <Link href={href} onClick={onClick} className={classes}>
                 {children}
             </Link>
         );

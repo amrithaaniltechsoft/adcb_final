@@ -58,7 +58,7 @@ export default function FeaturedUniversities() {
             Our Network
             <span className="w-8 h-[1px] bg-black" />
           </span>
-          <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-black">
+          <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-5xl font-medium tracking-tight leading-tight text-black">
             Featured
             <span className="font-semibold text-black"> Universities</span>
           </h2>

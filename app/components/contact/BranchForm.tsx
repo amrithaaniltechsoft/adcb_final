@@ -36,8 +36,8 @@ export default function BranchForm({ branch }: BranchFormProps) {
   };
 
   return (
-    <section id="form" className="py-20 bg-black text-white">
-      <div className="max-w-[800px] mx-auto px-8">
+    <section id="form" className="py-12 sm:py-20 bg-black text-white">
+      <div className="max-w-[800px] mx-auto px-4 sm:px-8">
         {/* Form Heading on Top, Content Below */}
         <div className="max-w-2xl mx-auto text-center mb-12">
           <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium mb-2">
@@ -45,7 +45,7 @@ export default function BranchForm({ branch }: BranchFormProps) {
             ADMISSION CONSULTATION
             <span className="w-8 h-[1px] bg-white/20" />
           </span>
-          <h2 className="font-[var(--font-outfit)] text-4xl font-semibold tracking-tight text-white mb-4">
+          <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-5xl font-semibold tracking-tight text-white mb-4">
             Inquire with
             <span className="font-semibold text-white"> this Branch</span>
           </h2>

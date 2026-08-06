@@ -12,16 +12,16 @@ interface BranchDetailsProps {
 
 export default function BranchDetails({ branch }: BranchDetailsProps) {
   return (
-    <section id="details" className="py-20 border-b border-zinc-900 bg-black text-white">
-      <div className="max-w-[1440px] mx-auto px-8 lg:px-20">
+    <section id="details" className="py-12 sm:py-20 border-b border-zinc-900 bg-black text-white">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-20">
         {/* Title on Top, Content Below */}
-        <div className="max-w-2xl mx-auto text-center mb-16">
+        <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-16">
           <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium mb-2">
             <span className="w-8 h-[1px] bg-white/20" />
             OFFICE LOCATION & DIRECTIONS
             <span className="w-8 h-[1px] bg-white/20" />
           </span>
-          <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-white">
+          <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-5xl font-medium tracking-tight leading-tight text-white">
             Our
             <span className="font-semibold text-white"> {branch.city} Presence</span>
           </h2>
@@ -55,7 +55,7 @@ export default function BranchDetails({ branch }: BranchDetailsProps) {
                     <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-1">
                       OFFICE ADDRESS
                     </h4>
-                    <p className="text-sm text-zinc-200 leading-relaxed font-normal">
+                    <p className="text-base text-zinc-200 leading-relaxed font-normal">
                       {branch.address}
                     </p>
                   </div>
@@ -74,7 +74,7 @@ export default function BranchDetails({ branch }: BranchDetailsProps) {
                       </h4>
                       <a
                         href={`tel:${branch.phone}`}
-                        className="text-sm text-zinc-200 font-semibold hover:text-white transition-colors"
+                        className="text-base text-zinc-200 font-semibold hover:text-white transition-colors"
                       >
                         {branch.phone}
                       </a>
@@ -95,7 +95,7 @@ export default function BranchDetails({ branch }: BranchDetailsProps) {
                       </h4>
                       <a
                         href={`mailto:${branch.email}`}
-                        className="text-sm text-zinc-200 font-semibold hover:text-white transition-colors"
+                        className="text-base text-zinc-200 font-semibold hover:text-white transition-colors"
                       >
                         {branch.email}
                       </a>
@@ -113,7 +113,7 @@ export default function BranchDetails({ branch }: BranchDetailsProps) {
                     <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-1">
                       WORKING HOURS
                     </h4>
-                    <p className="text-sm text-zinc-200">
+                    <p className="text-base text-zinc-200">
                       {branch.hours}
                     </p>
                   </div>

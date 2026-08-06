@@ -5,38 +5,30 @@ import Image from "next/image";
 const column1 = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Courses", href: "/courses" },
 ];
 
 const column2 = [
-  { label: "Universities", href: "/universities" },
   { label: "Blog & News", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
 ];
 
 const column3 = [
   { label: "MBBS", href: "/mbbs" },
-  { label: "MD / MS", href: "/courses/md-ms" },
-  { label: "MDS", href: "/mds" },
 ];
 
 const column4 = [
-  { label: "MBA", href: "/courses/mba" },
-  { label: "MTTM", href: "/courses/mttm" },
-  // { label: "Study Abroad", href: "/study-abroad" },
+  { label: "DNB", href: "/mbbs/tamil-nadu" },
 ];
 
 const column5 = [
-  { label: "Admission Guidance", href: "/services/admission" },
-  { label: "Career Counselling", href: "/services/counselling" },
-  { label: "International Licensing", href: "/services/licensing" },
+  { label: "MDS", href: "/mds/conservative-dentistry" },
 ];
 
 const column6 = [
-  { label: "Visa Assistance", href: "/services/visa" },
-  { label: "Brochure Download", href: "/brochure" },
-  { label: "Book Consultation", href: "/consultation" },
+  { label: "MD / MS", href: "/mbbs/tamil-nadu" },
 ];
+
+
 
 const socialLinks = [
   {
@@ -159,26 +151,6 @@ export default function Footer() {
             <span className="text-[11px] text-white/40 tracking-[0.1em] uppercase">
               © {currentYear} ADCB Consultancy
             </span>
-            <div className="flex gap-6">
-              <Link
-                href="/privacy"
-                className="text-[11px] text-white/40 hover:text-white transition-colors duration-300 tracking-[0.1em] uppercase"
-              >
-                Privacy
-              </Link>
-              <Link
-                href="/terms"
-                className="text-[11px] text-white/40 hover:text-white transition-colors duration-300 tracking-[0.1em] uppercase"
-              >
-                Terms
-              </Link>
-              <Link
-                href="/sitemap"
-                className="text-[11px] text-white/40 hover:text-white transition-colors duration-300 tracking-[0.1em] uppercase"
-              >
-                Sitemap
-              </Link>
-            </div>
           </div>
         </div>
       </div>

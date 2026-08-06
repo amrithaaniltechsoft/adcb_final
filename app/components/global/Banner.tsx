@@ -19,7 +19,7 @@ export default function Banner({
   buttonHref,
 }: BannerProps) {
   return (
-    <section className="relative h-[80vh] w-full bg-[#030303] overflow-hidden">
+    <section className="relative h-[70vh] md:h-[95vh] w-full bg-[#030303] overflow-hidden">
       {/* Banner Container */}
       <div className="relative w-full h-full flex items-end">
         {/* Background Image */}
@@ -36,18 +36,18 @@ export default function Banner({
         </div>
 
         <div className="relative z-10 max-w-[1440px] mx-auto px-8 lg:px-20 w-full animate-[fadeInUp_1s_ease-out]">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-20 md:pb-24 gap-6">
-            {/* Left: Title */}
+          <div className="flex flex-col items-start pb-12 md:pb-24 gap-6 max-w-3xl">
+            {/* Title */}
             <div>
-              <h1 className="font-[var(--font-outfit)] text-4xl md:text-5xl lg:text-7xl font-semibold text-white leading-tight max-w-xl md:max-w-2xl">
+              <h1 className="font-[var(--font-outfit)] text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight">
                 {title}
               </h1>
             </div>
 
-            {/* Right: Description & CTA Button */}
-            <div className="text-left md:text-right">
+            {/* Description & CTA Button */}
+            <div className="text-left">
               {description && (
-                <p className="text-white/90 font-light max-w-sm mb-6 md:ml-auto">
+                <p className="text-white/90 font-light text-base md:text-lg max-w-xl mb-6">
                   {description}
                 </p>
               )}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Button } from "../ui/Button";
 
 interface BannerProps {
   id?: string;
@@ -81,7 +80,7 @@ export default function PondicherryBanner({
   };
 
   return (
-    <section ref={bannerRef} id={id} className="relative h-[85vh] w-full bg-[#030303] overflow-hidden">
+    <section ref={bannerRef} id={id} className="relative h-[95vh] w-full bg-[#030303] overflow-hidden">
       {/* Banner Container */}
       <div className="relative w-full h-full flex items-end">
         {/* Background Video */}
@@ -154,13 +153,13 @@ export default function PondicherryBanner({
         </div>
 
         <div className="relative z-10 max-w-[1440px] mx-auto px-8 lg:px-20 w-full">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-20 md:pb-24 gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-12 md:pb-24 gap-6">
             {/* Left: Title */}
             <div
               className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
             >
-              <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight max-w-xl md:max-w-2xl">
+              <h2 className="font-[var(--font-outfit)] text-3xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight max-w-xl md:max-w-2xl">
                 {title}
               </h2>
             </div>
@@ -170,14 +169,9 @@ export default function PondicherryBanner({
               className={`text-left md:text-right transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
             >
-              <p className="text-white/70 font-light max-w-sm mb-6 md:ml-auto">
+              <p className="text-white/70 font-light max-w-sm md:ml-auto">
                 {description}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-start md:justify-end">
-                <Button href={buttonHref} size="lg">
-                  {buttonText}
-                </Button>
-              </div>
             </div>
           </div>
         </div>

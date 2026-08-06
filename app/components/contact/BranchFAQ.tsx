@@ -42,16 +42,16 @@ export default function BranchFAQ({ branch }: BranchFAQProps) {
   };
 
   return (
-    <section id="faq" className="py-20 bg-black text-white">
-      <div className="max-w-[900px] mx-auto px-8">
+    <section id="faq" className="py-12 sm:py-20 bg-black text-white">
+      <div className="max-w-[900px] mx-auto px-4 sm:px-8">
         {/* FAQ Heading Above, Content Below */}
-        <div className="max-w-2xl mx-auto text-center mb-16">
+        <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-16">
           <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium mb-2">
             <span className="w-8 h-[1px] bg-white/20" />
             HAVE QUESTIONS?
             <span className="w-8 h-[1px] bg-white/20" />
           </span>
-          <h2 className="font-[var(--font-outfit)] text-4xl font-semibold tracking-tight text-white mb-4">
+          <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-5xl font-semibold tracking-tight text-white mb-4">
             Frequently
             <span className="font-semibold text-white"> Asked Questions</span>
           </h2>

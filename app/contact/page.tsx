@@ -41,35 +41,33 @@ export default function ContactPage() {
           description="Have questions about MBBS or MDS admissions? Connect with our expert advisors at our regional branches."
           imageSrc="/page-banner/contact2.png"
           imageAlt="Contact ADCB Consultancy"
-          buttonText="Explore Branches"
-          buttonHref="#offices"
         />
 
         {/* Branch Selection Section */}
-        <section id="offices" className="py-20 bg-black text-white">
-          <div className="max-w-[1440px] mx-auto px-8 lg:px-20">
+        <section id="offices" className="py-12 sm:py-20 bg-black text-white">
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-20">
             {/* Header Style matching Home page */}
-            <div className="max-w-2xl mx-auto text-center mb-16">
+            <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-16">
               <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium mb-2">
                 <span className="w-8 h-[1px] bg-white/20" />
                 OUR PRESENCE
                 <span className="w-8 h-[1px] bg-white/20" />
               </span>
-              <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-white">
+              <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-5xl font-medium tracking-tight leading-tight text-white">
                 Select Your
                 <span className="font-semibold text-white"> Nearest Branch</span>
               </h2>
             </div>
 
             {/* Clean minimal branch selections */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            <div className="grid grid-cols-2 gap-4 sm:gap-8 max-w-3xl mx-auto">
               {branches.map((branch) => (
                 <Link
                   key={branch.slug}
                   href={`/contact/${branch.slug}`}
-                  className="group block text-center p-12 border border-zinc-400 hover:border-white transition-all duration-300 rounded-sm bg-zinc-950/20"
+                  className="group block text-center p-8 sm:p-12 border border-zinc-400 hover:border-white transition-all duration-300 rounded-sm bg-zinc-950/20"
                 >
-                  <h3 className="font-[var(--font-outfit)] text-2xl md:text-3xl font-semibold text-zinc-300 group-hover:text-white transition-colors duration-300">
+                  <h3 className="font-[var(--font-outfit)] text-xl sm:text-2xl md:text-3xl font-semibold text-zinc-300 group-hover:text-white transition-colors duration-300">
                     {branch.city}
                   </h3>
                   <span className="inline-block mt-3 text-xs tracking-widest text-zinc-300 group-hover:text-white transition-colors duration-300">

@@ -160,8 +160,8 @@ export const specialtiesData: Record<string, SpecialtyData> = {
         "Tax-efficient earnings",
         "Geographic proximity to India."
       ],
-      buttonText: "Consult UAE Pathway",
-      buttonHref: "#enquiry",
+      buttonText: "Contact Us",
+      buttonHref: "/contact",
       backgroundImageSrc: "/page-banner/uae-banner.jpg"
     }
   },
@@ -290,8 +290,8 @@ export const specialtiesData: Record<string, SpecialtyData> = {
         "Large expatriate patient base",
         "Simpler transition for Indian dentists"
       ],
-      buttonText: "Consult UAE Pathway",
-      buttonHref: "#enquiry",
+      buttonText: "Contact Us",
+      buttonHref: "/contact",
       backgroundImageSrc: "/page-banner/uae-banner.jpg",
       descriptionAfter: "If your goal is maximum long-term earnings and career growth, Australia, Canada, and the USA are often considered the strongest destinations, although the licensing pathway is more demanding."
     }
@@ -424,8 +424,8 @@ export const specialtiesData: Record<string, SpecialtyData> = {
         "Easier transition for Indian dentists",
         "Large private healthcare sector"
       ],
-      buttonText: "Consult UAE Pathway",
-      buttonHref: "#enquiry",
+      buttonText: "Contact Us",
+      buttonHref: "/contact",
       backgroundImageSrc: "/page-banner/uae-banner.jpg",
       descriptionAfter: "If your goal is maximum long-term career growth and earnings, USA, Australia, and Canada are often considered the best destinations for Prosthodontists, particularly those skilled in implantology and digital dentistry."
     }
@@ -560,8 +560,8 @@ export const specialtiesData: Record<string, SpecialtyData> = {
         "Tax-free income",
         "Relatively smoother transition for Indian dentists"
       ],
-      buttonText: "Consult UAE Pathway",
-      buttonHref: "#enquiry",
+      buttonText: "Contact Us",
+      buttonHref: "/contact",
       backgroundImageSrc: "/page-banner/uae-banner.jpg",
       descriptionAfter: "If your objective is maximum career growth, surgical exposure, and earnings, the USA, Australia, and Canada offer some of the strongest long-term opportunities, although their licensing pathways are more demanding."
     }
@@ -680,8 +680,8 @@ export const specialtiesData: Record<string, SpecialtyData> = {
         "Tax-free income.",
         "Easier transition for Indian dentists."
       ],
-      buttonText: "Consult UAE Pathway",
-      buttonHref: "#enquiry",
+      buttonText: "Contact Us",
+      buttonHref: "/contact",
       backgroundImageSrc: "/page-banner/uae-banner.jpg",
       descriptionAfter: "If your goal is maximum long-term earnings and career growth, USA, Australia, and Canada are among the strongest destinations, especially for Periodontists with expertise in implantology and regenerative procedures."
     }
@@ -802,8 +802,8 @@ export const specialtiesData: Record<string, SpecialtyData> = {
         "Attractive tax-free salaries",
         "Large expatriate population with growing healthcare needs"
       ],
-      buttonText: "Consult UAE Pathway",
-      buttonHref: "#enquiry",
+      buttonText: "Contact Us",
+      buttonHref: "/contact",
       backgroundImageSrc: "/page-banner/uae-banner.jpg",
       descriptionAfter: "If your goal is long-term career growth and specialization, USA, Canada, and Australia are generally considered the best destinations because Pediatric Dentistry is a highly recognized and well-developed specialty in these countries."
     }
@@ -902,8 +902,8 @@ export const specialtiesData: Record<string, SpecialtyData> = {
         "Demand for experienced dental specialists",
         "Tax-free income"
       ],
-      buttonText: "Consult UAE Pathway",
-      buttonHref: "#enquiry",
+      buttonText: "Contact Us",
+      buttonHref: "/contact",
       backgroundImageSrc: "/page-banner/uae-banner.jpg",
       descriptionAfter: "For long-term academic, diagnostic, and research careers, the USA, Australia, Canada, and the UK are often the strongest destinations because Oral Medicine and Oral Radiology are more established and recognized specialties there."
     }
@@ -1003,8 +1003,8 @@ export const specialtiesData: Record<string, SpecialtyData> = {
         "Excellent academic opportunities",
         "High specialist recognition"
       ],
-      buttonText: "Consult UAE Pathway",
-      buttonHref: "#enquiry",
+      buttonText: "Contact Us",
+      buttonHref: "/contact",
       backgroundImageSrc: "/page-banner/uae-banner.jpg",
       descriptionAfter: "For those seeking a balance of quality of life and career opportunities, Canada, Australia, and the UK are also excellent choices."
     }
@@ -1097,8 +1097,8 @@ export const specialtiesData: Record<string, SpecialtyData> = {
         "Excellent opportunities for research and leadership roles",
         "Better work-life balance"
       ],
-      buttonText: "Consult UAE Pathway",
-      buttonHref: "#enquiry",
+      buttonText: "Contact Us",
+      buttonHref: "/contact",
       backgroundImageSrc: "/page-banner/uae-banner.jpg"
     }
   }

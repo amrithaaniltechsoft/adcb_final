@@ -73,7 +73,7 @@ export default function BranchLocations() {
               Our Offices
               <span className="w-8 h-[1px] bg-white/20" />
             </span>
-            <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-white">
+            <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-5xl font-medium tracking-tight leading-tight text-white">
               Branch
               <span className="font-semibold text-white"> Locations</span>
             </h2>

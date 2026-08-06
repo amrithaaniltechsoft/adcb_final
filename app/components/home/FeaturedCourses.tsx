@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/Button";
 
 const courses = [
   {
@@ -18,14 +17,14 @@ const courses = [
     title: "Doctor of Medicine / Master of Surgery",
     description: "Advanced clinical specialisation across medical and surgical disciplines for physicians seeking mastery.",
     image: "/courses/md-ms.jpg",
-    href: "#enquiry",
+    href: "/mbbs/tamil-nadu",
   },
   {
     code: "MDS",
     title: "Master of Dental Surgery",
     description: "Premier dental specialisation covering nine clinical and non-clinical branches for dentistry excellence.",
     image: "/courses/mds.jpg",
-    href: "/mds",
+    href: "/mds/conservative-dentistry",
   },
   {
     code: "MBA",
@@ -85,7 +84,7 @@ export default function FeaturedCourses() {
             Academic Programs
             <span className="w-8 h-[1px] bg-white/20" />
           </span>
-          <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-medium tracking-tight leading-tight text-white">
+          <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-5xl font-medium tracking-tight leading-tight text-white">
             Featured
             <span className="font-semibold text-white"> Courses</span>
           </h2>
@@ -116,13 +115,13 @@ export default function FeaturedCourses() {
               {/* Content */}
               <div className="pt-8 flex flex-col flex-grow">
                 <div className="max-w-sm">
-                  <h3 className="font-[var(--font-outfit)] text-3xl font-bold tracking-tight text-white group-hover:text-[#ED1C24] transition-colors">
+                  <h3 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white group-hover:text-[#ED1C24] transition-colors">
                     {course.code}
                   </h3>
-                  <p className="text-[12px] tracking-[0.15em] uppercase text-white font-bold mt-1 mb-4">
+                  <p className="text-sm tracking-[0.15em] uppercase text-white font-bold mt-1 mb-4">
                     {course.title}
                   </p>
-                  <p className="text-sm text-white font-medium leading-relaxed mb-6 flex-grow">
+                  <p className="text-sm md:text-base text-white font-medium leading-relaxed mb-6 flex-grow">
                     {course.description}
                   </p>
                 </div>
@@ -131,12 +130,7 @@ export default function FeaturedCourses() {
           ))}
         </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-12">
-          <Button href="/courses" variant="black" size="lg">
-            View All Courses
-          </Button>
-        </div>
+
       </div>
     </section>
   );

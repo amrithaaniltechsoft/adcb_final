@@ -33,16 +33,16 @@ export default function InternationalGrid({
   return (
     <div className="bg-black text-white">
       {/* Grid Section */}
-      <section className="relative py-20 px-4 md:px-12 bg-black">
+      <section className="relative py-12 sm:py-20 px-4 sm:px-8 md:px-12 bg-black">
         <div className="max-w-[1440px] mx-auto z-10 relative">
           {/* Section Header */}
-          <div className="max-w-2xl mx-auto text-center mb-16">
+          <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-16">
             <span className="inline-flex items-center justify-center gap-3 text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium mb-3">
               <span className="w-8 h-[1px] bg-white/20" />
               GLOBAL SCOPE
               <span className="w-8 h-[1px] bg-white/20" />
             </span>
-            <h2 className="font-[var(--font-outfit)] text-4xl md:text-5xl font-light tracking-tight leading-tight text-white">
+            <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-5xl font-light tracking-tight leading-tight text-white">
               {title}
               <span className="font-semibold text-white"> {titleHighlight}</span>
             </h2>
@@ -85,7 +85,7 @@ export default function InternationalGrid({
                     {item.highlights.map((h, i) => (
                       <li
                         key={i}
-                        className="flex items-start gap-3 text-xs md:text-sm text-zinc-400 font-medium leading-relaxed"
+                        className="flex items-start gap-3 text-sm md:text-base text-zinc-400 font-medium leading-relaxed"
                       >
                         <span className="text-white/40 font-semibold flex-shrink-0 text-[13px] mt-0.5">✓</span>
                         <span>{h}</span>
@@ -118,10 +118,10 @@ export default function InternationalGrid({
             <h4 className="font-[var(--font-outfit)] text-2xl md:text-3xl font-bold tracking-tight text-white mb-3">
               {recommendation.title}
             </h4>
-            <p className="text-white/90 text-sm leading-relaxed max-w-2xl">
+            <p className="text-white/90 text-lg leading-relaxed max-w-2xl">
               {recommendation.description}
             </p>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-zinc-300 mt-4">
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-base md:text-lg text-zinc-300 mt-4">
               {recommendation.bullets.map((b, i) => (
                 <li key={i} className="flex items-center gap-2">
                   <span className="text-white/60">✓</span> {b}
