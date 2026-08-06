@@ -153,12 +153,6 @@ export default function InternationalPathways({
               --slide-half-width: 140px;
               --slide-total-width: 296px;
             }
-            @media (min-width: 480px) {
-              #international-carousel-track {
-                --slide-half-width: 160px;
-                --slide-total-width: 336px;
-              }
-            }
             @media (min-width: 640px) {
               #international-carousel-track {
                 --slide-half-width: 220px;
@@ -219,7 +213,7 @@ export default function InternationalPathways({
                       if (!isTransitioning) return;
                       setActiveIndex(index);
                     }}
-                    className={`flex-shrink-0 w-[280px] xs:w-[320px] sm:w-[440px] md:w-[500px] flex flex-col border-0 rounded-none cursor-pointer transition-all duration-700 ease-in-out group ${
+                    className={`flex-shrink-0 w-[280px] sm:w-[440px] md:w-[500px] flex flex-col border-0 rounded-none cursor-pointer transition-all duration-700 ease-in-out group ${
                       isActive ? "opacity-100 scale-[1.01]" : "opacity-40 scale-100"
                     }`}
                   >
