@@ -6,7 +6,26 @@ import Banner from "../../components/global/Banner";
 import { Button } from "../../components/ui/Button";
 import { notFound } from "next/navigation";
 import { mdmsBranchesData } from "./branchesData";
+import { mdmsGuideData } from "./mdmsGuideData";
 import ScrollAnimatedImage from "../../components/ui/ScrollAnimatedImage";
+import MdMsGuide from "../../components/ui/MdMsGuide";
+
+const mdmsStateSlugs = [
+  "tamil-nadu",
+  "kerala",
+  "karnataka",
+  "pondicherry",
+  "telangana",
+  "andhra-pradesh",
+  "haryana",
+  "punjab",
+  "himachal-pradesh",
+  "uttar-pradesh",
+  "bihar",
+  "chhattisgarh",
+  "west-bengal",
+  "uttarakhand",
+];
 
 export async function generateMetadata({
   params,
@@ -50,64 +69,66 @@ export default async function MdMsSlugPage({
           description={data.bannerDescription}
           imageSrc={data.bannerImage}
           imageAlt={data.title}
-          buttonText="Check Seat Availability"
-          buttonHref="#enquiry"
         />
 
-        <section id="overview" className="py-20 md:py-24 bg-black text-white">
-          <div className="max-w-5xl mx-auto px-6 lg:px-10">
-            <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-white mb-6">
-              {data.overviewTitle}
-            </h2>
-            <p className="text-zinc-300 text-base md:text-lg leading-relaxed">
-              {data.overviewContent}
-            </p>
+        {mdmsGuideData[slug] && <MdMsGuide slug={slug} />}
 
-            <div className="mt-10 grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="font-[var(--font-outfit)] text-xl font-semibold text-white mb-4">
-                  Key Highlights
-                </h3>
-                <ul className="space-y-3">
-                  {data.highlights.map((highlight) => (
-                    <li key={highlight} className="flex items-start gap-3 text-zinc-300">
-                      <svg
-                        className="w-5 h-5 text-[#ED1C24] flex-shrink-0 mt-0.5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        {!mdmsStateSlugs.includes(slug) && (
+          <section id="overview" className="py-20 md:py-24 bg-black text-white">
+            <div className="max-w-5xl mx-auto px-6 lg:px-10">
+              <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-white mb-6">
+                {data.overviewTitle}
+              </h2>
+              <p className="text-zinc-300 text-base md:text-lg leading-relaxed">
+                {data.overviewContent}
+              </p>
 
-              <div>
-                <h3 className="font-[var(--font-outfit)] text-xl font-semibold text-white mb-4">
-                  {data.previewTitle}
-                </h3>
-                <ul className="space-y-3">
-                  {data.previewPoints.map((point) => (
-                    <li key={point} className="flex items-start gap-3 text-zinc-300">
-                      <svg
-                        className="w-5 h-5 text-[#ED1C24] flex-shrink-0 mt-0.5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="mt-10 grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="font-[var(--font-outfit)] text-xl font-semibold text-white mb-4">
+                    Key Highlights
+                  </h3>
+                  <ul className="space-y-3">
+                    {data.highlights.map((highlight) => (
+                      <li key={highlight} className="flex items-start gap-3 text-zinc-300">
+                        <svg
+                          className="w-5 h-5 text-[#ED1C24] flex-shrink-0 mt-0.5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="font-[var(--font-outfit)] text-xl font-semibold text-white mb-4">
+                    {data.previewTitle}
+                  </h3>
+                  <ul className="space-y-3">
+                    {data.previewPoints.map((point) => (
+                      <li key={point} className="flex items-start gap-3 text-zinc-300">
+                        <svg
+                          className="w-5 h-5 text-[#ED1C24] flex-shrink-0 mt-0.5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <ScrollAnimatedImage
           variant="expand"
@@ -123,9 +144,11 @@ export default async function MdMsSlugPage({
                 <Button href="#enquiry" size="md">
                   Join Course Now
                 </Button>
-                <Button href="#overview" variant="outlineWhite" size="md">
-                  Learn More
-                </Button>
+                {!mdmsStateSlugs.includes(slug) && (
+                  <Button href="#overview" variant="outlineWhite" size="md">
+                    Learn More
+                  </Button>
+                )}
               </div>
             </div>
           </div>

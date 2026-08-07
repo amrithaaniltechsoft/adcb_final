@@ -8,6 +8,7 @@ import { Button } from "../ui/Button";
 import { statesData } from "../../mbbs/[slug]/statesData";
 import { specialtiesData } from "../../mds/[slug]/specialtiesData";
 import { mdmsBranchesData } from "../../md-ms/[slug]/branchesData";
+import { mdmsGuideData } from "../../md-ms/[slug]/mdmsGuideData";
 
 const stripHtml = (html?: string) =>
   html ? html.replace(/<br\s*\/?>/gi, " ").replace(/<[^>]+>/g, "") : null;
@@ -84,18 +85,20 @@ const courseDetails: Record<string, CourseDetails> = {
     href: "/md-ms",
     title: "Doctor of Medicine / Master of Surgery",
     subCategories: [
-      { shortTitle: "General Medicine", fullTitle: "MD General Medicine", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/general-medicine" },
-      { shortTitle: "Pediatrics", fullTitle: "MD Pediatrics", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/pediatrics" },
-      { shortTitle: "Dermatology", fullTitle: "MD Dermatology, Venereology & Leprosy", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/dermatology" },
-      { shortTitle: "Radiology", fullTitle: "MD Radiodiagnosis", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/radiology" },
-      { shortTitle: "Anaesthesiology", fullTitle: "MD Anaesthesiology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/anaesthesiology" },
-      { shortTitle: "Psychiatry", fullTitle: "MD Psychiatry", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/psychiatry" },
-      { shortTitle: "Pathology", fullTitle: "MD Pathology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/pathology" },
-      { shortTitle: "General Surgery", fullTitle: "MS General Surgery", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/general-surgery" },
-      { shortTitle: "Orthopaedics", fullTitle: "MS Orthopaedics", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/orthopaedics" },
-      { shortTitle: "Obstetrics & Gynaecology", fullTitle: "MS Obstetrics & Gynaecology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/obstetrics-gynaecology" },
-      { shortTitle: "ENT", fullTitle: "MS Otorhinolaryngology (ENT)", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/ent" },
-      { shortTitle: "Ophthalmology", fullTitle: "MS Ophthalmology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/ophthalmology" },
+      { shortTitle: "Kerala", fullTitle: "MD/MS in Kerala", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/kerala" },
+      { shortTitle: "Karnataka", fullTitle: "MD/MS in Karnataka", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/karnataka" },
+      { shortTitle: "Tamil Nadu", fullTitle: "MD/MS in Tamil Nadu", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/tamil-nadu" },
+      { shortTitle: "Andhra Pradesh", fullTitle: "MD/MS in Andhra Pradesh", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/andhra-pradesh" },
+      { shortTitle: "Telangana", fullTitle: "MD/MS in Telangana", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/telangana" },
+      { shortTitle: "Uttar Pradesh", fullTitle: "MD/MS in Uttar Pradesh", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/uttar-pradesh" },
+      { shortTitle: "Bihar", fullTitle: "MD/MS in Bihar", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/bihar" },
+      { shortTitle: "Chhattisgarh", fullTitle: "MD/MS in Chhattisgarh", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/chhattisgarh" },
+      { shortTitle: "Punjab", fullTitle: "MD/MS in Punjab", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/punjab" },
+      { shortTitle: "Haryana", fullTitle: "MD/MS in Haryana", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/haryana" },
+      { shortTitle: "Pondicherry", fullTitle: "MD/MS in Pondicherry", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/pondicherry" },
+      { shortTitle: "West Bengal", fullTitle: "MD/MS in West Bengal", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/west-bengal" },
+      { shortTitle: "Himachal Pradesh", fullTitle: "MD/MS in Himachal Pradesh", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/himachal-pradesh" },
+      { shortTitle: "Uttarakhand", fullTitle: "MD/MS in Uttarakhand", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/uttarakhand" },
     ],
   },
   DNB: {
@@ -181,14 +184,20 @@ export default function MobileMenu({
   const activePoints = activeSubCategory?.points || null;
   const activeHref = activeSubCategory?.href || (activeCourse && !showSubMenu ? courseDetails[activeCourse]?.href : null);
 
-  const stateSlug = activeSubCategory ? activeSubCategory.href.split("/").pop() : undefined;
-  const stateData = stateSlug ? statesData[stateSlug] : undefined;
-  const specialtyData = stateSlug && !stateData ? specialtiesData[stateSlug] : undefined;
-  const mdmsData = stateSlug && !stateData && !specialtyData ? mdmsBranchesData[stateSlug] : undefined;
+  const href = activeSubCategory?.href ?? "";
+  const stateSlug = href ? href.split("/").pop() : undefined;
+  const mdmsData = href.startsWith("/md-ms/") && stateSlug ? mdmsBranchesData[stateSlug] : undefined;
+  const stateData = href.startsWith("/mbbs/") && stateSlug ? statesData[stateSlug] : undefined;
+  const specialtyData = href.startsWith("/mds/") && stateSlug ? specialtiesData[stateSlug] : undefined;
+  const guideFirstSection = href.startsWith("/md-ms/") && stateSlug ? mdmsGuideData[stateSlug]?.[0] : undefined;
   const bannerTitle = stateData?.bannerTitle || mdmsData?.bannerTitle || activeTitle;
-  const previewSectionTitle = stateData?.previewTitle || (specialtyData || mdmsData ? "Key Focus Areas" : null);
-  const bannerDescription = activeDescription || (specialtyData ? stripHtml(specialtyData.overviewContent) : mdmsData ? stripHtml(mdmsData.overviewContent) : null);
+  const previewSectionTitle =
+    guideFirstSection?.label ||
+    stateData?.previewTitle ||
+    (specialtyData || mdmsData ? "Key Focus Areas" : null);
+  const bannerDescription = guideFirstSection ? null : (activeDescription || (specialtyData ? stripHtml(specialtyData.overviewContent) : mdmsData ? stripHtml(mdmsData.overviewContent) : null));
   const bannerPoints =
+    guideFirstSection?.questions ||
     stateData?.previewPoints ||
     specialtyData?.specialties?.[0]?.highlights ||
     specialtyData?.middleBanner?.points ||
