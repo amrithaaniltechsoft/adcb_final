@@ -17,7 +17,7 @@ const column3 = [
 ];
 
 const column4 = [
-  { label: "DNB", href: "/mbbs/tamil-nadu" },
+  { label: "DNB", href: "/dnb" },
 ];
 
 const column5 = [

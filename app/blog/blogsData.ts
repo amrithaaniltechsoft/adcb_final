@@ -37,7 +37,7 @@ export const blogsData: BlogPost[] = [
       <li>Category Certificate (SC/ST/OBC/EWS, if applicable)</li>
       <li>Domicile/Nativity Certificate (for state quota seats)</li>
       <li>Transfer Certificate (TC) & Migration Certificate</li>
-      <li>Recent passport-size photographs (matching the NEET application form)</li>
+      <li>Recent passport-size photographs(matching the NEET application form)</li>
     </ul>
 
     <h3>3. Choice Filling Strategy</h3>

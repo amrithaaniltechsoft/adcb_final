@@ -17,7 +17,7 @@ const navLinks = [
   { label: "MBBS", href: "/mbbs" },
   { label: "MDS", href: "/mds" },
   { label: "MD/MS", href: "/#international" },
-  { label: "DNB", href: "/#dnd" },
+  { label: "DNB", href: "/dnb" },
   { label: "International Opportunities", href: "/international-opportunities" },
   { label: "Contact", href: "/contact" },
 ];
@@ -53,7 +53,7 @@ const useTypingAnimation = (words: string[], typeSpeed = 100, deleteSpeed = 50, 
 
 export default function Navbar() {
   const pathname = usePathname();
-  const isCourseInnerPage = pathname.startsWith("/mbbs") || pathname.startsWith("/mds") || pathname.startsWith("/md-ms");
+  const isCourseInnerPage = pathname.startsWith("/mbbs") || pathname.startsWith("/mds") || pathname.startsWith("/md-ms") || pathname.startsWith("/dnb");
 
   const [visible, setVisible] = useState(true);
   const [atTop, setAtTop] = useState(true);

@@ -104,22 +104,8 @@ const courseDetails: Record<string, CourseDetails> = {
   DNB: {
     video: "/banner/md.mp4",
     image: "/courses/md-ms.jpg",
-    href: "/md-ms",
+    href: "/dnb",
     title: "Diplomate of National Board",
-    subCategories: [
-      { shortTitle: "General Medicine", fullTitle: "MD General Medicine", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/general-medicine" },
-      { shortTitle: "Pediatrics", fullTitle: "MD Pediatrics", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/pediatrics" },
-      { shortTitle: "Dermatology", fullTitle: "MD Dermatology, Venereology & Leprosy", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/dermatology" },
-      { shortTitle: "Radiology", fullTitle: "MD Radiodiagnosis", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/radiology" },
-      { shortTitle: "Anaesthesiology", fullTitle: "MD Anaesthesiology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/anaesthesiology" },
-      { shortTitle: "Psychiatry", fullTitle: "MD Psychiatry", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/psychiatry" },
-      { shortTitle: "Pathology", fullTitle: "MD Pathology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/pathology" },
-      { shortTitle: "General Surgery", fullTitle: "MS General Surgery", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/general-surgery" },
-      { shortTitle: "Orthopaedics", fullTitle: "MS Orthopaedics", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/orthopaedics" },
-      { shortTitle: "Obstetrics & Gynaecology", fullTitle: "MS Obstetrics & Gynaecology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/obstetrics-gynaecology" },
-      { shortTitle: "ENT", fullTitle: "MS Otorhinolaryngology (ENT)", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/ent" },
-      { shortTitle: "Ophthalmology", fullTitle: "MS Ophthalmology", video: "/banner/md.mp4", image: "/courses/md-ms.jpg", href: "/md-ms/ophthalmology" },
-    ],
   },
 };
 
@@ -298,9 +284,14 @@ export default function MobileMenu({
                       e.preventDefault();
                       setMobileOpen(false);
                     } else if (isCourse) {
-                      // Course menu opens its sub-menu — never navigates away
-                      e.preventDefault();
-                      handleCourseClick(link.label);
+                      // Courses with sub-categories open their sub-menu — never navigate away
+                      if (courseDetails[link.label]?.subCategories?.length) {
+                        e.preventDefault();
+                        handleCourseClick(link.label);
+                      } else {
+                        // Courses without sub-categories (e.g. DNB) go straight to their page
+                        setMobileOpen(false);
+                      }
                     } else {
                       setMobileOpen(false);
                     }
