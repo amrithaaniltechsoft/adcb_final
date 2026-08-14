@@ -5,9 +5,9 @@ import WhatsAppButton from "../components/global/WhatsAppButton";
 import Banner from "../components/global/Banner";
 import ScrollAnimatedImage from "../components/ui/ScrollAnimatedImage";
 
-const API_BASE_URL = process.env.ADCB_API_URL ?? "https://insighthealthservices.co.uk";
+const API_BASE_URL = process.env.ADCB_API_URL ?? "https://insighthealthservices.co.uk/";
 
-const fallbackDnbSpecialties = [
+/*const fallbackDnbSpecialties = [
   "ANAESTHESIOLOGY",
   "ANATOMY",
   "BIOCHEMISTRY",
@@ -41,7 +41,7 @@ const fallbackDnbSpecialties = [
   "RADIO-DIAGNOSIS",
   "RESPIRATORY MEDICINE",
   "TUBERCULOSIS AND CHEST DISEASES",
-];
+];*/
 
 const fallbackBanner = {
   title: "DNB Specialties",
