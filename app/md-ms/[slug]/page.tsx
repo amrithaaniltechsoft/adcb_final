@@ -10,8 +10,7 @@ import ScrollAnimatedImage from "../../components/ui/ScrollAnimatedImage";
 import MdMsGuide from "../../components/ui/MdMsGuide";
 import JoinCourseCta from "../../components/ui/JoinCourseCta";
 import { getSeoMeta } from "@/lib/seo";
-
-const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+import API_BASE_URL from "@/lib/apiUrl";
 
 const mdmsStateSlugs = [
   "tamil-nadu",

@@ -5,6 +5,7 @@ import WhatsAppButton from "../components/global/WhatsAppButton";
 import Banner from "../components/global/Banner";
 import InternationalGrid, { type CountryItem } from "../components/home/InternationalGrid";
 import { buildSeoMetadata } from "@/lib/seo";
+import API_BASE_URL from "@/lib/apiUrl";
 
 export async function generateMetadata() {
   return buildSeoMetadata(
@@ -108,8 +109,6 @@ const recommendationData = {
   buttonHref: "/contact",
   backgroundImageSrc: "/page-banner/uae-banner.jpg",
 };
-
-const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
 
 interface ApiOpportunity {
   slug: string;

@@ -12,8 +12,7 @@ import { notFound } from "next/navigation";
 import { specialtiesData, type MiddleBannerData, type SpecialtyItem, type CountryItem, type RecommendationData } from "./specialtiesData";
 import MdsSpecialtiesCarousel from "../../components/ui/MdsSpecialtiesCarousel";
 import { getSeoMeta } from "@/lib/seo";
-
-const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+import API_BASE_URL from "@/lib/apiUrl";
 
 interface ApiMdsContent {
   slug: string;

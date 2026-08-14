@@ -1,4 +1,4 @@
-const SEO_API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+import SEO_API_BASE_URL from "@/lib/apiUrl";
 
 export interface SeoMeta {
   page_name: string;

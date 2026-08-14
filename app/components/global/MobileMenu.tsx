@@ -13,7 +13,7 @@ import { mdmsGuideData } from "../../md-ms/[slug]/mdmsGuideData";
 const stripHtml = (html?: string) =>
   html ? html.replace(/<br\s*\/?>/gi, " ").replace(/<[^>]+>/g, "") : null;
 
-const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+import API_BASE_URL from "@/lib/apiUrl";
 
 const slugify = (name: string) =>
   name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");

@@ -19,8 +19,7 @@ import MbbsPunjabGuide from "../../components/ui/MbbsPunjabGuide";
 import MbbsHimachalGuide from "../../components/ui/MbbsHimachalGuide";
 import MbbsUttarPradeshGuide from "../../components/ui/MbbsUttarPradeshGuide";
 import MbbsBiharGuide from "../../components/ui/MbbsBiharGuide";
-
-const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+import API_BASE_URL from "@/lib/apiUrl";
 
 interface ApiMbbsContent {
   state: string;

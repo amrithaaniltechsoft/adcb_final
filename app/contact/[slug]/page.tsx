@@ -9,6 +9,7 @@ import BranchMap from "../../components/contact/BranchMap";
 import BranchForm from "../../components/contact/BranchForm";
 import BranchFAQ from "../../components/contact/BranchFAQ";
 import { buildSeoMetadata } from "@/lib/seo";
+import API_BASE_URL from "@/lib/apiUrl";
 
 interface BranchDetailsData {
   city: string;
@@ -38,7 +39,6 @@ const branchData: Record<string, BranchDetailsData> = {
   }
 };
 
-const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
 
 interface ApiBranch {
   slug: string;
