@@ -9,12 +9,13 @@ interface BranchFAQProps {
     email: string;
     hours: string;
   };
+  faqs?: Array<{ question: string; answer: string }>;
 }
 
-export default function BranchFAQ({ branch }: BranchFAQProps) {
+export default function BranchFAQ({ branch, faqs = [] }: BranchFAQProps) {
   const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(null);
 
-  const faqs = [
+  const defaultFaqs = [
     {
       question: `How do I schedule a consultation at the ${branch.city} branch?`,
       answer: `You can schedule a consultation by calling our ${branch.city} team at ${branch.phone}, emailing us at ${branch.email}, or by submitting the inquiry form below. Our academic counselors will get back to you within 24 hours.`,
@@ -36,6 +37,8 @@ export default function BranchFAQ({ branch }: BranchFAQProps) {
       answer: "Our initial evaluation and counseling session is free of charge. We will assess your profile and discuss options tailored to your eligibility and career goals.",
     },
   ];
+
+  const effectiveFaqs = faqs.length > 0 ? faqs : defaultFaqs;
 
   const toggleFAQ = (index: number) => {
     setOpenFAQIndex((prev) => (prev === index ? null : index));
@@ -59,7 +62,7 @@ export default function BranchFAQ({ branch }: BranchFAQProps) {
 
         {/* FAQ Accordion Content Below */}
         <div className="space-y-4">
-          {faqs.map((faq, index) => {
+          {effectiveFaqs.map((faq, index) => {
             const isOpen = openFAQIndex === index;
             return (
               <div

@@ -9,6 +9,8 @@ type MdStreamKey = "MD/MS" | "DNB";
 interface ConsultationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialCourse?: CourseKey;
+  lockedCourse?: CourseKey;
 }
 
 const courses: { key: CourseKey; label: string }[] = [
@@ -106,8 +108,8 @@ function SelectField({
   );
 }
 
-export default function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
-  const [selectedCourse, setSelectedCourse] = useState<CourseKey>("MBBS");
+export default function ConsultationModal({ isOpen, onClose, initialCourse = "MBBS", lockedCourse }: ConsultationModalProps) {
+  const [selectedCourse, setSelectedCourse] = useState<CourseKey>(lockedCourse ?? initialCourse);
   const [mdStream, setMdStream] = useState<MdStreamKey>("MD/MS");
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -150,9 +152,8 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
       <TextField name="candidateName" label="Candidate Name" value={formData.candidateName ?? ""} onChange={handleChange} placeholder="Full name" />
       <TextField name="contactNumber" label="Contact Number" value={formData.contactNumber ?? ""} onChange={handleChange} placeholder="Phone number" />
-      <div className="sm:col-span-2">
-        <TextField name="locationCity" label="Location/City" value={formData.locationCity ?? ""} onChange={handleChange} placeholder="City, State" />
-      </div>
+      <SelectField name="branch" label="Branch" value={formData.branch ?? ""} onChange={handleChange} options={["Kochi", "Calicut"]} placeholder="Select branch" />
+      <TextField name="locationCity" label="Location/City" value={formData.locationCity ?? ""} onChange={handleChange} placeholder="City, State" />
     </div>
   );
 
@@ -219,20 +220,22 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
         </div>
 
         {/* Course Selector */}
-        <div className="flex flex-wrap gap-2 px-6 pt-5">
-          {courses.map((course) => (
-            <button
-              key={course.key}
-              onClick={() => setSelectedCourse(course.key)}
-              className={`px-5 py-2.5 text-sm font-semibold rounded-full border transition-all duration-300 ${selectedCourse === course.key
-                ? "bg-[#ED1C24] border-[#ED1C24] text-white"
-                : "border-white/20 text-white/70 hover:text-white hover:border-white/40"
-                }`}
-            >
-              {course.label}
-            </button>
-          ))}
-        </div>
+        {!lockedCourse && (
+          <div className="flex flex-wrap gap-2 px-6 pt-5">
+            {courses.map((course) => (
+              <button
+                key={course.key}
+                onClick={() => setSelectedCourse(course.key)}
+                className={`px-5 py-2.5 text-sm font-semibold rounded-full border transition-all duration-300 ${selectedCourse === course.key
+                  ? "bg-[#ED1C24] border-[#ED1C24] text-white"
+                  : "border-white/20 text-white/70 hover:text-white hover:border-white/40"
+                  }`}
+              >
+                {course.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Form Area */}
         <div className="px-6 py-6 max-h-[65vh] overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/20 hover:scrollbar-thumb-white/30">

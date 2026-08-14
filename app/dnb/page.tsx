@@ -5,56 +5,124 @@ import WhatsAppButton from "../components/global/WhatsAppButton";
 import Banner from "../components/global/Banner";
 import ScrollAnimatedImage from "../components/ui/ScrollAnimatedImage";
 
-const dnbSpecialties = [
+const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+
+const fallbackDnbSpecialties = [
   "ANAESTHESIOLOGY",
-  "Anatomy",
+  "ANATOMY",
   "BIOCHEMISTRY",
   "COMMUNITY MEDICINE",
-  "Cardio Vascular & Thoracic Surgery (Direct 6 Years Course)",
-  "DERMATOLOGY and VENEREOLOGY and LEPROSY",
-  "Emergency Medicine",
+  "CARDIO VASCULAR & THORACIC SURGERY (DIRECT 6 YEARS COURSE)",
+  "DERMATOLOGY AND VENEREOLOGY AND LEPROSY",
+  "EMERGENCY MEDICINE",
   "FAMILY MEDICINE",
   "FORENSIC MEDICINE",
   "GENERAL MEDICINE",
   "GENERAL SURGERY",
-  "Hospital Administration",
-  "IMMUNO- HAEMATOLOGY AND BLOOD TRANSFUSION",
+  "HOSPITAL ADMINISTRATION",
+  "IMMUNO-HAEMATOLOGY AND BLOOD TRANSFUSION",
   "MICROBIOLOGY",
   "NUCLEAR MEDICINE",
-  "Neuro Surgery (Direct 6 Years Course)",
+  "NEURO SURGERY (DIRECT 6 YEARS COURSE)",
   "OPHTHALMOLOGY",
   "ORTHOPAEDICS",
-  "Obstetrics and Gynaecology",
-  "Otorhinolaryngology (E.N.T.)",
+  "OBSTETRICS AND GYNAECOLOGY",
+  "OTORHINOLARYNGOLOGY (E.N.T.)",
   "PAEDIATRICS",
   "PATHOLOGY",
   "PHARMACOLOGY",
-  "PHYSICAL MED. and REHABILITATION",
+  "PHYSICAL MED. AND REHABILITATION",
   "PHYSIOLOGY",
   "PSYCHIATRY",
-  "Paediatric Surgery (Direct 6 Years Course)",
-  "Palliative Medicine",
-  "Plastic & Reconstructive Surgery (Direct 6 Years Course)",
+  "PAEDIATRIC SURGERY (DIRECT 6 YEARS COURSE)",
+  "PALLIATIVE MEDICINE",
+  "PLASTIC & RECONSTRUCTIVE SURGERY (DIRECT 6 YEARS COURSE)",
   "RADIATION ONCOLOGY",
   "RADIO-DIAGNOSIS",
-  "Respiratory Medicine",
-  "Tuberculosis and CHEST DISEASES",
+  "RESPIRATORY MEDICINE",
+  "TUBERCULOSIS AND CHEST DISEASES",
 ];
 
-export const metadata = {
-  title: "DNB Specialties | PG Medical Admissions | ADCB Consultancy",
+const fallbackBanner = {
+  title: "DNB Specialties",
   description:
-    "Complete guide to DNB (Diplomate of National Board) specialties — the full list of broad and super-specialty courses, eligibility, and expert counselling guidance.",
+    "Explore the complete list of DNB (Diplomate of National Board) specialties for PG medical admissions across India.",
 };
 
-export default function DnbPage() {
+const fallbackIntro = {
+  title: "Available Specialties",
+  description:
+    "DNB courses are offered by the National Board of Examinations (NBE) in medical institutions and hospitals recognised for PG training across the country.",
+};
+
+interface ApiDnbContent {
+  banner_title: string | null;
+  banner_description: string | null;
+  intro_title: string | null;
+  intro_description: string | null;
+  specialties: string[] | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  meta_keywords: string | null;
+}
+
+async function getDnbContent(): Promise<ApiDnbContent | null> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/dnb`, { cache: "no-store" });
+    if (!res.ok) return null;
+    const json = await res.json();
+    if (!json.data) return null;
+    return json.data as ApiDnbContent;
+  } catch {
+    return null;
+  }
+}
+
+export async function generateMetadata() {
+  const apiContent = await getDnbContent();
+
+  const metaTitle =
+    apiContent?.meta_title ||
+    "DNB Specialties | PG Medical Admissions | ADCB Consultancy";
+  const metaDescription =
+    apiContent?.meta_description ||
+    "Complete guide to DNB (Diplomate of National Board) specialties — the full list of broad and super-specialty courses, eligibility, and expert counselling guidance.";
+  const metaKeywords =
+    apiContent?.meta_keywords ||
+    "DNB admission, DNB specialities, DNB counselling, postgraduate medical";
+
+  return {
+    title: metaTitle,
+    description: metaDescription,
+    keywords: metaKeywords,
+    openGraph: {
+      title: metaTitle,
+      description: metaDescription,
+      type: "website",
+    },
+  };
+}
+
+export default async function DnbPage() {
+  const apiContent = await getDnbContent();
+
+  const specialties = apiContent?.specialties?.length ? apiContent.specialties : fallbackDnbSpecialties;
+  const banner = {
+    title: apiContent?.banner_title || fallbackBanner.title,
+    description: apiContent?.banner_description || fallbackBanner.description,
+  };
+  const intro = {
+    title: apiContent?.intro_title || fallbackIntro.title,
+    description: apiContent?.intro_description || fallbackIntro.description,
+  };
+
   return (
     <>
       <Navbar />
       <main className="relative z-20 bg-black shadow-[0_15px_30px_rgba(0,0,0,0.5)] min-h-screen flex flex-col">
         <Banner
-          title="DNB Specialties"
-          description="Explore the complete list of DNB (Diplomate of National Board) specialties for PG medical admissions across India."
+          title={banner.title}
+          description={banner.description}
           imageSrc="/courses/md-ms.jpg"
           imageAlt="DNB Admissions"
         />
@@ -62,13 +130,13 @@ export default function DnbPage() {
         <section className="py-20 md:py-24 bg-black text-white">
           <div className="max-w-5xl mx-auto px-6 lg:px-10">
             <h2 className="font-[var(--font-outfit)] text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4">
-              Available Specialties
+              {intro.title}
             </h2>
             <p className="text-zinc-400 text-base md:text-lg leading-relaxed mb-10 max-w-3xl">
-              DNB courses are offered by the National Board of Examinations (NBE) in medical institutions and hospitals recognised for PG training across the country.
+              {intro.description}
             </p>
             <div className="grid md:grid-cols-2 gap-4">
-              {dnbSpecialties.map((specialty, index) => (
+              {specialties.map((specialty, index) => (
                 <div
                   key={specialty}
                   className="flex items-start gap-4 p-5 bg-white/5 rounded-lg border border-white/10 hover:border-[#ED1C24]/30 transition-colors"

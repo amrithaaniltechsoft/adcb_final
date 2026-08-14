@@ -13,6 +13,11 @@ import { mdmsGuideData } from "../../md-ms/[slug]/mdmsGuideData";
 const stripHtml = (html?: string) =>
   html ? html.replace(/<br\s*\/?>/gi, " ").replace(/<[^>]+>/g, "") : null;
 
+const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+
+const slugify = (name: string) =>
+  name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
 interface NavLink {
   label: string;
   href: string;
@@ -42,7 +47,7 @@ interface CourseDetails {
   subCategories?: SubCategory[];
 }
 
-const courseDetails: Record<string, CourseDetails> = {
+const hardcodedCourseDetails: Record<string, CourseDetails> = {
   MBBS: {
     video: "/banner/mbbs.mp4",
     image: "/courses/mbbs.jpg",
@@ -118,6 +123,88 @@ export default function MobileMenu({
   const [activeCourse, setActiveCourse] = useState<string | null>(null); // e.g. 'MDS'
   const [activeSubCategory, setActiveSubCategory] = useState<SubCategory | null>(null);
   const [showSubMenu, setShowSubMenu] = useState(false);
+  const [apiCourses, setApiCourses] = useState<{ name: string }[] | null>(null);
+  const [apiMbbsStates, setApiMbbsStates] = useState<{
+    state: string;
+    slug: string;
+    banner_title: string | null;
+    banner_description: string | null;
+    preview_title: string | null;
+    preview_points: string[] | null;
+  }[] | null>(null);
+  const [apiMdmsContents, setApiMdmsContents] = useState<{
+    state: string;
+    slug: string;
+    banner_title: string | null;
+    banner_description: string | null;
+    preview_title: string | null;
+    preview_points: string[] | null;
+  }[] | null>(null);
+  const [apiMdsContents, setApiMdsContents] = useState<{
+    slug: string;
+    title: string;
+    banner_title: string | null;
+    banner_description: string | null;
+    overview_content: string | null;
+    preview_title: string | null;
+    preview_points: string[] | null;
+  }[] | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch(`${API_BASE_URL}/api/v1/courses`, { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (cancelled) return;
+        if (json && Array.isArray(json.data) && json.data.length > 0) {
+          setApiCourses(json.data);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setApiCourses(null);
+      });
+
+    fetch(`${API_BASE_URL}/api/v1/mbbs-states`, { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (cancelled) return;
+        if (json && Array.isArray(json.data) && json.data.length > 0) {
+          setApiMbbsStates(json.data);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setApiMbbsStates(null);
+      });
+
+    fetch(`${API_BASE_URL}/api/v1/mdms`, { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (cancelled) return;
+        if (json && Array.isArray(json.data) && json.data.length > 0) {
+          setApiMdmsContents(json.data);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setApiMdmsContents(null);
+      });
+
+    fetch(`${API_BASE_URL}/api/v1/mds`, { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (cancelled) return;
+        if (json && Array.isArray(json.data) && json.data.length > 0) {
+          setApiMdsContents(json.data);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setApiMdsContents(null);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Close menu when navigating to the same page the user is already on
   const handleLinkClick = (href: string, fallback?: () => void) => {
@@ -163,6 +250,36 @@ export default function MobileMenu({
     // Keep activeCourse to show the main menu again
   };
 
+  const courseDetails: Record<string, CourseDetails> = apiMbbsStates
+    ? {
+        ...hardcodedCourseDetails,
+        MBBS: {
+          ...hardcodedCourseDetails.MBBS,
+          subCategories: apiMbbsStates.map((state) => ({
+            shortTitle: state.state,
+            fullTitle: `MBBS in ${state.state}`,
+            video: hardcodedCourseDetails.MBBS.video,
+            image: hardcodedCourseDetails.MBBS.image,
+            href: `/mbbs/${state.slug}`,
+          })),
+        },
+      }
+    : hardcodedCourseDetails;
+
+  const staticLinks = navLinks.filter((link) => !courseDetails[link.label]);
+  const fallbackCourseLinks = navLinks.filter((link) => courseDetails[link.label]);
+  const courseLinks = apiCourses
+    ? fallbackCourseLinks.map((link) => {
+        const course = apiCourses.find((c) => c.name === link.label);
+        return {
+          label: link.label,
+          href: course ? (courseDetails[course.name]?.href ?? "/" + slugify(course.name)) : link.href,
+        };
+      })
+    : fallbackCourseLinks;
+
+  const menuLinks = [...staticLinks.slice(0, 1), ...courseLinks, ...staticLinks.slice(1)];
+
   const activeVideo = activeSubCategory?.video || (activeCourse ? courseDetails[activeCourse]?.video : null);
   const activeImage = activeSubCategory?.image || (activeCourse && !showSubMenu ? courseDetails[activeCourse]?.image : null);
   const activeTitle = activeSubCategory?.fullTitle || (activeCourse && !showSubMenu ? courseDetails[activeCourse]?.title : null);
@@ -174,17 +291,46 @@ export default function MobileMenu({
   const stateSlug = href ? href.split("/").pop() : undefined;
   const mdmsData = href.startsWith("/md-ms/") && stateSlug ? mdmsBranchesData[stateSlug] : undefined;
   const stateData = href.startsWith("/mbbs/") && stateSlug ? statesData[stateSlug] : undefined;
+  const apiStateData = href.startsWith("/mbbs/") && stateSlug
+    ? apiMbbsStates?.find((state) => state.slug === stateSlug)
+    : undefined;
+  const apiMdmsData = href.startsWith("/md-ms/") && stateSlug
+    ? apiMdmsContents?.find((state) => state.slug === stateSlug)
+    : undefined;
   const specialtyData = href.startsWith("/mds/") && stateSlug ? specialtiesData[stateSlug] : undefined;
+  const apiMdsData = href.startsWith("/mds/") && stateSlug
+    ? apiMdsContents?.find((specialty) => specialty.slug === stateSlug)
+    : undefined;
   const guideFirstSection = href.startsWith("/md-ms/") && stateSlug ? mdmsGuideData[stateSlug]?.[0] : undefined;
-  const bannerTitle = stateData?.bannerTitle || mdmsData?.bannerTitle || activeTitle;
+  const bannerTitle =
+    apiStateData?.banner_title ||
+    stateData?.bannerTitle ||
+    apiMdmsData?.banner_title ||
+    mdmsData?.bannerTitle ||
+    apiMdsData?.title ||
+    apiMdsData?.banner_title ||
+    specialtyData?.bannerTitle ||
+    activeTitle;
   const previewSectionTitle =
+    apiMdmsData?.preview_title ||
     guideFirstSection?.label ||
+    apiStateData?.preview_title ||
     stateData?.previewTitle ||
+    apiMdsData?.preview_title ||
     (specialtyData || mdmsData ? "Key Focus Areas" : null);
-  const bannerDescription = guideFirstSection ? null : (activeDescription || (specialtyData ? stripHtml(specialtyData.overviewContent) : mdmsData ? stripHtml(mdmsData.overviewContent) : null));
+  const bannerDescription =
+    apiMdmsData?.banner_description ||
+    (href.startsWith("/mds/") ? (apiMdsData?.overview_content ? stripHtml(apiMdsData.overview_content) : apiMdsData?.banner_description) : null) ||
+    (href.startsWith("/mbbs/")
+      ? null
+      : guideFirstSection
+        ? null
+        : (activeDescription || (specialtyData ? stripHtml(specialtyData.overviewContent) : mdmsData ? stripHtml(mdmsData.overviewContent) : null)));
   const bannerPoints =
-    guideFirstSection?.questions ||
+    (apiMdmsData?.preview_points?.length ? apiMdmsData.preview_points : guideFirstSection?.questions) ||
+    apiStateData?.preview_points?.filter(Boolean) ||
     stateData?.previewPoints ||
+    (apiMdsData?.preview_points?.length ? apiMdsData.preview_points : null) ||
     specialtyData?.specialties?.[0]?.highlights ||
     specialtyData?.middleBanner?.points ||
     mdmsData?.highlights ||
@@ -272,7 +418,7 @@ export default function MobileMenu({
             </div>
           ) : (
             // Main menu view
-            navLinks.map((link, index) => {
+            menuLinks.map((link, index) => {
               const isCourse = !!courseDetails[link.label];
               return (
                 <a
@@ -301,7 +447,7 @@ export default function MobileMenu({
                   style={{
                     transitionDelay: mobileOpen
                       ? `${index * 100}ms`
-                      : `${(navLinks.length - 1 - index) * 60}ms`,
+                      : `${(menuLinks.length - 1 - index) * 60}ms`,
                   }}
                 >
                   <span className={`font-medium text-xl transition-colors text-right ${activeCourse === link.label && !showSubMenu ? "text-white" : "text-white/40 group-hover:text-white"

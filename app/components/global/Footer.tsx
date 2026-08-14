@@ -25,7 +25,7 @@ const column5 = [
 ];
 
 const column6 = [
-  { label: "MD / MS", href: "/mbbs/tamil-nadu" },
+  { label: "MD / MS", href: "/md-ms/kerala" },
 ];
 
 

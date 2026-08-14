@@ -8,6 +8,7 @@ import BranchDetails from "../../components/contact/BranchDetails";
 import BranchMap from "../../components/contact/BranchMap";
 import BranchForm from "../../components/contact/BranchForm";
 import BranchFAQ from "../../components/contact/BranchFAQ";
+import { buildSeoMetadata } from "@/lib/seo";
 
 interface BranchDetailsData {
   city: string;
@@ -37,6 +38,55 @@ const branchData: Record<string, BranchDetailsData> = {
   }
 };
 
+const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+
+interface ApiBranch {
+  slug: string;
+  branch: string;
+  address: string;
+  phone: string;
+  email: string;
+  working_hours: string;
+  map_embed_url: string;
+}
+
+async function getBranchFaqs(category: string): Promise<Array<{ question: string; answer: string }>> {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/v1/faqs?category=${encodeURIComponent(category)}`,
+      { cache: "no-store" }
+    );
+    if (!res.ok) return [];
+    const json = await res.json();
+    return Array.isArray(json.data) ? json.data : [];
+  } catch {
+    return [];
+  }
+}
+
+async function getBranchData(slug: string): Promise<BranchDetailsData | null> {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/v1/contacts?slug=${encodeURIComponent(slug)}`,
+      { cache: "no-store" }
+    );
+    if (!res.ok) return null;
+    const json = await res.json();
+    const apiBranch: ApiBranch | undefined = Array.isArray(json.data) ? json.data[0] : undefined;
+    if (!apiBranch) return null;
+    return {
+      city: apiBranch.branch,
+      address: apiBranch.address,
+      phone: apiBranch.phone,
+      email: apiBranch.email,
+      hours: apiBranch.working_hours,
+      mapEmbedUrl: apiBranch.map_embed_url,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const branch = branchData[slug.toLowerCase()];
@@ -45,19 +95,27 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: "Branch Not Found | ADCB Consultancy",
     };
   }
-  return {
-    title: `${branch.city} Office | ADCB Consultancy`,
-    description: `Connect with our ${branch.city} branch for medical admission counselling. Location: ${branch.address}, Phone: ${branch.phone}.`,
-  };
+  const fallbackTitle = `${branch.city} Office | ADCB Consultancy`;
+  const fallbackDescription = `Connect with our ${branch.city} branch for medical admission counselling. Location: ${branch.address}, Phone: ${branch.phone}.`;
+  return buildSeoMetadata("contact", fallbackTitle, fallbackDescription);
 }
 
 export default async function BranchContactPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const branch = branchData[slug.toLowerCase()];
+  const slugKey = slug.toLowerCase();
+  const localBranch = branchData[slugKey];
 
-  if (!branch) {
+  if (!localBranch) {
     notFound();
   }
+
+  const apiBranch = await getBranchData(slugKey);
+  const branch = {
+    ...localBranch,
+    ...(apiBranch ?? {}),
+  };
+
+  const faqs = await getBranchFaqs(branch.city);
 
   return (
     <>
@@ -77,7 +135,7 @@ export default async function BranchContactPage({ params }: { params: Promise<{ 
         <BranchDetails branch={branch} />
         <BranchMap branch={branch} />
         <BranchForm branch={branch} />
-        <BranchFAQ branch={branch} />
+        <BranchFAQ branch={branch} faqs={faqs} />
 
         <PreFooterCTA />
       </main>

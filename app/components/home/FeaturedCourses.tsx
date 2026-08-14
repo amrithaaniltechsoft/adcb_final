@@ -4,20 +4,33 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const courses = [
+const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+
+interface FeaturedCourse {
+  code: string;
+  title: string;
+  description: string;
+  image: string;
+  href: string;
+  featured?: boolean;
+}
+
+const fallbackCourses: FeaturedCourse[] = [
   {
     code: "MBBS",
     title: "Bachelor of Medicine & Surgery",
     description: "Foundation of medical excellence. The gateway to a career in clinical medicine and healthcare leadership.",
     image: "/courses/mbbs.jpg",
     href: "/mbbs",
+    featured: true,
   },
   {
     code: "MD/MS",
     title: "Doctor of Medicine / Master of Surgery",
     description: "Advanced clinical specialisation across medical and surgical disciplines for physicians seeking mastery.",
     image: "/courses/md-ms.jpg",
-    href: "/mbbs/tamil-nadu",
+    href: "/md-ms/kerala",
+    featured: true,
   },
   {
     code: "MDS",
@@ -25,6 +38,7 @@ const courses = [
     description: "Premier dental specialisation covering nine clinical and non-clinical branches for dentistry excellence.",
     image: "/courses/mds.jpg",
     href: "/mds/conservative-dentistry",
+    featured: true,
   },
   {
     code: "MBA",
@@ -32,6 +46,7 @@ const courses = [
     description: "Strategic leadership and management education for future business leaders and healthcare administrators.",
     image: "/courses/mba.jpg",
     href: "#enquiry",
+    featured: false,
   },
   {
     code: "MTTM",
@@ -39,12 +54,39 @@ const courses = [
     description: "Comprehensive programme in tourism management, hospitality operations, and travel industry leadership.",
     image: "/courses/mttm.jpg",
     href: "#enquiry",
+    featured: false,
   },
 ];
 
 export default function FeaturedCourses() {
+  const [courses, setCourses] = useState<FeaturedCourse[]>(
+    fallbackCourses.filter((course) => course.featured)
+  );
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch(`${API_BASE_URL}/api/v1/courses`, { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (cancelled) return;
+        if (json && Array.isArray(json.data) && json.data.length > 0) {
+          const featured = json.data.filter((course: FeaturedCourse) => course.featured);
+          if (featured.length > 0) {
+            setCourses(featured);
+          }
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setCourses(fallbackCourses.filter((course) => course.featured));
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -65,7 +107,7 @@ export default function FeaturedCourses() {
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [courses]);
 
   return (
     <section
@@ -92,7 +134,7 @@ export default function FeaturedCourses() {
 
         {/* Course Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {courses.slice(0, 3).map((course, i) => (
+          {courses.map((course, i) => (
             <Link
               key={course.code}
               href={course.href}

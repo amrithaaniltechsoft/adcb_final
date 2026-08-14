@@ -17,6 +17,20 @@ const stateNames: Record<string, string> = {
   chhattisgarh: "Chhattisgarh",
 };
 
+interface MdMsGuideSection {
+  id: string;
+  label: string;
+  questions: string[];
+}
+
+interface ApiMdmsGuide {
+  state_slug: string;
+  title: string | null;
+  subtitle: string | null;
+  intro: string | null;
+  sections: MdMsGuideSection[] | null;
+}
+
 function FaqQuestion({ question }: { question: string }) {
   return (
     <div className="flex items-start gap-4 p-5 md:p-6 bg-white/5 rounded-lg border border-white/10 hover:border-[#ED1C24]/30 transition-colors">
@@ -26,11 +40,24 @@ function FaqQuestion({ question }: { question: string }) {
   );
 }
 
-export default function MdMsGuide({ slug }: { slug: string }) {
-  const sections = mdmsGuideData[slug] ?? [];
+export default function MdMsGuide({
+  slug,
+  guide,
+}: {
+  slug: string;
+  guide?: ApiMdmsGuide | null;
+}) {
+  const localSections = mdmsGuideData[slug] ?? [];
+  const sections = guide?.sections?.length ? guide.sections : localSections;
   const stateName = stateNames[slug] ?? "State";
 
   if (sections.length === 0) return null;
+
+  const eyebrow = guide?.title || `${stateName} MD/MS`;
+  const heading = guide?.subtitle || "Complete Counselling Guide";
+  const intro =
+    guide?.intro ||
+    `Everything you need to know about ${stateName} MD/MS counselling, eligibility, fees, and seat allotment.`;
 
   return (
     <section className="py-24 md:py-32 bg-black">
@@ -38,14 +65,14 @@ export default function MdMsGuide({ slug }: { slug: string }) {
         <div className="text-center mb-16">
           <span className="inline-flex items-center justify-center gap-3 text-xs tracking-[0.3em] uppercase text-white/40 font-medium mb-4">
             <span className="w-10 h-[1px] bg-white/20" />
-            {stateName} MD/MS
+            {eyebrow}
             <span className="w-10 h-[1px] bg-white/20" />
           </span>
           <h1 className="font-[var(--font-outfit)] text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-tight">
-            Complete Counselling Guide
+            {heading}
           </h1>
           <p className="text-gray-400 text-base md:text-lg mt-5 max-w-2xl mx-auto">
-            Everything you need to know about {stateName} MD/MS counselling, eligibility, fees, and seat allotment.
+            {intro}
           </p>
         </div>
 

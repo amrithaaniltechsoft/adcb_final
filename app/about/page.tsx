@@ -5,11 +5,16 @@ import WhatsAppButton from "../components/global/WhatsAppButton";
 import ScrollAnimatedImage from "../components/ui/ScrollAnimatedImage";
 import Banner from "../components/global/Banner";
 import ContentSection from "../components/ui/ContentSection";
+import { buildSeoMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "About Us | ADCB Consultancy",
-  description: "Learn about the Vision and Mission of ADCB Consultancy. Transforming medical careers and mentoring future leaders.",
-};
+export async function generateMetadata() {
+  return buildSeoMetadata(
+    "about",
+    "About Us | ADCB Consultancy",
+    "Learn about the Vision and Mission of ADCB Consultancy. Transforming medical careers and mentoring future leaders.",
+    "ADCB about, education consultancy about, career counselling company"
+  );
+}
 
 export default function AboutPage() {
   return (

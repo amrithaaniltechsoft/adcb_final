@@ -6,6 +6,16 @@ import FeaturedCourses from "./components/home/FeaturedCourses";
 import PreFooterCTA from "./components/global/PreFooterCTA";
 import Footer from "./components/global/Footer";
 import WhatsAppButton from "./components/global/WhatsAppButton";
+import { buildSeoMetadata } from "@/lib/seo";
+
+export async function generateMetadata() {
+  return buildSeoMetadata(
+    "home",
+    "ADCB Consultancy | Premium Educational Admission & Career Counselling",
+    "ADCB Consultancy provides elite educational admission assistance and career counselling for MBBS, MD/MS, MDS, MBA, and MTTM programs. Expert guidance for international pathways including UAE, UK, Australia, and Canada.",
+    "ADCB, education consultancy, MBBS admission, MDS, MD MS, MBA, MTTM, dental speciality, study abroad, career counselling, UAE dental license"
+  );
+}
 
 export default function Home() {
   return (

@@ -4,11 +4,16 @@ import Footer from "../components/global/Footer";
 import WhatsAppButton from "../components/global/WhatsAppButton";
 import Banner from "../components/global/Banner";
 import BlogList from "./BlogList";
+import { buildSeoMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Latest Medical Admissions News & Blogs | ADCB Consultancy",
-  description: "Stay updated with the latest notifications, choice filling strategies, eligibility updates, and guides for MBBS, MD/MS, and MDS admissions in India and abroad.",
-};
+export async function generateMetadata() {
+  return buildSeoMetadata(
+    "blog",
+    "Latest Medical Admissions News & Blogs | ADCB Consultancy",
+    "Stay updated with the latest notifications, choice filling strategies, eligibility updates, and guides for MBBS, MD/MS, and MDS admissions in India and abroad.",
+    "medical admission blog, counselling tips, career guidance articles"
+  );
+}
 
 export default function BlogPage() {
   return (

@@ -5,11 +5,16 @@ import WhatsAppButton from "../components/global/WhatsAppButton";
 import Banner from "../components/global/Banner";
 import Link from "next/link";
 import ContactForm from "../components/contact/ContactForm";
+import { buildSeoMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Contact Us | ADCB Consultancy",
-  description: "Get in touch with ADCB Consultancy branches in Kochi and Calicut. Speak with our medical admission experts today.",
-};
+export async function generateMetadata() {
+  return buildSeoMetadata(
+    "contact",
+    "Contact Us | ADCB Consultancy",
+    "Get in touch with ADCB Consultancy branches in Kochi and Calicut. Speak with our medical admission experts today.",
+    "ADCB contact, medical counselling Kochi, counselling Calicut, admission help"
+  );
+}
 
 const branches = [
   {

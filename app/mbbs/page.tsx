@@ -4,11 +4,16 @@ import Footer from "../components/global/Footer";
 import WhatsAppButton from "../components/global/WhatsAppButton";
 import Banner from "../components/global/Banner";
 import MbbsCounsellingGuide from "../components/ui/MbbsCounsellingGuide";
+import { buildSeoMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Tamil Nadu MBBS Counselling Guide | ADCB Consultancy",
-  description: "Complete guide to Tamil Nadu MBBS counselling — eligibility, fees, seat categories, NRI/Minority quotas, application process, and expert counselling support.",
-};
+export async function generateMetadata() {
+  return buildSeoMetadata(
+    "mbbs",
+    "Tamil Nadu MBBS Counselling Guide | ADCB Consultancy",
+    "Complete guide to Tamil Nadu MBBS counselling — eligibility, fees, seat categories, NRI/Minority quotas, application process, and expert counselling support.",
+    "MBBS admission, MBBS counselling, NEET counselling, medical admission India"
+  );
+}
 
 export default function MbbsPage() {
   return (

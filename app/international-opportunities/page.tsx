@@ -3,12 +3,17 @@ import PreFooterCTA from "../components/global/PreFooterCTA";
 import Footer from "../components/global/Footer";
 import WhatsAppButton from "../components/global/WhatsAppButton";
 import Banner from "../components/global/Banner";
-import InternationalGrid from "../components/home/InternationalGrid";
+import InternationalGrid, { type CountryItem } from "../components/home/InternationalGrid";
+import { buildSeoMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "International Opportunities & Licensing Pathways | ADCB Consultancy",
-  description: "Explore medical and dental residency, licensing, and practice options in the UK, UAE, Saudi Arabia, Canada, Qatar, Oman, and Australia.",
-};
+export async function generateMetadata() {
+  return buildSeoMetadata(
+    "international-opportunities",
+    "International Opportunities & Licensing Pathways | ADCB Consultancy",
+    "Explore medical and dental residency, licensing, and practice options in the UK, UAE, Saudi Arabia, Canada, Qatar, Oman, and Australia.",
+    "study abroad, international medical admissions, UAE dental license, UK medical"
+  );
+}
 
 const internationalCountries = [
   {
@@ -104,7 +109,41 @@ const recommendationData = {
   backgroundImageSrc: "/page-banner/uae-banner.jpg",
 };
 
-export default function InternationalOpportunitiesPage() {
+const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+
+interface ApiOpportunity {
+  slug: string;
+  title: string;
+  description: string;
+  image: string | null;
+  flag: string | null;
+}
+
+async function getOpportunities(): Promise<CountryItem[]> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/opportunities`, { cache: "no-store" });
+    if (!res.ok) return [];
+    const json = await res.json();
+    if (!Array.isArray(json.data) || json.data.length === 0) return [];
+
+    return json.data.map((item: ApiOpportunity) => ({
+      name: item.title,
+      flag: item.flag ?? "/c-flag/uk.png",
+      image: item.image ?? "/pathway/united-kingdom.jpg",
+      highlights: item.description
+        .split("\n")
+        .map((h) => h.trim())
+        .filter(Boolean),
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export default async function InternationalOpportunitiesPage() {
+  const apiCountries = await getOpportunities();
+  const countries = apiCountries.length > 0 ? apiCountries : internationalCountries;
+
   return (
     <>
       <Navbar />
@@ -122,7 +161,7 @@ export default function InternationalOpportunitiesPage() {
           <InternationalGrid
             title="Best Countries for"
             titleHighlight="Medical & Dental Practice"
-            countries={internationalCountries}
+            countries={countries}
             recommendation={recommendationData}
           />
         </div>

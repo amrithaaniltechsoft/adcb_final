@@ -6,9 +6,12 @@ import Banner from "../../components/global/Banner";
 import { Button } from "../../components/ui/Button";
 import { notFound } from "next/navigation";
 import { mdmsBranchesData } from "./branchesData";
-import { mdmsGuideData } from "./mdmsGuideData";
 import ScrollAnimatedImage from "../../components/ui/ScrollAnimatedImage";
 import MdMsGuide from "../../components/ui/MdMsGuide";
+import JoinCourseCta from "../../components/ui/JoinCourseCta";
+import { getSeoMeta } from "@/lib/seo";
+
+const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
 
 const mdmsStateSlugs = [
   "tamil-nadu",
@@ -27,13 +30,62 @@ const mdmsStateSlugs = [
   "uttarakhand",
 ];
 
+interface MdmsGuideSection {
+  id: string;
+  label: string;
+  questions: string[];
+}
+
+interface ApiMdmsGuide {
+  state_slug: string;
+  banner_title: string | null;
+  banner_description: string | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  meta_keywords: string | null;
+  title: string | null;
+  subtitle: string | null;
+  intro: string | null;
+  sections: MdmsGuideSection[] | null;
+}
+
+async function getMdmsGuide(slug: string): Promise<ApiMdmsGuide | null> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/mdms/${slug}`, { cache: "no-store" });
+    if (!res.ok) return null;
+    const json = await res.json();
+    if (!json.data) return null;
+    return json.data as ApiMdmsGuide;
+  } catch {
+    return null;
+  }
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const data = mdmsBranchesData[slug];
+
+  const [data, guide] = await Promise.all([mdmsBranchesData[slug], getMdmsGuide(slug)]);
+
+  if (guide?.meta_title && guide.meta_description) {
+    return {
+      title: guide.meta_title,
+      description: guide.meta_description,
+      keywords: guide.meta_keywords ?? undefined,
+    };
+  }
+
+  const sectionSeo = await getSeoMeta("md-ms");
+  if (sectionSeo?.meta_title && sectionSeo.meta_description) {
+    return {
+      title: sectionSeo.meta_title,
+      description: sectionSeo.meta_description,
+      keywords: sectionSeo.meta_keywords ?? undefined,
+    };
+  }
 
   if (!data) {
     return {
@@ -54,7 +106,7 @@ export default async function MdMsSlugPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const data = mdmsBranchesData[slug];
+  const [data, guide] = await Promise.all([mdmsBranchesData[slug], getMdmsGuide(slug)]);
 
   if (!data) {
     notFound();
@@ -65,13 +117,13 @@ export default async function MdMsSlugPage({
       <Navbar />
       <main className="relative z-20 bg-black shadow-[0_15px_30px_rgba(0,0,0,0.5)] min-h-screen flex flex-col">
         <Banner
-          title={data.bannerTitle}
-          description={data.bannerDescription}
+          title={guide?.banner_title || data.bannerTitle}
+          description={guide?.banner_description || data.bannerDescription}
           imageSrc={data.bannerImage}
           imageAlt={data.title}
         />
 
-        {mdmsGuideData[slug] && <MdMsGuide slug={slug} />}
+        <MdMsGuide slug={slug} guide={guide} />
 
         {!mdmsStateSlugs.includes(slug) && (
           <section id="overview" className="py-20 md:py-24 bg-black text-white">
@@ -141,9 +193,7 @@ export default async function MdMsSlugPage({
                 Secure your dream PG medical seat with expert, <br /> end-to-end counselling support.
               </h2>
               <div className="pt-4 flex flex-wrap justify-center gap-4">
-                <Button href="#enquiry" size="md">
-                  Join Course Now
-                </Button>
+                <JoinCourseCta lockedCourse="MD/MS" />
                 {!mdmsStateSlugs.includes(slug) && (
                   <Button href="#overview" variant="outlineWhite" size="md">
                     Learn More
