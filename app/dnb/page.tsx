@@ -5,7 +5,7 @@ import WhatsAppButton from "../components/global/WhatsAppButton";
 import Banner from "../components/global/Banner";
 import ScrollAnimatedImage from "../components/ui/ScrollAnimatedImage";
 
-const API_BASE_URL = process.env.ADCB_API_URL ?? "http://127.0.0.1:8000";
+const API_BASE_URL = process.env.ADCB_API_URL ?? "https://insighthealthservices.co.uk";
 
 const fallbackDnbSpecialties = [
   "ANAESTHESIOLOGY",
