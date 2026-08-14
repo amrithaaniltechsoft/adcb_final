@@ -8,7 +8,7 @@ import ScrollAnimatedImage from "../components/ui/ScrollAnimatedImage";
 const API_BASE_URL = process.env.ADCB_API_URL ?? "https://insighthealthservices.co.uk/";
 
 const fallbackDnbSpecialties = [
-  /*"ANAESTHESIOLOGY",
+  "ANAESTHESIOLOGY11111",
   "ANATOMY",
   "BIOCHEMISTRY",
   "COMMUNITY MEDICINE",
@@ -40,7 +40,7 @@ const fallbackDnbSpecialties = [
   "RADIATION ONCOLOGY",
   "RADIO-DIAGNOSIS",
   "RESPIRATORY MEDICINE",
-  "TUBERCULOSIS AND CHEST DISEASES",*/
+  "TUBERCULOSIS AND CHEST DISEASES",
 ];
 
 const fallbackBanner = {
