@@ -26,7 +26,7 @@ const bondOptions = ["With Bond", "Without Bond", "Both"];
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="font-[var(--font-outfit)] text-sm font-bold text-white uppercase tracking-wider pt-1 pb-3 border-b border-white/10 mb-5">
+    <h3 className="font-[var(--font-outfit)] text-sm font-bold text-white uppercase tracking-wider pt-1 pb-3 border-b border-white/10 mb-5 text-left">
       {children}
     </h3>
   );
@@ -198,12 +198,12 @@ export default function ConsultationModal({ isOpen, onClose, initialCourse = "MB
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-[#0d0d0d]">
-          <div>
-            <span className="text-[10px] uppercase tracking-widest text-[#ED1C24] font-bold mb-1 block">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-[#0d0d0d] text-left">
+          <div className="text-left">
+            <span className="text-[10px] uppercase tracking-widest text-[#ED1C24] font-bold mb-1 block text-left">
               FREE CONSULTATION
             </span>
-            <h2 className="font-[var(--font-outfit)] text-xl font-semibold text-white">
+            <h2 className="font-[var(--font-outfit)] text-xl font-semibold text-white text-left">
               Candidate Information & Screening Record
             </h2>
           </div>
