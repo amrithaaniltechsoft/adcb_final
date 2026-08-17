@@ -18,6 +18,16 @@ const nextConfig: NextConfig = {
         port: "8000",
         pathname: "/storage/**",
       },
+      {
+        protocol: "https",
+        hostname: "adcb.janamithrasociety.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "adcb.janamithrasociety.com",
+        pathname: "/**",
+      },
     ],
   },
 };
