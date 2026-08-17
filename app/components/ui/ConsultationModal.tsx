@@ -50,8 +50,8 @@ function TextField({
   hint?: string;
 }) {
   return (
-    <div>
-      <label htmlFor={name} className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+    <div className="text-left">
+      <label htmlFor={name} className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2 text-left">
         {label} {required && <span className="text-[#ED1C24]">*</span>}
       </label>
       <input
@@ -62,9 +62,9 @@ function TextField({
         onChange={onChange}
         placeholder={placeholder}
         required={required}
-        className="w-full px-4 py-3 bg-[#181818] border border-zinc-600 text-white text-sm focus:outline-none focus:border-white transition-colors rounded-sm placeholder-zinc-600"
+        className="w-full px-4 py-3 bg-[#181818] border border-zinc-600 text-white text-sm focus:outline-none focus:border-white transition-colors rounded-sm placeholder-zinc-600 text-left"
       />
-      {hint && <p className="text-[11px] text-white/40 mt-1">{hint}</p>}
+      {hint && <p className="text-[11px] text-white/40 mt-1 text-left">{hint}</p>}
     </div>
   );
 }
@@ -87,8 +87,8 @@ function SelectField({
   required?: boolean;
 }) {
   return (
-    <div>
-      <label htmlFor={name} className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+    <div className="text-left">
+      <label htmlFor={name} className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2 text-left">
         {label} {required && <span className="text-[#ED1C24]">*</span>}
       </label>
       <select
@@ -97,7 +97,7 @@ function SelectField({
         value={value}
         onChange={onChange}
         required={required}
-        className="w-full px-4 py-3 bg-[#181818] border border-zinc-600 text-white text-sm focus:outline-none focus:border-white transition-colors rounded-sm"
+        className="w-full px-4 py-3 bg-[#181818] border border-zinc-600 text-white text-sm focus:outline-none focus:border-white transition-colors rounded-sm text-left"
       >
         <option value="" className="bg-[#121212]">{placeholder}</option>
         {options.map((opt) => (
