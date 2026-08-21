@@ -24,102 +24,48 @@ const useRotatingText = (items: string[], interval = 5000) => {
   return { currentText: items[currentIndex], isAnimating };
 };
 
-const CAROUSEL_CARDS = [
-  {
-    id: 1,
-    title: "NEET PG Counselling Overview",
-    desc: "50% AIQ seats in government medical colleges across India through MCC counselling",
-    icon: (
-      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20" />
-      </svg>
-    )
-  },
-  {
-    id: 2,
-    title: "State Counselling",
-    desc: "50% state quota seats in government and 100% private colleges of your domicile state",
-    icon: (
-      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-      </svg>
-    )
-  },
-  {
-    id: 3,
-    title: "Deemed Universities",
-    desc: "Premium deemed medical universities with world-class infrastructure",
-    icon: (
-      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V11M12 21V11M5 21V11M3 21h18M3 7l9-4 9 4M4 11h16M4 7h16" />
-      </svg>
-    )
-  },
-  {
-    id: 4,
-    title: "Management Quota",
-    desc: "Direct admission in private medical colleges under management quota",
-    icon: (
-      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
-        <line x1="9" y1="22" x2="9" y2="16" />
-        <line x1="15" y1="22" x2="15" y2="16" />
-        <line x1="9" y1="16" x2="15" y2="16" />
-        <path d="M8 6h2M14 6h2M8 10h2M14 10h2" />
-      </svg>
-    )
-  },
-  {
-    id: 5,
-    title: "NRI Quota",
-    desc: "Special NRI sponsored seats in private and deemed medical colleges",
-    icon: (
-      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z" />
-      </svg>
-    )
-  },
-  {
-    id: 6,
-    title: "Choice Filling Guidance",
-    desc: "Strategic choice filling to maximize your chances based on rank analysis",
-    icon: (
-      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <line x1="9" y1="6" x2="20" y2="6" />
-        <line x1="9" y1="12" x2="20" y2="12" />
-        <line x1="9" y1="18" x2="20" y2="18" />
-        <circle cx="4" cy="6" r="1" />
-        <circle cx="4" cy="12" r="1" />
-        <circle cx="4" cy="18" r="1" />
-      </svg>
-    )
-  },
-  {
-    id: 7,
-    title: "Seat Allotment Support",
-    desc: "Complete assistance during seat allotment rounds and upgradation",
-    icon: (
-      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18v3M18 18v3M4 10h16M5 10V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5M5 10v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" />
-      </svg>
-    )
-  },
-  {
-    id: 8,
-    title: "Reporting & Admission",
-    desc: "End-to-end support from reporting to final admission formalities",
-    icon: (
-      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-      </svg>
-    )
-  }
+const DNB_SPECIALTIES = [
+  "ANAESTHESIOLOGY",
+  "ANATOMY",
+  "BIOCHEMISTRY",
+  "COMMUNITY MEDICINE",
+  "CARDIO VASCULAR & THORACIC SURGERY (DIRECT 6 YEARS COURSE)",
+  "DERMATOLOGY AND VENEREOLOGY AND LEPROSY",
+  "EMERGENCY MEDICINE",
+  "FAMILY MEDICINE",
+  "FORENSIC MEDICINE",
+  "GENERAL MEDICINE",
+  "GENERAL SURGERY",
+  "HOSPITAL ADMINISTRATION",
+  "IMMUNO-HAEMATOLOGY AND BLOOD TRANSFUSION",
+  "MICROBIOLOGY",
+  "NUCLEAR MEDICINE",
+  "NEURO SURGERY (DIRECT 6 YEARS COURSE)",
+  "OPHTHALMOLOGY",
+  "ORTHOPAEDICS",
+  "OBSTETRICS AND GYNAECOLOGY",
+  "OTORHINOLARYNGOLOGY (E.N.T.)",
+  "PAEDIATRICS",
+  "PATHOLOGY",
+  "PHARMACOLOGY",
+  "PHYSICAL MED. AND REHABILITATION",
+  "PHYSIOLOGY",
+  "PSYCHIATRY",
+  "PAEDIATRIC SURGERY (DIRECT 6 YEARS COURSE)",
+  "PALLIATIVE MEDICINE",
+  "PLASTIC & RECONSTRUCTIVE SURGERY (DIRECT 6 YEARS COURSE)",
+  "RADIATION ONCOLOGY",
+  "RADIO-DIAGNOSIS",
+  "RESPIRATORY MEDICINE",
+  "TUBERCULOSIS AND CHEST DISEASES",
 ];
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  specialties?: string[];
+}
+
+export default function HeroSection({ specialties }: HeroSectionProps) {
+  const dnbSpecialties = specialties?.length ? specialties : DNB_SPECIALTIES;
   const [isVisible, setIsVisible] = useState(false);
   const heroTitles = useMemo(
     () => [
@@ -171,7 +117,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0">
         <video
           className="w-full h-full object-cover animate-slow-zoom"
-          src="/hero-sec/adcb-hero3.mp4"
+          src="/hero-sec/adcb-hero2.mp4"
           autoPlay
           loop
           muted
@@ -190,7 +136,7 @@ export default function HeroSection() {
         <div className={`transition-all duration-1000 delay-200 mb-6 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           {/* <span className="text-xs uppercase tracking-[0.2em] text-[#c0a062] font-bold block mb-1">Counselling & Pathways</span> */}
           <h2 className="font-[var(--font-outfit)] text-lg sm:text-xl md:text-2xl font-bold text-white tracking-wide">
-            NEET PG Counselling <br /> & Admission Support
+            DNB Specialties <br /> & Admission Support
           </h2>
         </div>
 
@@ -200,40 +146,68 @@ export default function HeroSection() {
             }`}
         >
           <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
-            <div className="flex -ml-4 h-[280px] items-end">
-              {CAROUSEL_CARDS.map((card, idx) => {
+            <div className="flex -ml-4 h-[180px] items-end">
+              {dnbSpecialties.map((specialty, idx) => {
                 const isRed = idx % 2 === 0;
                 return (
                   <div
-                    key={card.id}
-                    className="flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] pl-4 min-w-0 flex relative h-[270px]"
+                    key={specialty}
+                    className="flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] pl-4 min-w-0 flex relative h-[175px]"
                   >
-                    <div className="absolute bottom-0 left-4 right-0 group bg-black border-0 transition-all duration-300 flex flex-col justify-between h-[220px] hover:h-[260px] shadow-[0_8px_30px_rgba(0,0,0,0.5)] z-10 hover:z-20">
+                    <div
+                      className={`group absolute bottom-0 left-4 right-0 bg-gradient-to-b from-[#141414] to-black border transition-all duration-500 ease-out flex flex-col justify-between h-[170px] hover:h-[190px] hover:-translate-y-1.5 z-10 hover:z-20 overflow-hidden ${
+                        isRed
+                          ? "border-white/10 hover:border-[#eb2525]/60 hover:shadow-[0_18px_45px_rgba(235,37,37,0.35)]"
+                          : "border-white/10 hover:border-[#c0a062]/60 hover:shadow-[0_18px_45px_rgba(192,160,98,0.35)]"
+                      }`}
+                    >
+                      {/* Corner glow */}
+                      <div
+                        className={`absolute -top-16 -right-16 w-32 h-32 rounded-full blur-3xl opacity-15 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none ${
+                          isRed ? "bg-[#eb2525]" : "bg-[#c0a062]"
+                        }`}
+                      />
 
-                      {/* Full-width header behind icon only */}
-                      <div className={`w-full h-16 group-hover:h-24 transition-all duration-300 ease-in-out flex items-center px-6 relative overflow-hidden ${isRed ? 'bg-[#eb2525]' : 'bg-[#c0a062]'}`}>
+                      {/* Header band */}
+                      <div
+                        className={`relative w-full h-14 group-hover:h-20 transition-all duration-500 ease-in-out flex items-center justify-between px-6 overflow-hidden bg-gradient-to-r ${
+                          isRed ? "from-[#eb2525] to-[#9e1414]" : "from-[#c0a062] to-[#8a6f33]"
+                        }`}
+                      >
                         {/* Wavy pattern background */}
                         <div className="absolute inset-0 opacity-20 pointer-events-none">
                           <svg className="w-full h-full object-cover" viewBox="0 0 1440 320" preserveAspectRatio="none">
                             <path fill="rgba(255,255,255,0.5)" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,117.3C960,107,1056,149,1152,154.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
                           </svg>
                         </div>
-                        {/* Icon */}
-                        <div className="relative z-10 transition-transform duration-300 group-hover:scale-110">
-                          {card.icon}
-                        </div>
+                        {/* Shine sweep */}
+                        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+                        {/* Medical cross */}
+                        <svg
+                          className="relative z-10 w-5 h-5 text-white/90 group-hover:rotate-90 group-hover:scale-110 transition-transform duration-500"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3z" />
+                        </svg>
+                        {/* DNB tag */}
+                        <span className="relative z-10 text-[10px] font-bold tracking-[0.3em] text-white/80 uppercase">
+                          DNB
+                        </span>
                       </div>
 
-                      {/* Content Section with padding aligned left */}
-                      <div className="p-6 pt-4 flex-grow flex flex-col justify-start items-start text-left w-full overflow-hidden">
-                        <h3 className="font-[var(--font-outfit)] text-white text-base font-bold mb-2 tracking-wide">
-                          {card.title}
+                      {/* Content Section */}
+                      <div className="relative px-5 pt-3 pb-4 flex-grow flex flex-col justify-start items-start text-left w-full overflow-hidden">
+                        <h3 className="font-[var(--font-outfit)] text-white text-sm md:text-base font-bold tracking-wide leading-snug">
+                          {specialty}
                         </h3>
-                        <p className="text-white/70 text-xs md:text-sm font-light leading-relaxed">
-                          {card.desc}
-                        </p>
+                        {/* Accent underline */}
+                        <div
+                          className={`mt-auto h-[2px] w-8 group-hover:w-20 transition-all duration-500 ease-out rounded-full ${
+                            isRed ? "bg-[#eb2525]" : "bg-[#c0a062]"
+                          }`}
+                        />
                       </div>
-
                     </div>
                   </div>
                 );
