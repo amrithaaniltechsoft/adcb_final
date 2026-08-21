@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "./Button";
+import { submitEnquiryEmail } from "@/lib/formSubmit";
 
 type CourseKey = "MBBS" | "MD/MS" | "MDS";
 type MdStreamKey = "MD/MS" | "DNB";
@@ -113,6 +114,8 @@ export default function ConsultationModal({ isOpen, onClose, initialCourse = "MB
   const [mdStream, setMdStream] = useState<MdStreamKey>("MD/MS");
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -135,15 +138,27 @@ export default function ConsultationModal({ isOpen, onClose, initialCourse = "MB
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError(false);
+    try {
+      await submitEnquiryEmail(`New ${selectedCourse} Enquiry - ADCB Website`, {
+        ...formData,
+        course: selectedCourse === "MD/MS" ? mdStream : selectedCourse,
+      });
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetAndClose = () => {
     setSubmitted(false);
     setFormData({});
-    setSelectedCourse("MBBS");
+    setSelectedCourse(lockedCourse ?? initialCourse);
     setMdStream("MD/MS");
     onClose();
   };
@@ -322,8 +337,20 @@ export default function ConsultationModal({ isOpen, onClose, initialCourse = "MB
                 Note: Ensure that all details are collected accurately before proceeding with counselling or admission guidance. Verify all documents against provided info.
               </p>
 
-              <Button type="submit" variant="white" size="lg" className="w-full uppercase tracking-wider text-xs font-bold font-[var(--font-outfit)]">
-                Submit {selectedCourse} Enquiry
+              {submitError && (
+                <p className="text-sm text-[#ED1C24] text-center">
+                  Something went wrong while sending your enquiry. Please try again.
+                </p>
+              )}
+
+              <Button
+                type="submit"
+                variant="white"
+                size="lg"
+                disabled={isSubmitting}
+                className="w-full uppercase tracking-wider text-xs font-bold font-[var(--font-outfit)]"
+              >
+                {isSubmitting ? "Submitting..." : `Submit ${selectedCourse} Enquiry`}
               </Button>
             </form>
           )}

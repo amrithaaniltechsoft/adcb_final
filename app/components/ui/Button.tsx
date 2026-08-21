@@ -9,6 +9,7 @@ type ButtonProps = {
     size?: "md" | "lg";
     className?: string;
     type?: "button" | "submit" | "reset";
+    disabled?: boolean;
 };
 
 export function Button({
@@ -20,6 +21,7 @@ export function Button({
     size = "md",
     className = "",
     type = "button",
+    disabled,
 }: ButtonProps) {
     const baseClasses =
         "font-semibold inline-flex items-center justify-center transition-colors duration-300 whitespace-nowrap rounded-sm cursor-pointer";
@@ -51,7 +53,7 @@ export function Button({
     }
 
     return (
-        <button type={type} onClick={onClick} onBlur={onBlur} className={classes}>
+        <button type={type} onClick={onClick} onBlur={onBlur} disabled={disabled} className={`${classes} ${disabled ? "opacity-60 pointer-events-none" : ""}`}>
             {children}
         </button>
     );

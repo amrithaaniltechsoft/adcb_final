@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "../ui/Button";
+import { submitEnquiryEmail } from "@/lib/formSubmit";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ export default function ContactForm() {
     message: "",
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -20,13 +23,18 @@ export default function ContactForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({ name: "", phone: "", email: "", branch: "", message: "" });
-    }, 3000);
+    setIsSubmitting(true);
+    setSubmitError(false);
+    try {
+      await submitEnquiryEmail("New Contact Enquiry - ADCB Website", formData);
+      setFormSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -142,14 +150,21 @@ export default function ContactForm() {
                 ></textarea>
               </div>
 
+              {submitError && (
+                <p className="text-sm text-[#ED1C24] text-center">
+                  Something went wrong while sending your message. Please try again.
+                </p>
+              )}
+
               <div className="pt-2">
                 <Button
                   type="submit"
                   variant="white"
                   size="lg"
+                  disabled={isSubmitting}
                   className="w-full uppercase tracking-wider text-xs font-bold font-[var(--font-outfit)]"
                 >
-                  Submit Enquiry
+                  {isSubmitting ? "Submitting..." : "Submit Enquiry"}
                 </Button>
               </div>
             </form>

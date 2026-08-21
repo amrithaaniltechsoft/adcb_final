@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "../ui/Button";
+import { submitEnquiryEmail } from "@/lib/formSubmit";
 
 interface BranchFormProps {
   branch: {
@@ -18,6 +19,8 @@ export default function BranchForm({ branch }: BranchFormProps) {
     message: "",
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -26,13 +29,21 @@ export default function BranchForm({ branch }: BranchFormProps) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({ name: "", phone: "", email: "", course: "", message: "" });
-    }, 3000);
+    setIsSubmitting(true);
+    setSubmitError(false);
+    try {
+      await submitEnquiryEmail(`New ${branch.city} Branch Enquiry - ADCB Website`, {
+        ...formData,
+        branch: branch.city,
+      });
+      setFormSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -150,14 +161,21 @@ export default function BranchForm({ branch }: BranchFormProps) {
                 ></textarea>
               </div>
 
+              {submitError && (
+                <p className="text-sm text-[#ED1C24] text-center">
+                  Something went wrong while sending your message. Please try again.
+                </p>
+              )}
+
               <div className="pt-2">
                 <Button
                   type="submit"
                   variant="white"
                   size="lg"
+                  disabled={isSubmitting}
                   className="w-full uppercase tracking-wider text-xs font-bold font-[var(--font-outfit)]"
                 >
-                  Submit Message
+                  {isSubmitting ? "Submitting..." : "Submit Message"}
                 </Button>
               </div>
             </form>

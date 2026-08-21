@@ -1,5 +1,10 @@
 "use client";
 
+import { createContext, useContext, useState } from "react";
+import ConsultationModal from "./ConsultationModal";
+
+const OpenConsultationFormContext = createContext<() => void>(() => {});
+
 const textClass = "text-base md:text-lg text-gray-300 leading-relaxed";
 const ctaBox = "bg-white/5 border-l-4 border-[#ED1C24] p-5 mt-8";
 const ctaText = "text-gray-300 text-base md:text-lg";
@@ -333,17 +338,29 @@ const sections = [
 ];
 
 function FaqQuestion({ question }: { question: string }) {
+  const openForm = useContext(OpenConsultationFormContext);
   return (
-    <div className="flex items-start gap-4 p-5 md:p-6 bg-white/5 rounded-lg border border-white/10 hover:border-[#ED1C24]/30 transition-colors">
+    <button
+      type="button"
+      onClick={openForm}
+      className="w-full text-left flex items-start gap-4 p-5 md:p-6 bg-white/5 rounded-lg border border-white/10 hover:border-[#ED1C24]/30 hover:bg-white/[0.08] transition-colors cursor-pointer group"
+    >
       <span className="text-[#ED1C24] flex-shrink-0 mt-0.5 text-lg">❓</span>
-      <p className="text-base md:text-lg text-gray-300 leading-relaxed">{question}</p>
-    </div>
+      <p className="text-base md:text-lg text-gray-300 leading-relaxed flex-1">{question}</p>
+      <span className="flex-shrink-0 mt-1 text-[#ED1C24] text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+        Enquire →
+      </span>
+    </button>
   );
 }
 
 export default function MbbsCounsellingGuide() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openForm = () => setIsModalOpen(true);
+
   return (
-    <section className="py-24 md:py-32 bg-black">
+    <OpenConsultationFormContext.Provider value={openForm}>
+      <section className="py-24 md:py-32 bg-black">
       <div className="max-w-[1440px] mx-auto px-8 lg:px-24">
         <div className="text-center mb-16">
           <span className="inline-flex items-center justify-center gap-3 text-xs tracking-[0.3em] uppercase text-white/40 font-medium mb-4">
@@ -366,6 +383,13 @@ export default function MbbsCounsellingGuide() {
           </div>
         ))}
       </div>
-    </section>
+      </section>
+
+      <ConsultationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        initialCourse="MBBS"
+      />
+    </OpenConsultationFormContext.Provider>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { submitEnquiryEmail } from "@/lib/formSubmit";
 
 export default function BlogInquiryForm() {
   const [formState, setFormState] = useState({
@@ -10,11 +11,21 @@ export default function BlogInquiryForm() {
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError(false);
+    try {
+      await submitEnquiryEmail("New Blog Enquiry - ADCB Website", formState);
+      setIsSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -98,11 +109,17 @@ export default function BlogInquiryForm() {
           </div>
 
           {/* Course */}
+          {submitError && (
+            <p className="text-xs text-[#ED1C24] text-center">
+              Something went wrong while sending your enquiry. Please try again.
+            </p>
+          )}
           <button
             type="submit"
-            className="w-full bg-[#ED1C24] hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest py-4 px-6 transition-all duration-300 rounded-sm shadow-md active:scale-[0.98] cursor-pointer"
+            disabled={isSubmitting}
+            className="w-full bg-[#ED1C24] hover:bg-red-700 disabled:opacity-60 text-white font-bold text-xs uppercase tracking-widest py-4 px-6 transition-all duration-300 rounded-sm shadow-md active:scale-[0.98] cursor-pointer"
           >
-            Submit Consultation Request
+            {isSubmitting ? "Submitting..." : "Submit Consultation Request"}
           </button>
         </form>
       )}

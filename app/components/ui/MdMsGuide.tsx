@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+import ConsultationModal from "./ConsultationModal";
 import { mdmsGuideData } from "../../md-ms/[slug]/mdmsGuideData";
 
 const stateNames: Record<string, string> = {
@@ -31,12 +35,19 @@ interface ApiMdmsGuide {
   sections: MdMsGuideSection[] | null;
 }
 
-function FaqQuestion({ question }: { question: string }) {
+function FaqQuestion({ question, onOpenForm }: { question: string; onOpenForm: () => void }) {
   return (
-    <div className="flex items-start gap-4 p-5 md:p-6 bg-white/5 rounded-lg border border-white/10 hover:border-[#ED1C24]/30 transition-colors">
+    <button
+      type="button"
+      onClick={onOpenForm}
+      className="w-full text-left flex items-start gap-4 p-5 md:p-6 bg-white/5 rounded-lg border border-white/10 hover:border-[#ED1C24]/30 hover:bg-white/[0.08] transition-colors cursor-pointer group"
+    >
       <span className="text-[#ED1C24] flex-shrink-0 mt-0.5 text-lg">❓</span>
-      <p className="text-base md:text-lg text-gray-300 leading-relaxed">{question}</p>
-    </div>
+      <p className="text-base md:text-lg text-gray-300 leading-relaxed flex-1">{question}</p>
+      <span className="flex-shrink-0 mt-1 text-[#ED1C24] text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+        Enquire →
+      </span>
+    </button>
   );
 }
 
@@ -47,6 +58,9 @@ export default function MdMsGuide({
   slug: string;
   guide?: ApiMdmsGuide | null;
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openForm = () => setIsModalOpen(true);
+
   const localSections = mdmsGuideData[slug] ?? [];
   const sections = guide?.sections?.length ? guide.sections : localSections;
   const stateName = stateNames[slug] ?? "State";
@@ -81,12 +95,18 @@ export default function MdMsGuide({
             <h2 className="font-[var(--font-outfit)] text-xl md:text-2xl lg:text-3xl font-medium text-white mb-7">{section.label}</h2>
             <div className="space-y-4">
               {section.questions.map((question) => (
-                <FaqQuestion key={question} question={question} />
+                <FaqQuestion key={question} question={question} onOpenForm={openForm} />
               ))}
             </div>
           </div>
         ))}
       </div>
+
+      <ConsultationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        initialCourse="MD/MS"
+      />
     </section>
   );
 }
