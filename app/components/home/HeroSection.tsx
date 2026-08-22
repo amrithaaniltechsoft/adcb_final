@@ -2,8 +2,6 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { Button } from "../ui/Button";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
 
 const useRotatingText = (items: string[], interval = 5000) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,48 +22,42 @@ const useRotatingText = (items: string[], interval = 5000) => {
   return { currentText: items[currentIndex], isAnimating };
 };
 
-const DNB_SPECIALTIES = [
-  "ANAESTHESIOLOGY",
-  "ANATOMY",
-  "BIOCHEMISTRY",
-  "COMMUNITY MEDICINE",
-  "CARDIO VASCULAR & THORACIC SURGERY (DIRECT 6 YEARS COURSE)",
-  "DERMATOLOGY AND VENEREOLOGY AND LEPROSY",
-  "EMERGENCY MEDICINE",
-  "FAMILY MEDICINE",
-  "FORENSIC MEDICINE",
-  "GENERAL MEDICINE",
-  "GENERAL SURGERY",
-  "HOSPITAL ADMINISTRATION",
-  "IMMUNO-HAEMATOLOGY AND BLOOD TRANSFUSION",
-  "MICROBIOLOGY",
-  "NUCLEAR MEDICINE",
-  "NEURO SURGERY (DIRECT 6 YEARS COURSE)",
-  "OPHTHALMOLOGY",
-  "ORTHOPAEDICS",
-  "OBSTETRICS AND GYNAECOLOGY",
-  "OTORHINOLARYNGOLOGY (E.N.T.)",
-  "PAEDIATRICS",
-  "PATHOLOGY",
-  "PHARMACOLOGY",
-  "PHYSICAL MED. AND REHABILITATION",
-  "PHYSIOLOGY",
-  "PSYCHIATRY",
-  "PAEDIATRIC SURGERY (DIRECT 6 YEARS COURSE)",
-  "PALLIATIVE MEDICINE",
-  "PLASTIC & RECONSTRUCTIVE SURGERY (DIRECT 6 YEARS COURSE)",
-  "RADIATION ONCOLOGY",
-  "RADIO-DIAGNOSIS",
-  "RESPIRATORY MEDICINE",
-  "TUBERCULOSIS AND CHEST DISEASES",
+const OVERVIEW_ITEMS = [
+  {
+    title: "NEET PG Counselling Overview",
+    desc: "50% AIQ seats in government medical colleges across India through MCC counselling",
+  },
+  {
+    title: "State Counselling",
+    desc: "50% state quota seats in government and 100% private colleges of your domicile state",
+  },
+  {
+    title: "Deemed Universities",
+    desc: "Premium deemed medical universities with world-class infrastructure",
+  },
+  {
+    title: "Management Quota",
+    desc: "Direct admission in private medical colleges under management quota",
+  },
+  {
+    title: "NRI Quota",
+    desc: "Special NRI sponsored seats in private and deemed medical colleges",
+  },
+  {
+    title: "Choice Filling Guidance",
+    desc: "Strategic choice filling to maximize your chances based on rank analysis",
+  },
+  {
+    title: "Seat Allotment Support",
+    desc: "Complete assistance during seat allotment rounds and upgradation",
+  },
+  {
+    title: "Reporting & Admission",
+    desc: "End-to-end support from reporting to final admission formalities",
+  },
 ];
 
-interface HeroSectionProps {
-  specialties?: string[];
-}
-
-export default function HeroSection({ specialties }: HeroSectionProps) {
-  const dnbSpecialties = specialties?.length ? specialties : DNB_SPECIALTIES;
+export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const heroTitles = useMemo(
     () => [
@@ -77,42 +69,13 @@ export default function HeroSection({ specialties }: HeroSectionProps) {
   );
   const { currentText, isAnimating } = useRotatingText(heroTitles);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      loop: true,
-      align: "start",
-      skipSnaps: false,
-    },
-    [Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true })]
-  );
-
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 200);
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    const onSelect = () => {
-      setSelectedIndex(emblaApi.selectedScrollSnap());
-    };
-
-    setScrollSnaps(emblaApi.scrollSnapList());
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
-
-    return () => {
-      emblaApi.off("select", onSelect);
-      emblaApi.off("reInit", onSelect);
-    };
-  }, [emblaApi]);
-
   return (
-    <section id="hero" className="relative min-h-screen lg:h-[105vh] w-full bg-[#030303] overflow-hidden flex flex-col justify-between">
+    <section id="hero" className="relative min-h-screen lg:min-h-[105vh] w-full bg-[#030303] overflow-hidden flex flex-col justify-between">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video
@@ -135,100 +98,61 @@ export default function HeroSection({ specialties }: HeroSectionProps) {
         {/* Title above Carousel */}
         <div className={`transition-all duration-1000 delay-200 mb-6 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           {/* <span className="text-xs uppercase tracking-[0.2em] text-[#c0a062] font-bold block mb-1">Counselling & Pathways</span> */}
-          <h2 className="font-[var(--font-outfit)] text-lg sm:text-xl md:text-2xl font-bold text-white tracking-wide">
-            DNB Specialties <br /> & Admission Support
+          <h2 className="font-[var(--font-outfit)] text-white tracking-wide">
+            <span className="block text-3xl sm:text-4xl md:text-5xl font-bold">
+              NEET PG 2026
+            </span>
+            <span className="block mt-2 text-lg sm:text-xl md:text-2xl font-semibold text-white/90">
+              All India <span className="text-[#c0a062] px-0.5">|</span> DNB{" "}
+              <span className="text-[#c0a062] px-0.5">|</span> NBE-DIPLOMA
+            </span>
+            <span className="block text-lg sm:text-xl md:text-2xl font-semibold text-white/90">
+              DEEMED MGMT. QUOTA <span className="text-[#c0a062] px-0.5">|</span>{" "}
+              NRI QUOTA
+            </span>
           </h2>
         </div>
 
-        {/* Bottom Row: Embla Carousel */}
+        {/* NEET PG Counselling Overview */}
         <div
-          className={`w-full transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          className={`mt-8 transition-all duration-1000 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
         >
-          <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
-            <div className="flex -ml-4 h-[180px] items-end">
-              {dnbSpecialties.map((specialty, idx) => {
-                const isRed = idx % 2 === 0;
-                return (
-                  <div
-                    key={specialty}
-                    className="flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] pl-4 min-w-0 flex relative h-[175px]"
-                  >
-                    <div
-                      className={`group absolute bottom-0 left-4 right-0 bg-gradient-to-b from-[#141414] to-black border transition-all duration-500 ease-out flex flex-col justify-between h-[170px] hover:h-[190px] hover:-translate-y-1.5 z-10 hover:z-20 overflow-hidden ${
-                        isRed
-                          ? "border-white/10 hover:border-[#eb2525]/60 hover:shadow-[0_18px_45px_rgba(235,37,37,0.35)]"
-                          : "border-white/10 hover:border-[#c0a062]/60 hover:shadow-[0_18px_45px_rgba(192,160,98,0.35)]"
-                      }`}
-                    >
-                      {/* Corner glow */}
-                      <div
-                        className={`absolute -top-16 -right-16 w-32 h-32 rounded-full blur-3xl opacity-15 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none ${
-                          isRed ? "bg-[#eb2525]" : "bg-[#c0a062]"
-                        }`}
-                      />
-
-                      {/* Header band */}
-                      <div
-                        className={`relative w-full h-14 group-hover:h-20 transition-all duration-500 ease-in-out flex items-center justify-between px-6 overflow-hidden bg-gradient-to-r ${
-                          isRed ? "from-[#eb2525] to-[#9e1414]" : "from-[#c0a062] to-[#8a6f33]"
-                        }`}
-                      >
-                        {/* Wavy pattern background */}
-                        <div className="absolute inset-0 opacity-20 pointer-events-none">
-                          <svg className="w-full h-full object-cover" viewBox="0 0 1440 320" preserveAspectRatio="none">
-                            <path fill="rgba(255,255,255,0.5)" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,117.3C960,107,1056,149,1152,154.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-                          </svg>
-                        </div>
-                        {/* Shine sweep */}
-                        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
-                        {/* Medical cross */}
-                        <svg
-                          className="relative z-10 w-5 h-5 text-white/90 group-hover:rotate-90 group-hover:scale-110 transition-transform duration-500"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3z" />
-                        </svg>
-                        {/* DNB tag */}
-                        <span className="relative z-10 text-[10px] font-bold tracking-[0.3em] text-white/80 uppercase">
-                          DNB
-                        </span>
-                      </div>
-
-                      {/* Content Section */}
-                      <div className="relative px-5 pt-3 pb-4 flex-grow flex flex-col justify-start items-start text-left w-full overflow-hidden">
-                        <h3 className="font-[var(--font-outfit)] text-white text-sm md:text-base font-bold tracking-wide leading-snug">
-                          {specialty}
-                        </h3>
-                        {/* Accent underline */}
-                        <div
-                          className={`mt-auto h-[2px] w-8 group-hover:w-20 transition-all duration-500 ease-out rounded-full ${
-                            isRed ? "bg-[#eb2525]" : "bg-[#c0a062]"
-                          }`}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Carousel Indicators */}
-          {scrollSnaps.length > 0 && (
-            <div className="flex justify-center gap-2 mt-6">
-              {scrollSnaps.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => emblaApi?.scrollTo(idx)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${selectedIndex === idx ? "bg-[#eb2525] w-6" : "bg-white/20 hover:bg-white/40 w-1.5"
+          <h3 className="font-[var(--font-outfit)] text-base sm:text-lg md:text-xl font-bold text-white tracking-wide">
+            NEET PG Counselling Overview
+          </h3>
+          <p className="text-white/60 text-xs sm:text-sm font-light mt-1 mb-4">
+            Comprehensive guidance for medical, dental &amp; PG quota admissions
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {OVERVIEW_ITEMS.map((item, idx) => {
+              const isRed = idx % 2 === 0;
+              return (
+                <div
+                  key={item.title}
+                  className={`group flex gap-3 p-3.5 rounded-md bg-white/[0.04] border backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.08] hover:-translate-y-0.5 ${
+                    isRed
+                      ? "border-white/10 hover:border-[#eb2525]/50"
+                      : "border-white/10 hover:border-[#c0a062]/50"
+                  }`}
+                >
+                  <span
+                    className={`mt-1 h-2 w-2 rounded-full flex-shrink-0 transition-transform duration-300 group-hover:scale-125 ${
+                      isRed ? "bg-[#eb2525]" : "bg-[#c0a062]"
                     }`}
-                  aria-label={`Go to slide ${idx + 1}`}
-                />
-              ))}
-            </div>
-          )}
+                  />
+                  <div>
+                    <h4 className="text-white text-sm font-bold leading-snug">
+                      {item.title}
+                    </h4>
+                    <p className="text-white/60 text-xs font-light leading-relaxed mt-1">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
       </div>

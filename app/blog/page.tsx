@@ -5,6 +5,7 @@ import WhatsAppButton from "../components/global/WhatsAppButton";
 import Banner from "../components/global/Banner";
 import BlogList from "./BlogList";
 import { buildSeoMetadata } from "@/lib/seo";
+import { getBlogs } from "./blogsData";
 
 export async function generateMetadata() {
   return buildSeoMetadata(
@@ -15,7 +16,9 @@ export async function generateMetadata() {
   );
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getBlogs();
+
   return (
     <>
       <Navbar />
@@ -30,7 +33,7 @@ export default function BlogPage() {
 
         {/* Interactive Blog List Section */}
         <div id="articles">
-          <BlogList />
+          <BlogList posts={posts} />
         </div>
 
         <PreFooterCTA />

@@ -5,12 +5,8 @@ import Navbar from "../../components/global/Navbar";
 import Footer from "../../components/global/Footer";
 import WhatsAppButton from "../../components/global/WhatsAppButton";
 import PreFooterCTA from "../../components/global/PreFooterCTA";
-import { blogsData } from "../blogsData";
+import { blogsData, getBlogs } from "../blogsData";
 import BlogInquiryForm from "./BlogInquiryForm";
-
-export async function generateStaticParams() {
-  return blogsData.map((post) => ({ slug: post.slug }));
-}
 
 export async function generateMetadata({
   params,
@@ -18,7 +14,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = blogsData.find((p) => p.slug === slug);
+  const posts = await getBlogs();
+  const post = posts.find((p) => p.slug === slug);
   if (!post) return { title: "Blog | ADCB Consultancy" };
   return {
     title: `${post.title} | ADCB Consultancy Blog`,
@@ -32,17 +29,18 @@ export default async function BlogDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = blogsData.find((p) => p.slug === slug);
+  const posts = await getBlogs();
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) notFound();
 
-  const relatedPosts = blogsData.filter(
+  const relatedPosts = posts.filter(
     (p) => p.slug !== post.slug && p.category === post.category
   ).slice(0, 3);
 
   const otherPosts = relatedPosts.length > 0
     ? relatedPosts
-    : blogsData.filter((p) => p.slug !== post.slug).slice(0, 3);
+    : posts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
     <>

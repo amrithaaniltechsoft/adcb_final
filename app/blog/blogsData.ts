@@ -11,6 +11,49 @@ export interface BlogPost {
   author: string;
 }
 
+import API_BASE_URL from "@/lib/apiUrl";
+
+interface ApiBlog {
+  id: number;
+  slug: string;
+  title: string | null;
+  excerpt: string | null;
+  content: string | null;
+  category: string | null;
+  date: string | null;
+  read_time: string | null;
+  image: string | null;
+  tags: string[] | null;
+  author: string | null;
+}
+
+function mapApiBlog(b: ApiBlog): BlogPost {
+  return {
+    slug: b.slug,
+    title: b.title ?? "",
+    excerpt: b.excerpt ?? "",
+    content: b.content ?? "",
+    category: b.category ?? "General",
+    date: b.date ?? "",
+    readTime: b.read_time ?? "",
+    image: b.image || "/courses/md-ms.jpg",
+    tags: Array.isArray(b.tags) ? b.tags : [],
+    author: b.author ?? "ADCB Consultancy",
+  };
+}
+
+export async function getBlogs(): Promise<BlogPost[]> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/blogs`, { cache: "no-store" });
+    if (!res.ok) return blogsData;
+    const json = await res.json();
+    if (!Array.isArray(json?.data) || json.data.length === 0) return blogsData;
+    return (json.data as ApiBlog[]).map(mapApiBlog);
+  } catch {
+    return blogsData;
+  }
+}
+
 export const blogsData: BlogPost[] = [
   {
     slug: "neet-ug-2025-counselling-guide",

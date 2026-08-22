@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { blogsData, BlogPost } from "./blogsData";
+import type { BlogPost } from "./blogsData";
 
-export default function BlogList() {
+export default function BlogList({ posts }: { posts: BlogPost[] }) {
   return (
     <section className="py-16 md:py-24 bg-black flex-grow">
       <div className="max-w-[1440px] mx-auto px-8 lg:px-20">
         {/* Blog Post Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-          {blogsData.map((post: BlogPost, index: number) => (
+          {posts.map((post: BlogPost, index: number) => (
             <article
               key={post.slug}
               className="group flex flex-col bg-transparent transition-all duration-500"
