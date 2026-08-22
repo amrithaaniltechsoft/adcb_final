@@ -74,6 +74,17 @@ export default function HeroSection() {
     return () => clearTimeout(timer);
   }, []);
 
+  const [activeOverview, setActiveOverview] = useState(0);
+  const [overviewPaused, setOverviewPaused] = useState(false);
+
+  useEffect(() => {
+    if (overviewPaused) return;
+    const interval = setInterval(() => {
+      setActiveOverview((i) => (i + 1) % OVERVIEW_ITEMS.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [overviewPaused]);
+
   return (
     <section id="hero" className="relative min-h-screen lg:min-h-[105vh] w-full bg-[#030303] overflow-hidden flex flex-col justify-between">
       {/* Background Video */}
@@ -93,7 +104,7 @@ export default function HeroSection() {
       </div>
 
       {/* Main Content Area */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-20 w-full flex-grow flex flex-col justify-end pb-8 pt-32">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-20 w-full flex-grow flex flex-col justify-center pb-12 pt-28">
 
         {/* Title above Carousel */}
         <div className={`transition-all duration-1000 delay-200 mb-6 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
@@ -124,34 +135,52 @@ export default function HeroSection() {
           <p className="text-white/60 text-xs sm:text-sm font-light mt-1 mb-4">
             Comprehensive guidance for medical, dental &amp; PG quota admissions
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {OVERVIEW_ITEMS.map((item, idx) => {
-              const isRed = idx % 2 === 0;
-              return (
-                <div
-                  key={item.title}
-                  className={`group flex gap-3 p-3.5 rounded-md bg-white/[0.04] border backdrop-blur-sm transition-all duration-300 hover:bg-white/[0.08] hover:-translate-y-0.5 ${
-                    isRed
-                      ? "border-white/10 hover:border-[#eb2525]/50"
-                      : "border-white/10 hover:border-[#c0a062]/50"
-                  }`}
-                >
-                  <span
-                    className={`mt-1 h-2 w-2 rounded-full flex-shrink-0 transition-transform duration-300 group-hover:scale-125 ${
-                      isRed ? "bg-[#eb2525]" : "bg-[#c0a062]"
+          <div
+            className="relative h-[130px] sm:h-[110px] md:h-[96px]"
+            onMouseEnter={() => setOverviewPaused(true)}
+            onMouseLeave={() => setOverviewPaused(false)}
+          >
+            {(() => {
+              const prevIdx = (activeOverview - 1 + OVERVIEW_ITEMS.length) % OVERVIEW_ITEMS.length;
+              return OVERVIEW_ITEMS.map((item, idx) => {
+                const isActive = idx === activeOverview;
+                const isRed = idx % 2 === 0;
+                return (
+                  <div
+                    key={item.title}
+                    className={`max-w-3xl transition-all duration-700 ease-in-out ${
+                      isActive
+                        ? "opacity-100 translate-y-0"
+                        : idx === prevIdx
+                          ? "absolute inset-x-0 top-0 opacity-0 -translate-y-10 pointer-events-none"
+                          : "absolute inset-x-0 top-0 opacity-0 translate-y-10 pointer-events-none"
                     }`}
-                  />
-                  <div>
-                    <h4 className="text-white text-sm font-bold leading-snug">
-                      {item.title}
-                    </h4>
-                    <p className="text-white/60 text-xs font-light leading-relaxed mt-1">
-                      {item.desc}
-                    </p>
+                  >
+                    <div
+                      className={`flex gap-4 items-start p-4 md:p-5 rounded-md bg-white/[0.04] border backdrop-blur-sm transition-colors duration-300 ${
+                        isRed
+                          ? "border-white/10 hover:border-[#eb2525]/50"
+                          : "border-white/10 hover:border-[#c0a062]/50"
+                      }`}
+                    >
+                      <span
+                        className={`mt-1 h-2 w-2 rounded-full flex-shrink-0 ${
+                          isRed ? "bg-[#eb2525]" : "bg-[#c0a062]"
+                        }`}
+                      />
+                      <div className="text-left">
+                        <h4 className="text-white text-base md:text-lg font-bold leading-snug">
+                          {item.title}
+                        </h4>
+                        <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed mt-1">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              });
+            })()}
           </div>
         </div>
 
